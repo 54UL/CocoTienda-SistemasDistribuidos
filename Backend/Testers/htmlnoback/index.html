@@ -1,0 +1,32 @@
+
+<html>
+
+<script >
+    //funcion que obtiene un usuario
+    function getUser(name)
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET","http://localhost:3000/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ");
+        xhr.send();
+        xhr.onreadystatechange= function()
+        {
+            if(this.readyState ==4 && this.status ==200)
+            {
+                //JSON.parse(this.responseText);
+                document.getElementById("texto").innerHTML = this.responseText;
+                console.log("numero aleatorio" +this.getResponseHeader("holaxd"));
+            }
+        }
+    }
+    //accion del boton
+    function sendUser()
+    {
+     var data =  document.getElementById("userIn").value;
+     getUser(data);
+    }
+</script>
+
+<h1 id="texto"><h1>
+<input type="text" placeholder="introduce txt" id="userIn">
+<button onclick="sendUser()">send</button>
+</html>

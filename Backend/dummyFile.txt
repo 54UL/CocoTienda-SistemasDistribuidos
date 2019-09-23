@@ -1,3 +1,0 @@
-algun codigo importante;
-esto solo esta en dev
-codigo que genera conflictos
