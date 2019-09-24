@@ -17,7 +17,7 @@ function initHighLevelAPI()
         this.bdenpoint = "localhost",
         this.user = "dbuser",
         this.pass = "s3kreee7",
-        this.bdqueryDelagate = bdQueryL,
+        this.bdqueryDelagate = bdQueryH,
         this.bdConfigDelegate = bdConfigureParametersH,
         this.bdConnectDeleagte = bdConnectH
     )); 
@@ -26,7 +26,7 @@ function initHighLevelAPI()
 }
 var sql_connection;
 
-function bdQueryL(query)
+function bdQueryH(query)
 { 
     var result;
     sql_connection.query(query, function(err, rows, fields) {
@@ -35,12 +35,12 @@ function bdQueryL(query)
       return 
 }
 
-function bdConnectL(bdname,endpoint,usr,pass)
+function bdConnectH(bdname,endpoint,usr,pass)
 {
     sql_connection.connect();
 }
 
-function bdConfigureParametersL()
+function bdConfigureParametersH()
 {
     sql_connection = mysql.createConnection({
         host     : api.endpoint,
