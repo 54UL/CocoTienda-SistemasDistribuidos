@@ -23,7 +23,6 @@ class bdManagerApi
         this.addApi = function (api,name)
         {
             var currentIndex = globalApiManager.apiInstances++;
-            api.name = name;
             if(currentIndex<MAX_APIS)
             globalApiManager.apiInstances[currentIndex] = api;
             else
