@@ -22,7 +22,7 @@ function initHighLevelAPI()
         this.bdConnectDeleagte = bdConnectH
     )); 
 
-   api = globalApiManager.getApi(lowlevel);
+   api = globalApiManager.getApi("lowlevel");
 }
 var sql_connection;
 

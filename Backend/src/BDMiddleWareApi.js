@@ -1,5 +1,4 @@
-
-
+//MIDDLE WARE CORE API
 
 class BDMiddleWareAPI {
     constructor() {
@@ -13,7 +12,7 @@ class BDMiddleWareAPI {
     }
 }
 
-//Esto engloba al sistema de apis (Ajeno con el funcionamiento de la BD)
+
 var MAX_APIS =2;
 class bdManagerApi
 { 
@@ -43,40 +42,6 @@ class bdManagerApi
         }
     }
 }
-
 var globalApiManager = new bdManagerApi();
-//CORE API FUNCTIONS
 
-function initHighLevelAPI()
-{
-    //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
-    addApi(new BDMiddleWareAPI(
-        this.apiName = "highlevel",
-        this.bdenpoint = "",
-        this.user = "",
-        this.pass = "",
-        this.bdqueryDelagate = bdQueryH,
-        this.bdConfigDelegate = bdConfigureParametersH,
-        this.bdConnectDeleagte = bdConnectH
-    )); 
-}
-
-
-
-//HIGH LEVEL IMPLEMENTATION WITH EXPRESS HTTP REQUESTS THE LOW LEVEL API
-
-function bdQueryH(query)
-{
- return new Object; 
-}
-
-function bdConnectH(bdname,endpoint,usr,pass)
-{
-   return true;
-}
-
-function bdConfigureParametersH()
-{
-
-}
 export { BDMiddleWareAPI, globalApiManager };
