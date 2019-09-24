@@ -37,6 +37,11 @@ class bdManagerApi
                 {
                     return globalApiManager.apiInstances[i]
                 }
+                 //might be string compare ?
+                 if(globalApiManager.apiInstances[i].name == name)
+                 {
+                     return globalApiManager.apiInstances[i]
+                 }
             }
         }
     }
