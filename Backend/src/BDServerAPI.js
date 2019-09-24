@@ -35,7 +35,7 @@ function bdQueryH(query)
       return 
 }
 
-function bdConnectH(bdname,endpoint,usr,pass)
+function bdConnectH()
 {
     sql_connection.connect();
 }
@@ -47,7 +47,6 @@ function bdConfigureParametersH()
         user     : api.user,
         password : api.password
       });
-    
 }
 
 

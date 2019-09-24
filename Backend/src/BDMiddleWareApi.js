@@ -8,7 +8,7 @@ class BDMiddleWareAPI {
         this.pass = "";
         this.bdqueryDelagate = function(query){}
         this.bdConfigDelegate = function(){}
-        this.bdConnectDeleagte = function bdConnect(bdname,endpoint,usr,pass){}
+        this.bdConnectDeleagte = function(){}
     }
 }
 

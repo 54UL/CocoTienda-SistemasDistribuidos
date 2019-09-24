@@ -31,7 +31,7 @@ function bdQueryH(query)
  return new Object; 
 }
 
-function bdConnectH(bdname,endpoint,usr,pass)
+function bdConnectH()
 {
    return true;
 }
