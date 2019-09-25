@@ -14,7 +14,7 @@ class BDMiddleWareAPI {
 
 
 var MAX_APIS =2;
-class bdManagerApi
+class BDManagerApi
 { 
     constructor()
     {
@@ -37,15 +37,10 @@ class bdManagerApi
                 {
                     return globalApiManager.apiInstances[i]
                 }
-                 //might be string compare ?
-                 if(globalApiManager.apiInstances[i].name == name)
-                 {
-                     return globalApiManager.apiInstances[i]
-                 }
             }
         }
     }
 }
-var globalApiManager = new bdManagerApi();
+var globalApiManager = new BDManagerApi();
 
 export { BDMiddleWareAPI, globalApiManager };
