@@ -1,0 +1,10 @@
+INSERT INTO Producto (Nombre, Categoria) VALUES (Cachucha fresa, Cachucha);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Camisa alien, Camisa);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Llavero bolsa, Llavero);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Taza alien, Taza);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Cachucha frirma, Cachucha);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Camisa chama, Camisa);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Llavero camara, Llavero);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Taza baño, Taza);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Cachucha letras, Cachucha);
+INSERT INTO Producto (Nombre, Categoria) VALUES (Camisa friends, Camisa);
