@@ -1,0 +1,4 @@
+INSERT INTO Categoria (Nombre) VALUES (Cachucha);
+INSERT INTO Categoria (Nombre) VALUES (Camisa);
+INSERT INTO Categoria (Nombre) VALUES (Llavero);
+INSERT INTO Categoria (Nombre) VALUES (Taza);
