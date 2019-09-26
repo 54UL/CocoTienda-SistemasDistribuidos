@@ -133,37 +133,57 @@
 		<div class="contenedor-formulario">
 			<div class="formulario-ingreso">
 				<form>
+					
+					<!-- Subir imagen -->
+					
 					<div class="imagen-usuario">
-						<img src="img/avatar.png" alt="AVATAR">
+						<img src="img/imagen.png" alt="AVATAR">
 					</div>
+					
+					<div>
+					<center>
+					<input id="btnimagen" type="file"
+						   accept=".jpeg" required>
+					</center>
+					</div>
+					
+					
 
 					<span class="titulo-ingreso">
-						Ingreso de Usuario
-					</span>
+						Agregar Producto
+				  </span>
+					<!-- AdminUser -->
 
-					<div class="campo-texto" data-validate = "Usuario requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario">
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre del producto">
 						<span></span>
 					</div>
-
-					<div class="campo-texto" data-validate = "Contraseña requerida">
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña">
+					<!-- AdminUser -->
+					<center>
+					<div class="campo-texto" data-validate = "Categorias"><span></span>
+					  <select name="select" class="input-select">
+					    <option value="0">Categorías</option>
+					    <option value="1">Tazas</option>
+					    <option value="1">Camisas</option>
+					    <option value="1">Llaveros</option>
+					    <option value="1">Cachuchas</option>
+				      </select>
+					</div>
+					</center>
+					<!-- AdminUser -->
+					
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Precio">
 						<span></span>
 					</div>
+				
 
-					<div>
+				  <div>
 						<button class="boton-ingresar">
-							Ingresar
-						</button>
+							Agregar
+					</button>
 					</div>
 
-					<div class="crear-cuenta">
-						
-						<a href="registro.html">
-							¿Aún no tienes una cuenta? | Crear una cuenta					
-						</a>
-						
-					</div>
 				</form>
 			</div>
 		</div>

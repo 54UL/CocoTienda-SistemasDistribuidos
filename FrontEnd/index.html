@@ -34,51 +34,6 @@
 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		crossorigin="anonymous"></script>
 
-		<script>
-				function productoComponent(ModeloProucto)
-				{
-					return  "<div class='col-md-3 col-xs-6'>" +
-							"<div class='product'>"+
-							"<div class='product-img'>"+
-							"<img src='img/Llaveros/Lguitarra.jpg' alt=''>"+
-							"</div>"+
-							"<div class='product-body'>"+
-							"<p class='product-category'>SHIT</p>"+
-							"<h3 class='product-name'><a href='#'>"+ModeloProucto.nombre+"</a></h3>"+
-							"<h4 class='product-price'>"+ModeloProucto.precio+"</h4>"+
-							"<div class='product-btns'>"+
-							"<button class='add-to-wishlist'><i class='fa fa-heart-o'></i></button>"+
-							"<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+
-							"</div>"+
-							"</div>"+
-							"</div>"+
-							"</div>"+
-							"<div class='clearfix visible-sm visible-xs'></div>"
-				}
-
-				function loadProducts()
-				{
-			     
-			     // peticion http al back
-
-				 //Dummy test del modelo de productos 
-				 //var arregloProductos = http("post","localhost/productSelling/retriveAll/Categoria"); <-pseudo code
-				var arregloJSONPrueba =
-				{"productos":[{nombre:"taza2",precio:"$666.6"},{nombre:"taza2",precio:"$666.6"},{nombre:"taza3",precio:"$666.6"},{nombre:"taza4",precio:"$666.6"}]};
-           
-				//var arregloModelosProductos = JSON.parse(arregloProductosDummy); esto solamente se usa cuando el json venga de un request 
-					for(var i =0; i<arregloJSONPrueba.productos.length;i++)
-					{
-						$("#containerProductos").append(productoComponent(arregloJSONPrueba.productos[i]));
-						
-					}
-				}
-
-				window.onload = function() {
-					loadProducts();
-                };
-				
-		</script>
 
 
     </head>
@@ -91,9 +46,19 @@
 						<li><a><i class="fa fa-phone"></i> +521 1433-2593</a></li>
 						<li><a href="https://goo.gl/maps/N4Cdk8s9FdN2"><i class="fa fa-map-marker"></i> Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
 					</ul>
+					<!-- Inventario -->
 					<ul class="header-links pull-right">
-						<li><a href="usuario.html"><i class="fa fa-user-o"></i> Usuario</a></li>
+						<li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
 					</ul>
+					<!-- AdminUser -->
+					<ul class="header-links pull-right">
+						<li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
+					</ul>
+					<!-- Registro -->
+					<ul class="header-links pull-right">
+						<li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
+					</ul>
+					
 				</div>
 			</div>
 
@@ -242,6 +207,7 @@
 		
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/index.js"></script> 
 	
 	</body>
 </html>
