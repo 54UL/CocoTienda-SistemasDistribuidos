@@ -3,20 +3,27 @@ var express = require('express')
 //import logIn from './Usuarios.js';
 var  usrApi = require('./Usuarios.js')
 var  mwApi  = require('./BDMiddleWareApi.js')
-
+var  dbDriver     = require('./BDDriverAPI.js')
 
 
 //GLOBAL INITIALIZATION CODE
 var  app = express();
+
+
+//systemw initialization code
+mwApi.globalApiManager.init();
+dbDriver.init();
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
+
+bdApi.query("hola");
 
 app.get("/Login/Authenticate/:usuario/:pass",function(req,res)
 {
    var usuario = req.params.usuario;
    var pass = req.params.pass;
    console.log("usr :"+usuario+" pass"+pass);
-   usrApi.logIn(usuario,pass);
-   res.send({usuario,pass});
+   result = usrApi.logIn(usuario,pass);
+   res.send(result);
   
 });
 
@@ -25,10 +32,6 @@ app.get('/', function (req, res) {
     res.setHeader("holaxd",Math.random()*100);
     res.send('hello world');
 });
-  
-  
-
-
 
 app.get('/ProductSelling/retrive/:category', function (req, res) 
 {

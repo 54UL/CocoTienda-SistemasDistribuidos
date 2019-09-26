@@ -6,9 +6,9 @@
         this.bdenpoint = "";
         this.user = "";
         this.pass = "";
-        this.bdqueryDelagate = function(query){}
-        this.bdConfigDelegate = function(){}
-        this.bdConnectDeleagte = function(){}
+        this.query = function(query){}
+        this.config = function(){}
+        this.connect = function(){}
     }
 }
 
@@ -18,13 +18,18 @@ class BDManagerApi
 { 
     constructor()
     {
-        this.apiInstances =  BDMiddleWareAPI[MAX_APIS];
+        this.apiInstances= [];
         this.apiCount = 0;
-        this.addApi = function (api,name)
+        this.init = function()
         {
-            var currentIndex = globalApiManager.apiInstances++;
-            if(currentIndex<MAX_APIS)
-            globalApiManager.apiInstances[currentIndex] = api;
+            //this.apiInstances = new BDManagerApi[2];
+        }
+        this.addApi = function (api)
+        {
+            var currentIndex = this.apiCount++;
+            console.log("current index api"+currentIndex);
+            if(currentIndex<2)
+            this.apiInstances.push(api);
             else
             console.log("cannot add more bd API'S");
         }

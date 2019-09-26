@@ -1,52 +1,25 @@
 //IMPLEMENTACION de la api que usa el backend (Usada en todos lados probablemente)
 
-var globalApiManager = require('./BDMiddleWareApi.js.js');
-var BDMiddleWareAPI  = require('./BDMiddleWareApi.js.js');
+var mwApi = require('./BDMiddleWareApi.js');
 
-
-
-function initHighLevelAPI()
+//ctxApi :Ambito local solo para miembros no delegados.
+var ctxApi;
+function init()
 {
+    console.log("initializing high level bd driver api");
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
-    addApi(new BDMiddleWareAPI(
+    mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName = "highlevel",
         this.bdenpoint = "localhost",
         this.user = "null",
         this.pass = "null",
-        this.bdqueryDelagate = bdQueryH,
-        this.bdConfigDelegate = bdConfigureParametersH,
-        this.bdConnectDeleagte = bdConnectH
+        this.query = bdQueryH,
+        this.config = bdConfigureParametersH,
+        this.connect = bdConnectH
     )); 
-
-    //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
-    addApi(new BDMiddleWareAPI(
-        this.apiName = "dummyAPI",
-        this.bdenpoint = "",
-        this.user = "",
-        this.pass = "",
-        this.bdqueryDelagate = dummyQuery,
-        this.bdConfigDelegate = dummyConfig,
-        this.bdConnectDeleagte = dummyConnect
-    )); 
-
-
-    api = globalApiManager.getApi("highlevel")
+    ctxApi = mwApi.globalApiManager.getApi("highlevel")
 }
 
-
-function dummyQuery(query)
-{
-  console.log("DUMMY QUERY"+query);
-}
-
-function dummyConfig()
-{
-
-}
-function dummyConnect()
-{
-
-}
 
 
 
@@ -57,7 +30,8 @@ function dummyConnect()
 
 function bdQueryH(query)
 {
- return new Object; 
+    console.log("query testing");
+    return new Object; 
 
  
 }
@@ -72,3 +46,4 @@ function bdConfigureParametersH()
 
 }
 
+module.exports.init = init;
