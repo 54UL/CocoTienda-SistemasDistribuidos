@@ -1,0 +1,40 @@
+documentacion
+
+RUTAS(ENDPOINTS) 
+
+[POST]
+/Selling/Products/:category
+params info:
+categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
+returns:
+array  type of Products [{name,price,image}]
+
+
+
+[POST]
+/Selling/buy/:productid/:token
+params info:
+trivial.
+returns:
+
+UserModel {token:"token",msg:"message"}
+
+
+
+[POST]
+/Login/Login/:usr/:pass
+params info:
+trivial.
+returns:
+
+UserModel {token:"token",msg:"message"}
+
+
+[POST]
+/Login/Register/:usr/:pass/:token
+params info:
+trivial.
+returns:
+UserModel {token:"token",msg:"error/warning message"}
+
+

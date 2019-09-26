@@ -1,2 +1,4 @@
 
 Backend/src/.vs/
+node_modules/
+package-lock.json

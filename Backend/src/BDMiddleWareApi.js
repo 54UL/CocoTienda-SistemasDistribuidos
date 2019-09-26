@@ -1,6 +1,6 @@
 //MIDDLE WARE CORE API
 
-class BDMiddleWareAPI {
+ class BDMiddleWareAPI {
     constructor() {
         this.apiName = "";
         this.bdenpoint = "";
@@ -27,7 +27,7 @@ class BDManagerApi
             globalApiManager.apiInstances[currentIndex] = api;
             else
             console.log("cannot add more bd API'S");
-        },
+        }
         this.getApi = function(name)
         {
             for(var i=0; i<globalApiManager.apiCount;i++)
@@ -41,6 +41,10 @@ class BDManagerApi
         }
     }
 }
-var globalApiManager = new BDManagerApi();
 
-export { BDMiddleWareAPI, globalApiManager };
+var  globalApiManager = new BDManagerApi();
+
+module.exports.globalApiManager = globalApiManager;
+module.exports.BDMiddleWareAPI  = BDMiddleWareAPI;
+module.exports.BDManagerApi     = BDManagerApi;
+
