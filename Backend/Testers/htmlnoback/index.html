@@ -25,9 +25,11 @@
         {
             if(this.readyState ==4 && this.status ==200)
             {
-                //JSON.parse(this.responseText);
-               // document.getElementById("texto").innerHTML = this.responseText;
-                console.log("numero aleatorio" +this.getResponseHeader("holaxd"));
+              var xd =   JSON.parse(this.responseText);
+                document.getElementById("texto").innerHTML = this.responseText;
+        
+
+                //console.log("numero aleatorio" +this.getResponseHeader("holaxd"));
             }
         }
     }

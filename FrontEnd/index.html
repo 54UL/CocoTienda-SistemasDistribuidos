@@ -55,22 +55,22 @@
 							"</div>"+
 							"<div class='clearfix visible-sm visible-xs'></div>"
 				}
-			
+
 				function loadProducts()
 				{
 			     
 			     // peticion http al back
 
-				 //Dummy test del modelo de productos
-				 //var arregloProductos = http("post","localhost/productSelling/retriveAll"); <-pseudo code
+				 //Dummy test del modelo de productos 
+				 //var arregloProductos = http("post","localhost/productSelling/retriveAll/Categoria"); <-pseudo code
 				var arregloJSONPrueba =
-				{"productos":[{nombre:"taza1",precio:"$666.6"},{nombre:"taza2",precio:"$666.6"},{nombre:"taza3",precio:"$666.6"},{nombre:"taza4",precio:"$666.6"}]};
-
+				{"productos":[{nombre:"taza2",precio:"$666.6"},{nombre:"taza2",precio:"$666.6"},{nombre:"taza3",precio:"$666.6"},{nombre:"taza4",precio:"$666.6"}]};
+           
 				//var arregloModelosProductos = JSON.parse(arregloProductosDummy); esto solamente se usa cuando el json venga de un request 
 					for(var i =0; i<arregloJSONPrueba.productos.length;i++)
 					{
 						$("#containerProductos").append(productoComponent(arregloJSONPrueba.productos[i]));
-					
+						
 					}
 				}
 
