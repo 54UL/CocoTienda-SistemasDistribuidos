@@ -17,9 +17,9 @@ function initHighLevelAPI()
         this.bdenpoint = "localhost",
         this.user = "dbuser",
         this.pass = "s3kreee7",
-        this.bdqueryDelagate = bdQueryH,
-        this.bdConfigDelegate = bdConfigureParametersH,
-        this.bdConnectDeleagte = bdConnectH
+        this.query = bdQueryH,
+        this.config = bdConfigureParametersH,
+        this.connect = bdConnectH
     )); 
 
    api = globalApiManager.getApi("lowlevel");
