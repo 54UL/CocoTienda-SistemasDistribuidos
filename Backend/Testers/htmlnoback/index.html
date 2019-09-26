@@ -1,24 +1,18 @@
 
 <html>
-
 <script >
-
     var userToken =0;
-    
     function ModeloProducto(nombre,categoria,descripcion)
     {
 
 
     }
 
-    
-
-
-    
     //funcion que obtiene un usuario
     function Login(name,pass)
     {
         var xhr = new XMLHttpRequest();
+     
         xhr.open("GET","http://localhost:3000/Login/Authenticate/"+name+"/"+pass)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ");
        // xhr.send();
         xhr.onreadystatechange= function()
