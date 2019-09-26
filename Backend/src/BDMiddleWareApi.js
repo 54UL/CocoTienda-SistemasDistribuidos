@@ -14,7 +14,7 @@ class BDMiddleWareAPI {
 
 
 var MAX_APIS =2;
-class bdManagerApi
+class BDManagerApi
 { 
     constructor()
     {
@@ -41,6 +41,6 @@ class bdManagerApi
         }
     }
 }
-var globalApiManager = new bdManagerApi();
+var globalApiManager = new BDManagerApi();
 
 export { BDMiddleWareAPI, globalApiManager };

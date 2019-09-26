@@ -29,6 +29,8 @@ function initHighLevelAPI()
 function bdQueryH(query)
 {
  return new Object; 
+
+ 
 }
 
 function bdConnectH()
