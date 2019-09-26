@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -30,7 +31,7 @@
 						<li><a href="mapa.html"><i class="fa fa-map-marker"></i>Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
 					</ul>
 					
-					<!-- Inventario -->
+				<!-- Inventario -->
 					<ul class="header-links pull-right">
 						<li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
 					</ul>
@@ -131,41 +132,36 @@
 
 		<!-- USUARIO -->
 		<div class="contenedor-formulario">
-			<div class="formulario-ingreso">
-				<form>
-					<div class="imagen-usuario">
-						<img src="img/avatar.png" alt="AVATAR">
-					</div>
-
+			
+		  <div class="formulario-ingreso">
+			  
+			  <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group with nested dropdown"><a href="#" class="btn btn-default" role="button">Agregar</a><a href="#" class="btn btn-default" role="button">Modificar</a>
+			  <a href="#" class="btn btn-default" role="button">Eliminar</a>
+			    
+		    </div>
+<form>
+		 
 					<span class="titulo-ingreso">
 						Ingreso de Usuario
 					</span>
 
-					<div class="campo-texto" data-validate = "Usuario requerido">
+	  <div class="campo-texto" data-validate = "Usuario requerido">
 						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario">
 						<span></span>
 					</div>
+<center>
+					<select class="input-select">
+										<option value="0">Tipo</option>
+										<option value="1">Administrador</option>
+										<option value="1">Almacenista</option>
+									</select>
 
-					<div class="campo-texto" data-validate = "Contraseña requerida">
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña">
-						<span></span>
-					</div>
+					
+			</center>		
 
-					<div>
-						<button class="boton-ingresar">
-							Ingresar
-						</button>
-					</div>
-
-					<div class="crear-cuenta">
-						
-						<a href="registro.html">
-							¿Aún no tienes una cuenta? | Crear una cuenta					
-						</a>
-						
-					</div>
-				</form>
-			</div>
+					
+			</form>
+		  </div>
 		</div>
 
 		<!-- /USUARIO -->
