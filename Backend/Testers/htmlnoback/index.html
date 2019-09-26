@@ -5,32 +5,33 @@
 
     var userToken =0;
     
-    function Miniatura(ModeloProucto)
+    function ModeloProducto(nombre,categoria,descripcion)
     {
 
-        return "
-    
-        ";
 
     }
+
+    
+
+
+    
     //funcion que obtiene un usuario
     function Login(name,pass)
     {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET","http://localhost:3000/Login/Authenticate/"+name+"/"+pass                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ");
-        xhr.send();
+        xhr.open("GET","http://localhost:3000/Login/Authenticate/"+name+"/"+pass)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ");
+       // xhr.send();
         xhr.onreadystatechange= function()
         {
             if(this.readyState ==4 && this.status ==200)
             {
                 //JSON.parse(this.responseText);
-              
                // document.getElementById("texto").innerHTML = this.responseText;
                 console.log("numero aleatorio" +this.getResponseHeader("holaxd"));
             }
         }
-
     }
+
     //accion del boton
     function sendUser()
     {
@@ -40,6 +41,7 @@
 
      Login(data);
     }
+
 </script>
 
 <h1 id="texto"><h1>
