@@ -12,7 +12,8 @@ dbDriver.init();
 
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
-//bdApi.query("hola");
+console.debug(bdApi);
+//bdApi.query("middle ware test query api");
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {

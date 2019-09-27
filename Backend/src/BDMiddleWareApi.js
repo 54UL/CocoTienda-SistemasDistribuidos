@@ -18,7 +18,7 @@ class BDManagerApi
 { 
     constructor()
     {
-        this.apiInstances= new Array(3);
+        this.apiInstances= new Array(MAX_APIS);
         this.apiCount = 0;
         this.init = function()
         {
@@ -27,7 +27,7 @@ class BDManagerApi
         }
         this.addApi = function (api)
         {  
-            console.log("api:  "+api.apiName);
+        
             var currentIndex = this.apiCount++;
             console.log("current index api "+currentIndex);
             if(currentIndex<2)
@@ -39,13 +39,19 @@ class BDManagerApi
         {
                // console.log("apis  "+this.apiInstances.vaapiName);
                 //might be string compare ?
-                this.apiInstances.find((e)=>
+            this.apiInstances.find((e)=>
+            {
+                if(e!=undefined)
                 {
-                    if(e == name)
+                    if(e.apiName === name)
                     {
-                        return globalApiManager.apiInstances[i];
+                        console.log("finded!!!");
+                        return e;  
                     }
-                });    
+                }
+            });  
+            
+            return new Object;
         }
     }
 }
