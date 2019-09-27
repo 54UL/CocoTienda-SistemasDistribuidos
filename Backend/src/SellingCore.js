@@ -6,12 +6,10 @@ var  dbDriver  = require('./BDDriverAPI.js')
 var  UserRoutes= require('./UsuariosRutas.js')
 var  ProductsRoutes= require('./ProductsRutas.js')
 
-
-
-
 //systemw initialization code
 mwApi.globalApiManager.init();
 dbDriver.init();
+
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 //bdApi.query("hola");
@@ -23,11 +21,11 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-//default
+
+//default route
 app.get('/', function (req, res) {
    res.send('esto no se supone que debe de suceder');
 });
-
 
 //AQUI SE CENTRALIZAN TODAS LAS RUTAS
 app.use('/Users',UserRoutes.usrRouter);
@@ -35,9 +33,9 @@ app.use('/ProductSelling',ProductsRoutes.productsRouter);
 
 //RUN THE SERVER
 app.listen(3000,function()
-{
+   {
    console.log("server ready in port 3000");
-}
+   }
 );
 
 
