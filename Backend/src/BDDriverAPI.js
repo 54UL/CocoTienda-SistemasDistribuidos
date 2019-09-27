@@ -2,18 +2,19 @@
 
 var mwApi = require('./BDMiddleWareApi.js');
 
-//ctxApi :Ambito local solo para miembros no delegados.
+//ctxApi : context api : Ambito local solo para miembros no delegados.
 var ctxApi;
+
 function init()
 {
     console.log("initializing high level bd driver api");
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
-    mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
-        this.apiName = "highlevel",
+        mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
+        this.apiName =   "highlevel",
         this.bdenpoint = "localhost",
-        this.user = "null",
-        this.pass = "null",
-        this.query = bdQueryH,
+        this.user =      "null",
+        this.pass =      "null",
+        this.query =  bdQueryH,
         this.config = bdConfigureParametersH,
         this.connect = bdConnectH
     )); 
@@ -32,8 +33,6 @@ function bdQueryH(query)
 {
     console.log("query testing");
     return new Object; 
-
- 
 }
 
 function bdConnectH()
