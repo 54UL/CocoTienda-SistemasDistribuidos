@@ -1,3 +1,7 @@
+
+//var express = require('express');
+
+
 //API DE USUARIOS
 //var globalApiManager = require('./cocoBackend/BDMiddleWareApi.js/index.js');
 //bd = globalApiManager.getApi("highlevel");
@@ -6,13 +10,12 @@
 var MAX_ELEMENTS=400;
 //var generatedTokens[];
 
-
-
 //returns an unique random number
 function  generateUniqueToken()
 {
 return 666;
 }
+
 //checks if the token is valid (unique) and the most important, if is asigned to someone
 function verifyToken(token)
 {
@@ -29,7 +32,7 @@ function identifyToken(token)
 
 
 //arguments -> trivial, returns an auth token ( used by everything)
-exports.logIn = function (user,pass)
+function logIn (user,pass)
 {
     //"{0}{1}".format("{1}", "{0}")
   /*
@@ -45,15 +48,21 @@ exports.logIn = function (user,pass)
     }
   }
 */
-
+    var message ="bienvenido =)";
+    var asignedToken=0;
     if(user == "admin")
     {
       if(pass =="admin")
       {
-          return generateUniqueToken();
+        asignedToken = generateUniqueToken();
       }
+      else
+      message = "error,clave o pass incorrectos";
     }
-  return 0;
+    else
+    message = "error,clave o pass incorrectos";
+
+    return {asignedToken,message};
 }
 
 function createUser()
@@ -79,3 +88,4 @@ function getUserPriviliges(id)
 
 }
 
+module.exports.logIn = logIn;

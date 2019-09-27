@@ -3,16 +3,14 @@ documentacion
 RUTAS(ENDPOINTS) 
 
 [get]
-/Selling/Products/:category
+/ProductSelling/retrive/:category
 params info:
 categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
 returns:
 array  type of Products [{name,price,image}]
 
-
-
 [get]
-/Selling/buy/:productid/:token
+/ProductSelling/buy/:productid/:token
 params info:
 trivial.
 returns:
@@ -20,7 +18,7 @@ returns:
 UserModel {token:"token",msg:"message"}
 
 [POST]
-/Login/Login/:usr/:pass
+/Users/Login/:usr/:pass
 params info:
 trivial.
 returns:
@@ -29,7 +27,7 @@ UserModel {token:"token",msg:"message"}
 
 
 [POST]
-/Login/Register/:usr/:pass/:token
+/Users/Register/:usr/:pass/:token
 params info:
 trivial
 returns:
