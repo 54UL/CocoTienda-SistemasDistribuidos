@@ -3,7 +3,7 @@
 //to do's 
 // definir interfas de http express, con estas implementaciones (van en bdServer.JS)
 //VARIABLES
-import {BDMiddleWareAPI, globalApiManager} from "BDMiddleWareApi.js";
+
 var mysql      = require('mysql');
 
 //se define esta variable para no tener que hacer get api todo el rato :v

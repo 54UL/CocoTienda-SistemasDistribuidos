@@ -1,12 +1,12 @@
-var express = require('express')
-//import { getApi } from './BDMiddleWareApi.js';
-//import logIn from './Usuarios.js';
-var  usrApi = require('./Usuarios.js')
-var  mwApi  = require('./BDMiddleWareApi.js')
-var  dbDriver     = require('./BDDriverAPI.js')
-
-//GLOBAL INITIALIZATION CODE
+var express    = require('express')
 var  app = express();
+
+var  mwApi     = require('./BDMiddleWareApi.js')
+var  dbDriver  = require('./BDDriverAPI.js')
+var  UserRoutes= require('./UsuariosRutas.js')
+var  ProductsRoutes= require('./ProductsRutas.js')
+
+
 
 
 //systemw initialization code
@@ -23,44 +23,15 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-
-
-
-app.get("/Login/Authenticate/:usuario/:pass",function(req,res)
-{
-   var usuario = req.params.usuario;
-   var pass = req.params.pass;
-   console.log("usr :"+usuario+" pass"+pass);
-   result = usrApi.logIn(usuario,pass);
-   res.send(result);
-  
-});
-
-//AQUI VAN LAS RUTAS QUE LLEGEN DEL FRONT 
+//default
 app.get('/', function (req, res) {
-    res.setHeader("holaxd",Math.random()*100);
-    res.send('hello world');
+   res.send('esto no se supone que debe de suceder');
 });
 
-app.get('/ProductSelling/retrive/:category', function (req, res) 
-{
-   var category = req.params.category;
-   var arregloJSONPrueba =
-   { "productos":[
-                {nombre:"taza2",precio:"$666.6"},
-                {nombre:"taza2",precio:"$234432.6"},
-                {nombre:"taza3",precio:"$985.6"},
-                {nombre:"taza100",precio:"$403.8"},
-                {nombre:"taza100",precio:"$403.8"},
-                {nombre:"taza100",precio:"$403.8"},
-                {nombre:"taza100",precio:"$403.8"},
-                {nombre:"taza100",precio:"$403.8"}
-                ]
-    };
 
-   res.json(arregloJSONPrueba);
-});
- 
+//AQUI SE CENTRALIZAN TODAS LAS RUTAS
+app.use('/Users',UserRoutes.usrRouter);
+app.use('/ProductSelling',ProductsRoutes.productsRouter);
 
 //RUN THE SERVER
 app.listen(3000,function()
