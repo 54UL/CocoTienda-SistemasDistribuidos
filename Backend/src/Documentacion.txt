@@ -34,3 +34,9 @@ returns:
 UserModel {token:"token",msg:"error/warning message"}
 
 
+//DEPENDENCIAS DEL PROYECTO (instalar )
+npm i express
+npm i request
+npm i mysql
+
+

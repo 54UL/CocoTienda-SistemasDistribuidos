@@ -10,6 +10,7 @@ class BDMiddleWareAPI {
         this.query = QueryFn
         this.config = ConfigFn
         this.connect = ConnectFn
+
     }
 }
 
@@ -20,11 +21,7 @@ class BDManagerApi
     {
         this.apiInstances= new Array(MAX_APIS);
         this.apiCount = 0;
-        this.init = function()
-        {
-            //this.apiInstances = new BDManagerApi[2];
-            //this.apiInstances = new Array(MAX_APIS);
-        }
+   
         this.addApi = function (api)
         {  
         

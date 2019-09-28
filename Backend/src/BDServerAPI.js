@@ -3,56 +3,56 @@
 //to do's 
 // definir interfas de http express, con estas implementaciones (van en bdServer.JS)
 //VARIABLES
-
 var mysql      = require('mysql');
-
+var  mwApi     = require('./BDMiddleWareApi.js')
 //se define esta variable para no tener que hacer get api todo el rato :v
 var api; 
 
-function initHighLevelAPI()
+function init()
 {
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
-    globalApiManager.addApi(new BDMiddleWareAPI(
+    mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName = "lowlevel",
-        this.bdenpoint = "localhost",
-        this.user = "dbuser",
-        this.pass = "s3kreee7",
-        this.query = bdQueryH,
-        this.config = bdConfigureParametersH,
-        this.connect = bdConnectH
+        this.bdenpoint = "localhost:3306",
+        this.user = "root",
+        this.pass = "",
+        this.query = bdQueryl,
+        this.config = bdConfigureParametersl,
+        this.connect = bdConnectl
     )); 
-
-   api = globalApiManager.getApi("lowlevel");
+   api = mwApi.globalApiManager.getApi("lowlevel");
 }
+
+//SQL IMPLEMENTATION
 var sql_connection;
 
-function bdQueryH(query)
+function bdQueryl(query)
 { 
     var result;
     sql_connection.query(query, function(err, rows, fields) {
         result = rows;
       });
-      return 
+      return result;
 }
 
-function bdConnectH()
+function bdConnectl()
 {
     sql_connection.connect();
 }
 
-function bdConfigureParametersH()
+function bdConfigureParametersl()
 {
     sql_connection = mysql.createConnection({
-        host     : api.endpoint,
-        user     : api.user,
-        password : api.password
+        host     :"localhost",
+        user     : "root",
+        password : "",
+        database : "prueba"
       });
+      return sql_connection ? true:false;
 }
 
 
-
-
-
+module.exports.init = init;
 
 
 

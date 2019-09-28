@@ -6,10 +6,8 @@ var  dbDriver  = require('./BDDriverAPI.js')
 var  UserRoutes= require('./UsuariosRutas.js')
 var  ProductsRoutes= require('./ProductsRutas.js')
 
-//systemw initialization code
-mwApi.globalApiManager.init();
+//init high level api
 dbDriver.init();
-
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 

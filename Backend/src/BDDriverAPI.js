@@ -1,6 +1,5 @@
 //implementacion de alto nivel (usada unicamente en el backend)
 var mwApi = require('./BDMiddleWareApi.js');
-var http  = require('http');
 
 
 //ctxApi : context api : Ambito local solo para miembros no delegados.
@@ -33,17 +32,7 @@ function init()
 function bdQueryH(query)
 {
     console.log("query testing");
-    http.get("localhost:3000/BD/"+query, (resp)=>
-    {
-        let data ='';
-        resp.on('data',(chunk)=>
-        {
-            data+=chunk;
-        })
-    });
-
-
-
+  
     return new Object; 
 }
 
