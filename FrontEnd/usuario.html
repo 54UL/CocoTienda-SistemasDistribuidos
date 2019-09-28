@@ -141,18 +141,18 @@
 						Ingreso de Usuario
 					</span>
 
-					<div class="campo-texto" data-validate = "Usuario requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario">
+					<div class="campo-texto" data-validate = "Usuario requerido" id='correo'>
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario" required="required">
 						<span></span>
 					</div>
 
-					<div class="campo-texto" data-validate = "Contraseña requerida">
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña">
+					<div class="campo-texto" data-validate = "Contraseña requerida" id='contra'>
+						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña" required="required">
 						<span></span>
 					</div>
 
 					<div>
-						<button class="boton-ingresar">
+						<button  class="boton-ingresar" id="btnIngresar">
 							Ingresar
 						</button>
 					</div>
@@ -205,9 +205,12 @@
 			</div>
 		</footer>
 		<!-- /FOOTER -->
-
-		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		
+		
+		<script src="js/usuario.js"></script>
+
 
 	</body>
 </html>
