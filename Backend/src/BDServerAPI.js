@@ -3,7 +3,7 @@
 //to do's 
 // definir interfas de http express, con estas implementaciones (van en bdServer.JS)
 //VARIABLES
-var mysql      = require('mysql');
+var mysql      = require('mysql2/promise');
 var  mwApi     = require('./BDMiddleWareApi.js')
 //se define esta variable para no tener que hacer get api todo el rato :v
 var api; 
@@ -26,29 +26,28 @@ function init()
 //SQL IMPLEMENTATION
 var sql_connection;
 
-function bdQueryl(query)
+async function bdQueryl(query)
 { 
-    var result;
-    sql_connection.query(query, function(err, rows, fields) {
-        result = rows;
-      });
-      return result;
+
+
+   let [rows, fields] = await sql_connection.execute(query);
+   return rows;
 }
 
 function bdConnectl()
 {
-    sql_connection.connect();
+   // sql_connection.connect();
 }
 
-function bdConfigureParametersl()
+async function bdConfigureParametersl()
 {
-    sql_connection = mysql.createConnection({
+     sql_connection = await mysql.createConnection({
         host     :"localhost",
         user     : "root",
         password : "",
         database : "prueba"
       });
-      return sql_connection ? true:false;
+      return sql_connection ? false:true;
 }
 
 

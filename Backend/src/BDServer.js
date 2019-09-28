@@ -1,5 +1,5 @@
 //aqui se amarra la api de low level con la comunicacion http de express (agregar endpoints)
-
+var  bodyParser = require('body-parser')
 var  express   = require('express')
 var  app       = express()
 var  mwApi     = require('./BDMiddleWareApi.js')
@@ -11,7 +11,8 @@ bdApi.init();
 //La implementacion de low level es de mysql
 var mysql= mwApi.globalApiManager.getApi("lowlevel");
 
-console.debug(mysql);
+mysql.config()
+mysql.connect()
 
 app.get("/db/connect",(req,res) =>
 {
@@ -31,11 +32,18 @@ app.get("/db/config",(req,res) =>
 
 });
 
-app.get("/db/fetch/:query",(req,res) =>
+app.use(bodyParser.json());
+app.post("/db/fetch/",(req,res) =>
 {
-   var query=  req.params.query;
-   var results = mysql.query(query);
-   res.json(results);
+   var query = req.body.query;
+   var asyncRes = mysql.query(query);
+
+   asyncRes.then((result)=>
+   {
+    console.log(result);
+    res.json(result);
+   })
+   //res.send(req.body);
 });
 
 app.listen(3001,()=>
