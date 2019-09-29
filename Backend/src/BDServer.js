@@ -14,6 +14,14 @@ var mysql= mwApi.globalApiManager.getApi("lowlevel");
 mysql.config()
 mysql.connect()
 
+// CORS HEADER SETUP
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'null');
+    // Pass to next layer of middleware
+    next();
+});
+
 app.get("/db/connect",(req,res) =>
 {
     console.log("connecting to the db");
@@ -35,12 +43,12 @@ app.get("/db/config",(req,res) =>
 app.use(bodyParser.json());
 app.post("/db/fetch/",(req,res) =>
 {
+    
    var query = req.body.query;
+   console.log("incoming QUERY: "+query);
    var asyncRes = mysql.query(query);
-
    asyncRes.then((result)=>
    {
-    console.log(result);
     res.json(result);
    })
    //res.send(req.body);

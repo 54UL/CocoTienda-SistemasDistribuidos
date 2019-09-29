@@ -28,8 +28,6 @@ var sql_connection;
 
 async function bdQueryl(query)
 { 
-
-
    let [rows, fields] = await sql_connection.execute(query);
    return rows;
 }

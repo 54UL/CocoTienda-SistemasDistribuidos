@@ -11,7 +11,6 @@ dbDriver.init();
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 
-bdApi.query("middle ware test query api");
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
@@ -24,6 +23,13 @@ app.use(function (req, res, next) {
 //default route
 app.get('/', function (req, res) {
    res.send('esto no se supone que debe de suceder');
+   //QUERY DE PRUEBA !!!!!
+   bdApi.query("SELECT * FROM ALUMNOS",(result)=>
+   {
+      console.log("transaction ended!!");
+      console.debug(result);
+   });
+  
 });
 
 //AQUI SE CENTRALIZAN TODAS LAS RUTAS
