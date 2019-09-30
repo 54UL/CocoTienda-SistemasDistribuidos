@@ -48,16 +48,16 @@ function bdQueryH(Query,Callback)
     }
   }
   
-  const req = http.request(options, res => {
-    //console.log(`statusCode: ${res.statusCode}`)
-    res.on('data', d => {
-        recivedData += d;
-        //console.log(d.toString());
-    }).on('end',()=>
-    {
-      Callback(JSON.parse(recivedData));
-    });
-  })
+    const req = http.request(options, res => {
+      //console.log(`statusCode: ${res.statusCode}`)
+      res.on('data', d => {
+          recivedData += d;
+          //console.log(d.toString());
+      }).on('end',()=>
+      {
+        Callback(JSON.parse(recivedData));
+      });
+    })
 
     req.on('error', error => {
     console.error(error)

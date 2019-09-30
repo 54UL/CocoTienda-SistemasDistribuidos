@@ -6,6 +6,7 @@ productsRouter.get('/retrive/:category', function (req, res)
 {
    var category = req.params.category;
    var arregloJSONPrueba =
+
    { "productos":[
                 {nombre:"taza2",precio:"$666.6"},
                 {nombre:"taza2",precio:"$234432.6"},

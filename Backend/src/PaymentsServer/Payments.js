@@ -1,21 +1,41 @@
-var express = require('express')
-var app = express()
+var  mwApi     = require('../BDMiddleWareApi.js')
+var  dbDriver  = require('../BDDriverAPI.js')
+
+dbDriver.init();
+var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 
+//orgTkn: origin token, amount: how much cost
+//returns:
+function requestTransaction(orgTkn,amount)
+{
 
-// CORS HEADER SETUP
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'null');
-    // Pass to next layer of middleware
-    next();
-});
-//RUTAS DE PAYMENTS
-app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
-    function(req,res)
-    {
-    var cantidad =  req.params.cantidad;
-    var modeloPagos = {token:"",dinero:0,tdestino:""};
-    res.json(modeloPagos);
-    }
-);
+}
+
+//orgTkn: origin user, dest: destionation
+function authTransaction(orgTkn,dest)
+{
+
+}
+
+
+//usr: nombre de usuario
+//returns: el dinero que tiene
+function getFounds(usr)
+{
+
+}
+
+
+//tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad
+function setFounds(tkn,usr,amount)
+{
+
+}
+
+
+module.exports.requestTransaction = requestTransaction;
+module.exports.authTransaction = authTransaction;
+module.exports.getFounds = getFounds;
+module.exports.setFounds = setFounds;
+
