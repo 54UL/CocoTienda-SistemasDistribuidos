@@ -12,4 +12,9 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
    res.json(result);
 });
 
+
+
+
+
+
 module.exports.usrRouter = usrRouter;

@@ -1,33 +1,35 @@
 //MIDDLE WARE CORE API
 
- class BDMiddleWareAPI {
-    constructor() {
-        this.apiName = "";
-        this.bdenpoint = "";
-        this.user = "";
-        this.pass = "";
-        this.query = function(query){}
-        this.config = function(){}
-        this.connect = function(){}
+
+class BDMiddleWareAPI {
+    constructor(ApiName,BdEndpoint,User,Pass,QueryFn,ConfigFn,ConnectFn) {
+        this.apiName = ApiName;
+        this.bdenpoint = BdEndpoint;
+        this.user = User;
+        this.pass = Pass;
+        this.query = QueryFn
+        this.config = ConfigFn
+        this.connect = ConnectFn
     }
 }
-
 
 var MAX_APIS =2;
 class BDManagerApi
 { 
     constructor()
     {
-        this.apiInstances= [];
+        this.apiInstances= new Array(MAX_APIS);
         this.apiCount = 0;
         this.init = function()
         {
             //this.apiInstances = new BDManagerApi[2];
+            //this.apiInstances = new Array(MAX_APIS);
         }
         this.addApi = function (api)
-        {
+        {  
+        
             var currentIndex = this.apiCount++;
-            console.log("current index api"+currentIndex);
+            console.log("current index api "+currentIndex);
             if(currentIndex<2)
             this.apiInstances.push(api);
             else
@@ -35,19 +37,26 @@ class BDManagerApi
         }
         this.getApi = function(name)
         {
-            for(var i=0; i<globalApiManager.apiCount;i++)
-            {
+               // console.log("apis  "+this.apiInstances.vaapiName);
                 //might be string compare ?
-                if(globalApiManager.apiInstances[i].name == name)
+            this.apiInstances.find((e)=>
+            {
+                if(e!=undefined)
                 {
-                    return globalApiManager.apiInstances[i]
+                    if(e.apiName === name)
+                    {
+                        console.log("finded!!!");
+                        return e;  
+                    }
                 }
-            }
+            });  
+            
+            return new Object;
         }
     }
 }
-
 var  globalApiManager = new BDManagerApi();
+
 
 module.exports.globalApiManager = globalApiManager;
 module.exports.BDMiddleWareAPI  = BDMiddleWareAPI;
