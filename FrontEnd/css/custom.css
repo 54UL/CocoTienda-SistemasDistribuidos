@@ -336,7 +336,13 @@ a:hover, a:focus {
   border-radius: 50%;
 }
 
-
+#errorIniciar{
+  width: 90%;
+  height: 300%;
+  background-color: black;
+  color: white;
+  display: none;
+}
 
 
 /*CONTACTO*/
@@ -359,6 +365,10 @@ a:hover, a:focus {
   color: #ffffff;
   border-radius: 100%;
 }
+
+ #ulInventario, #ulAdmin{
+  display: none;
+} 
 
 .contacto ul.list-social li a:hover{
   color: rgb(0, 99, 167);

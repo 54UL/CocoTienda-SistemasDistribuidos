@@ -7,6 +7,49 @@ document.getElementById('btnIngresar').addEventListener("click", ingresar);
 function ingresar(event){
 
     event.preventDefault();
+    var usr= $('#correo').val();
+    var pass = $('#contra').val();
+
+    if(usr == "" && pass == ""){
+        $("#errorIniciar").css("display", "block");
+        $('#errorIniciar').text("No puede haber campos vacios"); 
+    }
+    else {
+        var xhr = new XMLHttpRequest();                    
+        // xhr.open("GET","http://localhost:3000/Users/Login/:usr/:pass");    
+        xhr.open("GET","http://localhost:3000/Users/Login/"+usr+"/"+pass);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        xhr.send();
+        xhr.onreadystatechange= function(event){
+            event.preventDefault();
+                if(this.readyState ==4 && this.status ==200){
+                    var resultadoLogin = JSON.parse(xhr.responseText)
+                    alert(resultadoLogin.asignedToken);
+                    if(resultadoLogin.asignedToken == 0){
+                        $("#errorIniciar").css("display", "block");
+                        $('#errorIniciar').text(resultadoLogin.message); 
+                        document.cookie = "2"
+                        var x = document.cookie;
+                        console.log("x" + x);
+                    }
+                    else if(resultadoLogin.asignedToken == 1){ //Es administrador
+                        $("#ulInventario").css("display", "block");
+                        $("#ulAdmin").css("display", "block");
+                        document.cookie = "1"
+
+                    }
+                    else if(resultadoLogin.asignedToken == 2){ // Es almacenista
+                        $("#ulInventario").css("display", "block");
+                        
+                    }
+
+            
+                }
+        }
+
+    }
+}
+
+
 /*
     var jsonUsuario = ({
         'usr': $('#correo').val(),
@@ -25,29 +68,3 @@ function ingresar(event){
      http.send(jsonUsuario);
      console.log(jsonUsuario);
 */
-    var xhr = new XMLHttpRequest();
-                        
-    xhr.open("GET","http://localhost:3000/Users/Login/:usr/:pass)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ");
-    xhr.send();
-    xhr.onreadystatechange= function(event)
-    {
-        event.preventDefault();
-        if(this.readyState ==4 && this.status ==200)
-        {
-            //var jsonProductos =   JSON.parse(this.responseText);
-            var jsonUsuario = ({
-                'usr': $('#correo').val(),
-                'pass': $('#contra').val()
-            })
-            console.log(jsonUsuario);
-            alert(xhr.responseText);
-
-            //console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
-            // for(var i =0; i<jsonProductos.productos.length;i++)
-            // {
-            //     $("#containerProductos").append(productoComponent(jsonProductos.productos[i]));
-            
-            // }
-        }
-    }
-}
