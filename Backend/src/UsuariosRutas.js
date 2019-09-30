@@ -14,7 +14,4 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
 
 
 
-
-
-
 module.exports.usrRouter = usrRouter;

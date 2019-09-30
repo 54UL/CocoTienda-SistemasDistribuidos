@@ -1,5 +1,8 @@
 //var express = require('express');
 
+var  mwApi     = require('./BDMiddleWareApi.js')
+var  bdApi = mwApi.globalApiManager.getApi("highlevel");
+
 
 //API DE USUARIOS
 //var globalApiManager = require('./cocoBackend/BDMiddleWareApi.js/index.js');
