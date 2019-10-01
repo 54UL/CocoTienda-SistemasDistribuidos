@@ -21,11 +21,11 @@ function productoComponent(ModeloProducto)
 				}
 			    
                 
-				function loadProducts()
+				function loadProducts(category)
 				{
                         var xhr = new XMLHttpRequest();
                         
-                    xhr.open("GET","http://localhost:3000/ProductSelling/retrive/0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ");
+                    xhr.open("GET","http://localhost:3000/ProductSelling/retrive/"+category);
                     xhr.send();
                     xhr.onreadystatechange= function()
                     {
@@ -40,9 +40,11 @@ function productoComponent(ModeloProducto)
                             
                             }
                         }
-                    }
+					}
 				}
+				
 
 				window.onload = function() {
-					loadProducts();
+					loadProducts(0);
+				
                 };
