@@ -21,8 +21,26 @@ app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
     }
 );
 
-
 app.listen(PORT,()=>
 {
     console.log("payments server running in "+PORT);
 })
+
+//comprobar fondos y proceder
+app.get("/Payments/requestTransaction/:cantidad/:origin/:dest", function(req, res){
+    var origin = req.param.origin;
+    var cantidad = req.param.cantidad;
+    var dest = req.param.dest;
+
+    if(cantidad > origin){
+        res.json("Fondos insufucientes");
+    }
+    else if(origin <= 0){
+        res.json("No tienes fondos");
+    }
+    else if(cantidad >= origin){
+        origin = origin-cantidad;
+        dest = dest+cantidad;
+        res.json("Compra realizada con éxito");
+    }
+});
