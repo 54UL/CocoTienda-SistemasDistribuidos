@@ -22,7 +22,8 @@ app.use(function (req, res, next) {
 
 //default route
 app.get('/', function (req, res) {
-   res.send('esto no se supone que debe de suceder');
+   res.send('testing endpoint');
+
    //QUERY DE PRUEBA !!!!!
    bdApi.query("SELECT * FROM ALUMNOS",(result)=>
    {

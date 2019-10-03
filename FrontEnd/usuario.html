@@ -31,11 +31,11 @@
 					</ul>
 					
 					<!-- Inventario -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulInventario'>
 						<li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
 					</ul>
 					<!-- AdminUser -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulAdmin'>
 						<li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
 					</ul>
 					<!-- Registro -->
@@ -141,13 +141,16 @@
 						Ingreso de Usuario
 					</span>
 
-					<div class="campo-texto" data-validate = "Usuario requerido" id='correo'>
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario" required="required">
+					<div id='errorIniciar'> 
+					</div>
+
+					<div class="campo-texto" data-validate = "Usuario requerido" >
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Usuario" id='correo' required='required'>
 						<span></span>
 					</div>
 
-					<div class="campo-texto" data-validate = "Contraseña requerida" id='contra'>
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña" required="required">
+					<div class="campo-texto" data-validate = "Contraseña requerida" >
+						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña" id='contra' required = 'required'>
 						<span></span>
 					</div>
 
