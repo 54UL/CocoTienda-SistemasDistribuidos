@@ -20,4 +20,32 @@ productsRouter.get('/retrive/:category', function (req, res)
    res.json(arregloJSONPrueba);
 });
 
+// productsRouter.get('/buy/:productid/:token', (req,res)=>{
+//    var productid = req.params.productid;
+//    var token = req.params.token;
+
+//    var objRes = {
+//       token: token,
+//       msg: "The product id you wanna buy is: "+productid,
+//    };
+//    //Here would go the database query for the product requested or the handler for the next middleware step
+//    res.send(objRes);
+
+// });
+
+productsRouter.route('/buy/:productid/:token')
+   .all(function (res,res,next){
+      next();
+   })
+   .get(function(req,res,next){
+      var productid = req.params.productid;
+      var token = req.params.token;
+
+      var objRes = {
+         token: token,
+         msg: "The product id you wanna buy is: "+productid,
+      };
+      //Here would go the database query for the product requested or the handler for the next middleware step
+      res.json(objRes);
+   })
 module.exports.productsRouter = productsRouter;
