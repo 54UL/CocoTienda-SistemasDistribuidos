@@ -11,7 +11,8 @@ function productoComponent(ModeloProducto)
 							            "<h4 class='product-price'>"+ModeloProducto.precio+"</h4>"+
 							                "<div class='product-btns'>"+
                                                 "<button class='add-to-wishlist'><i class='fa fa-heart-o'></i></button>"+
-                                                "<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+
+												"<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+
+												"<button class='add-to-cart'><i class='fa fa-credit-card custom'></i></button>"+
 							                "</div>"+
 							    "</div>"+
 							    "</div>"+
