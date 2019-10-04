@@ -9,7 +9,7 @@ productsRouter.get('/retrive/:category', function (req, res)
    var category = req.params.category;
    productsApi.retriveProducts(category,(products)=>
    {
-      res.json(products);
+      res.json({productos : products});
    });
 });
 

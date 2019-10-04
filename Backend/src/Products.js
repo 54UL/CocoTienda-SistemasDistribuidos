@@ -8,9 +8,21 @@ var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 function retriveProducts(cat,cb)
 {
-   products = bdApi.query("SELECT * from Producto  where category ="+category);
-   
+   var queryString ="";
+   if(cat!=0)
+   {
+    queryString = "SELECT * from Producto  where id_categoria  ="+cat;
+   }
+   else
+   queryString = "SELECT * from Producto";
+
+   bdApi.query(queryString,
+   ( products )=>{
+      console.debug(products)
+      cb(products)
+   });
    //categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
+   /*
    switch(parseInt(cat,10))
    {
     case 0:
@@ -64,6 +76,7 @@ function retriveProducts(cat,cb)
             
    }; 
    cb(products)
+  */
 }
 
 
