@@ -45,6 +45,7 @@ app.post("/db/fetch/",(req,res) =>
 {
     
    var query = req.body.query;
+   console.debug(query);
    console.log("incoming QUERY: "+query);
    var asyncRes = mysql.query(query);
    asyncRes.then((result)=>

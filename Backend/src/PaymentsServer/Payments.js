@@ -7,12 +7,14 @@ var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 //orgTkn: origin token, amount: how much cost
 //returns:
+
+
 function requestTransaction(orgTkn,amount)
 {
 
 }
 
-//orgTkn: origin user, dest: destionation
+//orgTkn: origin, user, dest: destionation
 function authTransaction(orgTkn,dest)
 {
 
