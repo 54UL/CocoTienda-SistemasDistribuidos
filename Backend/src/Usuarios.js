@@ -1,7 +1,6 @@
 //var express = require('express');
 
 var  mwApi     = require('./BDMiddleWareApi.js')
-
 var  dbDriver  = require('./BDDriverAPI.js')
 
 //AQUI HAY UN BUG CON EL GESTIONADOR DE LAS API'S
@@ -10,11 +9,6 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 //Members of user sys
 var MAX_ELEMENTS=400;
 
-//returns an unique random number
-function  generateUniqueToken()
-{
-return 666;
-}
 
 //checks if the token is valid (unique) and the most important, if is asigned to someone
 function verifyToken(token)
@@ -27,9 +21,6 @@ function identifyToken(token)
 {
 
 }
-
-
-
 
 //arguments -> trivial, returns an auth token ( used by everything)
 function logIn (user,pass,callback)

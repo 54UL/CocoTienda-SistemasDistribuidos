@@ -8,8 +8,8 @@ var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 function retriveProducts(cat,cb)
 {
-   products = bdApi.query("select * from productos where category =="+category);
-
+   products = bdApi.query("SELECT * from Producto  where category ="+category);
+   
    //categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
    switch(parseInt(cat,10))
    {
