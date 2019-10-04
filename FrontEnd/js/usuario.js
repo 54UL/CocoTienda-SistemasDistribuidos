@@ -31,16 +31,14 @@ function ingresar(event){
                         var x = document.cookie;
                         console.log("x" + x);
                     }
-                    else if(resultadoLogin.asignedToken == 1){ //Es administrador
+                    else{ //Es administrador
                         $("#ulInventario").css("display", "block");
                         $("#ulAdmin").css("display", "block");
                         document.cookie = "1"
+                        $("#errorIniciar").css("display", "none");
 
                     }
-                    else if(resultadoLogin.asignedToken == 2){ // Es almacenista
-                        $("#ulInventario").css("display", "block");
-                        
-                    }
+                   
 
             
                 }
