@@ -14,7 +14,7 @@ function requestTransaction(orgTkn,amount)
 
 }
 
-//orgTkn: origin user, dest: destionation
+//orgTkn: origin, user, dest: destionation
 function authTransaction(orgTkn,dest)
 {
 

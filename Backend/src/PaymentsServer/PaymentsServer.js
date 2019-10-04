@@ -15,9 +15,11 @@ app.use(function (req, res, next) {
 app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
     function(req,res)
     {
-    var cantidad =  req.params.cantidad;
-    var modeloPagos = {token:"",dinero:0,tdestino:""};
-    res.json(modeloPagos);
+        var cantidad =  req.params.cantidad;
+        var orgin = req.params.origin;
+        var dest = req.params.dest
+        var modeloPagos = {token:"",dinero:0,tdestino:""};
+        res.json(modeloPagos);
     }
 );
 
@@ -27,7 +29,12 @@ app.listen(PORT,()=>
 })
 
 //comprobar fondos y proceder
-app.get("/Payments/requestTransaction/:cantidad/:origin/:dest", function(req, res){
+app.get("/Payments/getFounds/:usr", function(req, res){
+    var fondos = {usr:"mycacapis",dinero:100}
+    res.json(fondos);
+});
+
+app.get("/Payments/authTransaction/:cantidad/:origin/:dest", function(req, res){
     var origin = req.param.origin;
     var cantidad = req.param.cantidad;
     var dest = req.param.dest;
