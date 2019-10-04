@@ -14,7 +14,7 @@ class BDMiddleWareAPI {
     }
 }
 
-var MAX_APIS =2;
+var MAX_APIS =100;
 class BDManagerApi
 { 
     constructor()
