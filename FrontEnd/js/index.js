@@ -32,7 +32,7 @@ function productoComponent(ModeloProducto)
                         if(this.readyState ==4 && this.status ==200)
                         {
                             var jsonProductos =   JSON.parse(this.responseText);
-                            console.log(jsonProductos);
+                            console.log('hola', jsonProductos);
                             //console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
                             for(var i =0; i<jsonProductos.productos.length;i++)
                             {
@@ -45,19 +45,20 @@ function productoComponent(ModeloProducto)
 				
 
 				window.onload = function() {
-					//loadProducts(0);
+				    // loadProducts(0);
 				
 				};
 				
 				$("#tazas").click(function () {
 					alert("tazas");
-					loadProducts(1);
+                    loadProducts(1)
 				})
 
 			
 
 				$("#llaveros").click(function () {
 					alert("llaveros");
+
 					loadProducts(2);
 				})
 
