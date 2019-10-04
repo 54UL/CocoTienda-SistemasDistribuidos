@@ -43,7 +43,7 @@ async function bdConfigureParametersl()
         host     :"localhost",
         user     : "root",
         password : "",
-        database : "prueba"
+        database : "giftstoredb"
       });
       return sql_connection ? false:true;
 }
