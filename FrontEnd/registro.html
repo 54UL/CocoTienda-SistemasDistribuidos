@@ -143,30 +143,30 @@
 					<!-- AdminUser -->
 
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre" id="nombreUsuario" required="required">
 						<span></span>
 					</div>
 					<!-- AdminUser -->
 
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Correo">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Correo" id="correoUsuario" required="required">
 						<span></span>
 					</div>
 					<!-- AdminUser -->
 					
 					<div class="campo-texto" data-validate = "Contraseña requerida">
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña">
+						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña" id="contraUsuario" required="required">
 						<span></span>
 					</div>
 					<!-- AdminUser -->
 					
 					<div class="campo-texto" data-validate = "Contraseña requerida">
-						<input class="input-ingreso" type="password" name="pass" placeholder="Contraseña">
+						<input class="input-ingreso" type="password" name="pass" placeholder="Repetir Contraseña" id="otraContraUsuario" required="required">
 						<span></span>
 					</div>
 
 					<div>
-						<button class="boton-ingresar">
+						<button class="boton-ingresar" id="btnRegistrar">
 							Registrar
 						</button>
 					</div>
@@ -215,6 +215,7 @@
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/Registro.js"></script>
 
 	</body>
 </html>
