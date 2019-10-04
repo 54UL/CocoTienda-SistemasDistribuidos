@@ -45,6 +45,28 @@ function productoComponent(ModeloProducto)
 				
 
 				window.onload = function() {
-					loadProducts(0);
+					//loadProducts(0);
 				
-                };
+				};
+				
+				$("#tazas").click(function () {
+					alert("tazas");
+					loadProducts(1);
+				})
+
+			
+
+				$("#llaveros").click(function () {
+					alert("llaveros");
+					loadProducts(2);
+				})
+
+				$("#camisas").click(function () {
+					alert("camisas");
+					loadProducts(3);
+				})
+
+				$("#cachuchas").click(function () {
+					alert("cachuchas");
+					loadProducts(4);
+				})

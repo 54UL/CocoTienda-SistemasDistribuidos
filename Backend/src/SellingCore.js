@@ -41,6 +41,7 @@ app.use('/ProductSelling',ProductsRoutes.productsRouter);
 app.listen(3000,function()
    {
    console.log("server ready in port 3000");
+   console.log("Go to localhost:3000 to enter to this server");
    }
 );
 
