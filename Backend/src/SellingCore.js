@@ -10,7 +10,7 @@ var  ProductsRoutes= require('./ProductsRutas.js')
 dbDriver.init();
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
-
+app.use(express.static('../../FrontEnd'));
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
