@@ -18,7 +18,8 @@ function init()
         this.pass = "",
         this.query = bdQueryl,
         this.config = bdConfigureParametersl,
-        this.connect = bdConnectl
+        this.connect = bdConnectl,
+        this.close = closel
     )); 
    api = mwApi.globalApiManager.getApi("lowlevel");
 }
@@ -48,7 +49,10 @@ async function bdConfigureParametersl()
       return sql_connection ? false:true;
 }
 
-
+function closel()
+{
+   sql_connection.close();
+}
 module.exports.init = init;
 
 

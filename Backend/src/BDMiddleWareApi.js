@@ -10,7 +10,7 @@ class BDMiddleWareAPI {
         this.query = QueryFn
         this.config = ConfigFn
         this.connect = ConnectFn
-
+        this.close   = null
     }
 }
 

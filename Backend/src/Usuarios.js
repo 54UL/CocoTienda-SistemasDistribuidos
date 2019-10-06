@@ -33,8 +33,14 @@ function logIn (user,pass,callback)
     var message ="bienvenido =)";
     var asignedToken=0;
     var firstOf  =result[0];
-   
-   
+    
+    if(firstOf==undefined)
+    {
+      message = "usuario no registrado";
+      callback({asignedToken,message});
+      return;
+    }
+  
     if(user === firstOf.nombre)
     {
       if(pass === firstOf.contrasenia)
@@ -42,9 +48,6 @@ function logIn (user,pass,callback)
       else
       message = "clave incorrecta";
     }
-    else
-    message = "usuario no registrado";
-
     callback({asignedToken,message});
   })
 }

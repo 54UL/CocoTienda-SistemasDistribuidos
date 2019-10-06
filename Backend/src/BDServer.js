@@ -10,9 +10,9 @@ bdApi.init();
 
 //La implementacion de low level es de mysql
 var mysql= mwApi.globalApiManager.getApi("lowlevel");
-
 mysql.config()
 mysql.connect()
+
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
@@ -43,7 +43,7 @@ app.get("/db/config",(req,res) =>
 app.use(bodyParser.json());
 app.post("/db/fetch/",(req,res) =>
 {
-    
+  
    var query = req.body.query;
    console.debug(query);
    console.log("incoming QUERY: "+query);
@@ -51,6 +51,7 @@ app.post("/db/fetch/",(req,res) =>
    asyncRes.then((result)=>
    {
     res.json(result);
+    
    })
    //res.send(req.body);
 });
