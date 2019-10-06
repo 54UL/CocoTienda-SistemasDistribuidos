@@ -10,7 +10,7 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
    console.log("usr :"+usuario+" pass"+pass);
    usrApi.logIn(usuario,pass,(result)=>
    {
-      console.debug(result);
+   console.debug(result);
    res.json(result);
    });
 });
