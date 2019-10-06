@@ -1,12 +1,43 @@
-var express = require('express')
-var app = express()
+var  mwApi     = require('../BDMiddleWareApi.js')
+var  dbDriver  = require('../BDDriverAPI.js')
 
-//RUTAS DE PAYMENTS
-app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
-function(req,res)
+dbDriver.init();
+var  bdApi = mwApi.globalApiManager.getApi("highlevel");
+
+
+//orgTkn: origin token, amount: how much cost
+//returns:
+
+
+function requestTransaction(orgTkn,amount)
 {
-var cantidad =  req.params.cantidad;
-var modeloPagos = {token:"",dinero:0,tdestino:""};
-res.json(modeloPagos);
+
 }
-);
+
+//orgTkn: origin, user, dest: destionation
+function authTransaction(orgTkn,dest)
+{
+
+}
+
+
+//usr: nombre de usuario
+//returns: el dinero que tiene
+function getFounds(usr)
+{
+
+}
+
+
+//tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad
+function setFounds(tkn,usr,amount)
+{
+
+}
+
+
+module.exports.requestTransaction = requestTransaction;
+module.exports.authTransaction = authTransaction;
+module.exports.getFounds = getFounds;
+module.exports.setFounds = setFounds;
+

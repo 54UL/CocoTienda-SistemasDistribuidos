@@ -33,4 +33,16 @@ trivial
 returns:
 UserModel {token:"token",msg:"error/warning message"}
 
+[POST]
+/Payments/requestTransaction/:cantidad/:orgin/:dest
+params info:
+trivial
+returns:
+
+
+//DEPENDENCIAS DEL PROYECTO (instalar en src)
+npm i express
+npm i request
+npm i mysql2
+npm i body-parser
 

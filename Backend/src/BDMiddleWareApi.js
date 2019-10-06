@@ -10,27 +10,23 @@ class BDMiddleWareAPI {
         this.query = QueryFn
         this.config = ConfigFn
         this.connect = ConnectFn
+        this.close   = null
     }
 }
 
-var MAX_APIS =2;
+var MAX_APIS =100;
 class BDManagerApi
 { 
     constructor()
     {
         this.apiInstances= new Array(MAX_APIS);
         this.apiCount = 0;
-        this.init = function()
-        {
-            //this.apiInstances = new BDManagerApi[2];
-            //this.apiInstances = new Array(MAX_APIS);
-        }
+   
         this.addApi = function (api)
         {  
         
             var currentIndex = this.apiCount++;
-            console.log("current index api "+currentIndex);
-            if(currentIndex<2)
+            if(currentIndex<MAX_APIS)
             this.apiInstances.push(api);
             else
             console.log("cannot add more bd API'S");
@@ -39,19 +35,16 @@ class BDManagerApi
         {
                // console.log("apis  "+this.apiInstances.vaapiName);
                 //might be string compare ?
-            this.apiInstances.find((e)=>
-            {
-                if(e!=undefined)
-                {
-                    if(e.apiName === name)
-                    {
-                        console.log("finded!!!");
-                        return e;  
+             var selectedApi =    new BDMiddleWareAPI();
+                this.apiInstances.find((e)=>
+                {   
+                    if(e!=undefined)
+                    { 
+                        if(e.apiName === name)
+                        selectedApi= e;  
                     }
-                }
-            });  
-            
-            return new Object;
+                });  
+            return selectedApi
         }
     }
 }

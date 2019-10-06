@@ -22,18 +22,18 @@ function productoComponent(ModeloProducto)
 				}
 			    
                 
-				function loadProducts()
+				function loadProducts(category)
 				{
                         var xhr = new XMLHttpRequest();
                         
-                    xhr.open("GET","http://localhost:3000/ProductSelling/retrive/0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ");
+                    xhr.open("GET","http://localhost:3000/ProductSelling/retrive/"+category);
                     xhr.send();
                     xhr.onreadystatechange= function()
                     {
                         if(this.readyState ==4 && this.status ==200)
                         {
                             var jsonProductos =   JSON.parse(this.responseText);
-                            console.log(jsonProductos);
+                            console.log('hola', jsonProductos);
                             //console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
                             for(var i =0; i<jsonProductos.productos.length;i++)
                             {
@@ -41,9 +41,34 @@ function productoComponent(ModeloProducto)
                             
                             }
                         }
-                    }
+					}
 				}
+				
 
 				window.onload = function() {
-					loadProducts();
-                };
+				    // loadProducts(0);
+				
+				};
+				
+				$("#tazas").click(function () {
+					alert("tazas");
+                    loadProducts(1)
+				})
+
+			
+
+				$("#llaveros").click(function () {
+					alert("llaveros");
+
+					loadProducts(2);
+				})
+
+				$("#camisas").click(function () {
+					alert("camisas");
+					loadProducts(3);
+				})
+
+				$("#cachuchas").click(function () {
+					alert("cachuchas");
+					loadProducts(4);
+				})

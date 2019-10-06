@@ -6,14 +6,11 @@ var  dbDriver  = require('./BDDriverAPI.js')
 var  UserRoutes= require('./UsuariosRutas.js')
 var  ProductsRoutes= require('./ProductsRutas.js')
 
-//systemw initialization code
-mwApi.globalApiManager.init();
+//init high level api
 dbDriver.init();
-
 var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
-console.debug(bdApi);
-//bdApi.query("middle ware test query api");
+app.use(express.static('../../FrontEnd'));
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
@@ -25,7 +22,15 @@ app.use(function (req, res, next) {
 
 //default route
 app.get('/', function (req, res) {
-   res.send('esto no se supone que debe de suceder');
+   res.send('testing endpoint');
+
+   //QUERY DE PRUEBA !!!!!
+   bdApi.query("SELECT * FROM ALUMNOS",(result)=>
+   {
+      console.log("transaction ended!!");
+      console.debug(result);
+   });
+  
 });
 
 //AQUI SE CENTRALIZAN TODAS LAS RUTAS
@@ -36,6 +41,7 @@ app.use('/ProductSelling',ProductsRoutes.productsRouter);
 app.listen(3000,function()
    {
    console.log("server ready in port 3000");
+   console.log("Go to localhost:3000 to enter to this server");
    }
 );
 

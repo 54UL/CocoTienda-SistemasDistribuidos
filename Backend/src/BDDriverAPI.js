@@ -1,6 +1,6 @@
-//IMPLEMENTACION de la api que usa el backend (Usada en todos lados probablemente)
-
+//implementacion de alto nivel (usada unicamente en el backend)
 var mwApi = require('./BDMiddleWareApi.js');
+var http  = require('http');
 
 //ctxApi : context api : Ambito local solo para miembros no delegados.
 var ctxApi;
@@ -29,10 +29,43 @@ function init()
 // la api de http es todo por post
 // las rutas que hay son unicamente las funciones de abajo (junto con sus argumentos)
 
-function bdQueryH(query)
+function bdQueryH(Query,Callback)
 {
-    console.log("query testing");
-    return new Object; 
+    var recivedData ='';
+    console.log("query sended: "+Query);
+    const data = JSON.stringify({
+        query: Query
+    })
+  
+  const options = {
+    hostname: 'localhost',
+    port: 3001,
+    path: '/db/fetch/',
+    method: 'POST',
+    headers: {
+      'Content-Type'  : 'application/json',
+      'Content-Length': data.length
+    }
+  }
+  
+    const req = http.request(options, res => {
+      //console.log(`statusCode: ${res.statusCode}`)
+      res.on('data', d => {
+          recivedData += d;
+          //console.log(d.toString());
+      }).on('end',()=>
+      {
+        Callback(JSON.parse(recivedData));
+      });
+    })
+
+    req.on('error', error => {
+    console.error(error)
+    })
+
+  
+  req.write(data)
+  req.end()
 }
 
 function bdConnectH()
