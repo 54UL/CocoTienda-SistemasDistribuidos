@@ -18,7 +18,7 @@ array  type of Products [{name,price,image}]
 [get]
 /ProductSelling/retrive/:category
 params info:
-categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
+categoy: home:0,cachuchas:1,camisas:2,llaveros:3,tazas:4
 returns:
 array  type of Products [{name,price,image}]
 

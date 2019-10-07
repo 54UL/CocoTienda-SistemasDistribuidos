@@ -26,7 +26,7 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
 
 
 usrRouter.use(bodyParser.json());
-usrRouter.get("/Register",function(req,res)
+usrRouter.post("/Register",function(req,res)
 {
     console.debug(req.body)
     usrApi.createUser(req.body,(qresult)=>
