@@ -27,19 +27,23 @@ function ingresar(event){
                     if(resultadoLogin.asignedToken == 0){
                         $("#errorIniciar").css("display", "block");
                         $('#errorIniciar').text(resultadoLogin.message); 
-                        document.cookie = "2"
-                        var x = document.cookie;
-                        console.log("x" + x);
+                        document.cookie = "user_token = 0"
+                        alert ( document.cookie);
+                        console.debug(document.cookie);
                     }
-                    else if(resultadoLogin.asignedToken == 1){ //Es administrador
+                    else{
+                        document.cookie = "user_token = "+resultadoLogin.asignedToken
+                        alert ( document.cookie);
+                    }
+                    
+                     if(resultadoLogin.userType == 4){ //Es administrador
                         $("#ulInventario").css("display", "block");
                         $("#ulAdmin").css("display", "block");
-                        document.cookie = "1"
+                    
 
                     }
-                    else if(resultadoLogin.asignedToken == 2){ // Es almacenista
+                    else if(resultadoLogin.userType == 3){ // Es almacenista
                         $("#ulInventario").css("display", "block");
-                        
                     }
 
             

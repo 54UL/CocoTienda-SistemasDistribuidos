@@ -1,6 +1,6 @@
 function productoComponent(ModeloProducto)
 {
-	return  "<div class='col-md-3 col-xs-6'>" +
+	return  "<div id="+ModeloProducto.id_producto+" class='col-md-3 col-xs-6'>" +
 				"<div class='product'>"+
 					"<div class='product-img'>"+
 						"<img src='img/Llaveros/Lguitarra.jpg' alt=''>"+
@@ -28,17 +28,19 @@ function loadProducts(category)
 		
 	xhr.open("GET","http://localhost:3000/ProductSelling/retrive/"+category);
 	xhr.send();
-	$("#containerProductos").html("");
+	$("#containerProductos").html("<h1>CARGANDO...</h1>");
 	xhr.onreadystatechange= function()
 	{
 		if(this.readyState ==4 && this.status ==200)
 		{
+			$("#containerProductos").html("");
 			var jsonProductos =   JSON.parse(this.responseText);
 			console.log('hola', jsonProductos);
 			//console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
 			
 			for(var i =0; i<jsonProductos.productos.length;i++)
 			{
+			
 				$("#containerProductos").append(productoComponent(jsonProductos.productos[i]));
 			
 			}
@@ -60,7 +62,7 @@ $("#tazas").click(function () {
 
 $("#llaveros").click(function () {
 
-
+	alert("usr cookie"+document.cookie.user_token)
 	loadProducts(3);
 })
 

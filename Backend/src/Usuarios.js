@@ -23,7 +23,7 @@ function logIn (user,pass,callback)
     var message ="bienvenido =)";
     var asignedToken=0;
     var firstOf  =result[0];
-    
+    var userType = 1;
     if(firstOf==undefined)
     {
       message = "usuario o clave incorrectos";
@@ -34,11 +34,16 @@ function logIn (user,pass,callback)
     if(user === firstOf.nombre)
     {
       if(pass === firstOf.contrasenia)
+      {
         asignedToken =firstOf.id_usuario
+        userType     =firstOf.id_tipousuario
+      }
       else
       message = "clave incorrecta";
     }
-    callback({asignedToken,message});
+    var model = {asignedToken,message,userType}
+    console.debug(model)
+    callback(model);
   });
 }
 

@@ -1,5 +1,8 @@
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
+// seleccionar producto (obtener el product id)
+//
 
+module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
 var correoUsuario;
 var contraUsuario;
