@@ -41,7 +41,7 @@ UserModel {token:"token",msg:"message"}
 
 
 [POST]
-/Users/Register/:usr/:pass/:token
+/Users/Register/:usr/:email/:pass/
 params info:
 trivial
 returns:

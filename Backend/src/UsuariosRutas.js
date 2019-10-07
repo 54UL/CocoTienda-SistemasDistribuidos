@@ -1,3 +1,4 @@
+var  bodyParser = require('body-parser')
 var express  = require('express');
 var usrApi = require('./Usuarios.js')
 
@@ -7,18 +8,31 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
 {
    var usuario = req.params.usuario;
    var pass = req.params.pass;
-   console.log("usr :"+usuario+" pass"+pass);
-   usrApi.logIn(usuario,pass,(result)=>
+   usrApi.logIn(usuario,pass,(qresult)=>
    {
-   console.debug(result);
-   res.json(result);
+   console.debug(qresult);
+   res.json(qresult);
    });
 });
 
+// JSON MODEL (NewUserModel)
+/*
+ {
+  "usr":"54ul",
+  "email":"54ulxd@gmail.com",
+  "pass":"somesecret"
+ }
+*/
 
-usrRouter.get("/Users/Register/:usr/:pass/:token",function(req,res)
+
+usrRouter.use(bodyParser.json());
+usrRouter.get("/Register",function(req,res)
 {
-  
+    console.debug(req.body)
+    usrApi.createUser(req.body,(qresult)=>
+    { 
+       res.json(qresult);
+    })
 });
 
 module.exports.usrRouter = usrRouter;

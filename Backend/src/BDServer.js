@@ -43,7 +43,6 @@ app.get("/db/config",(req,res) =>
 app.use(bodyParser.json());
 app.post("/db/fetch/",(req,res) =>
 {
-  
    var query = req.body.query;
    console.debug(query);
    console.log("incoming QUERY: "+query);
@@ -51,12 +50,11 @@ app.post("/db/fetch/",(req,res) =>
    asyncRes.then((result)=>
    {
     res.json(result);
-    
    })
    //res.send(req.body);
 });
 
 app.listen(3001,()=>
 {
-console.log("DATA BASE SERVER MANAGER(mySql) ON 3001");
+console.log("DATA BASE SERVER MANAGER(node js:mySql) ON 3001");
 })
