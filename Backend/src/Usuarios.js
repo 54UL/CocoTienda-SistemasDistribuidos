@@ -42,7 +42,6 @@ function logIn (user,pass,callback)
       message = "clave incorrecta";
     }
     var model = {asignedToken,message,userType}
-    console.debug(model)
     callback(model);
   });
 }

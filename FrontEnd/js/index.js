@@ -1,3 +1,7 @@
+
+
+
+
 function productoComponent(ModeloProducto)
 {
 	return  "<div id="+ModeloProducto.id_producto+" class='col-md-3 col-xs-6'>" +
@@ -26,7 +30,8 @@ function loadProducts(category)
 {
 	var xhr = new XMLHttpRequest();
 		
-	xhr.open("GET","http://localhost:3000/ProductSelling/retrive/"+category);
+	xhr.open("GET","http://"+CURRENT_IP+"/ProductSelling/retrive/"+category);
+	alert("ip "+CURRENT_IP )
 	xhr.send();
 	$("#containerProductos").html("<h1>CARGANDO...</h1>");
 	xhr.onreadystatechange= function()
@@ -40,9 +45,13 @@ function loadProducts(category)
 			
 			for(var i =0; i<jsonProductos.productos.length;i++)
 			{
+			    var actualModel  =jsonProductos.productos[i];
+				$("#containerProductos").append(productoComponent(actualModel));
 			
-				$("#containerProductos").append(productoComponent(jsonProductos.productos[i]));
-			
+				$("#"+actualModel.id_producto).click(()=> {
+					 let value = actualModel.id_producto;
+					 alert(value)
+				})
 			}
 		}
 	}
