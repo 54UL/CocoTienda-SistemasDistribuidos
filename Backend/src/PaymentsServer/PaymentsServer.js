@@ -49,5 +49,5 @@ app.get("/Payments/authTransaction/:cantidad/:origin/:dest", function(req, res){
         origin = origin-cantidad;
         dest = dest+cantidad;
         res.json("Compra realizada con éxito");
-    }
+    }  
 });

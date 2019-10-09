@@ -1,6 +1,7 @@
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
 // seleccionar producto (obtener el product id)
 //
+var CURRENT_IP = "192.168.1.107:3000"
 
 module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
@@ -29,7 +30,7 @@ function registrar(event)
 function register(usuario,correo,pass){
     var xhr = new XMLHttpRequest();
     alert(CURRENT_IP);
-    xhr.open("POST", "http://localhost:3000/Users/Register/");
+    xhr.open("POST", "http://"+CURRENT_IP+"/Users/Register/");
     xhr.setRequestHeader("Access-Control-Allow-Origin","*");
     xhr.setRequestHeader("Content-Type","application/json");
     xhr.send(JSON.stringify({

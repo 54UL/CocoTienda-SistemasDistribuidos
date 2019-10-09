@@ -13,7 +13,7 @@ function init()
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
     mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName = "lowlevel",
-        this.bdenpoint = "localhost:3306",
+        this.bdenpoint = "",
         this.user = "root",
         this.pass = "",
         this.query = bdQueryl,
@@ -41,11 +41,13 @@ function bdConnectl()
 async function bdConfigureParametersl()
 {
      sql_connection = await mysql.createConnection({
-        host     :"localhost",
-        user     : "root",
-        password : "",
+        host     :"192.168.1.117",
+        user     : "distribuidos",
+        password : " ",
         database : "giftstoredb"
+        
       });
+    
       return sql_connection ? false:true;
 }
 

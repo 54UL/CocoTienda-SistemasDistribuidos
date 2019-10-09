@@ -2,7 +2,7 @@ var  mwApi     = require('../BDMiddleWareApi.js')
 var  dbDriver  = require('../BDDriverAPI.js')
 
 dbDriver.init();
-var  bdApi = mwApi.globalApiManager.getApi("highlevel");
+var  mysql = mwApi.globalApiManager.getApi("highlevel");
 
 
 //orgTkn: origin token, amount: how much cost
@@ -11,6 +11,12 @@ var  bdApi = mwApi.globalApiManager.getApi("highlevel");
 
 function requestTransaction(orgTkn,amount)
 {
+
+    //token,saldo,
+    mysql.query("SELECT +",(result)
+    {
+
+    });
 
 }
 
@@ -30,7 +36,7 @@ function getFounds(usr)
 
 
 //tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad
-function setFounds(tkn,usr,amount)
+function setFounds(tkn,amount)
 {
 
 }

@@ -1,3 +1,5 @@
+var CURRENT_IP = "192.168.1.107:3000"
+
 
 
 
@@ -14,10 +16,10 @@ function ingresar(event){
         $("#errorIniciar").css("display", "block");
         $('#errorIniciar').text("No puede haber campos vacios"); 
     }
-    else {
+    else {http://"+CURRENT_IP+"
         var xhr = new XMLHttpRequest();                    
-        // xhr.open("GET","http://localhost:3000/Users/Login/:usr/:pass");    
-        xhr.open("GET","http://localhost:3000/Users/Login/"+usr+"/"+pass);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        
+        xhr.open("GET","http://"+CURRENT_IP+"/Users/Login/"+usr+"/"+pass);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         xhr.send();
         xhr.onreadystatechange= function(event){
             event.preventDefault();
