@@ -13,7 +13,7 @@ function requestTransaction(orgTkn,amount)
 {
 
     //token,saldo,
-    mysql.query("SELECT +",(result)
+    mysql.query("SELECT +",(result)=>
     {
 
     });
@@ -21,7 +21,7 @@ function requestTransaction(orgTkn,amount)
 }
 
 //orgTkn: origin, user, dest: destionation
-function authTransaction(orgTkn,dest)
+function authTransaction(orgTkn,dest,amount)
 {
 
 }

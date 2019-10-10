@@ -41,11 +41,10 @@ function bdConnectl()
 async function bdConfigureParametersl()
 {
      sql_connection = await mysql.createConnection({
-        host     :"192.168.1.117",
-        user     : "distribuidos",
-        password : " ",
-        database : "giftstoredb"
-        
+        host     :"localhost",
+        user     :"root",
+        password :"",
+        database :"giftstoredb"
       });
     
       return sql_connection ? false:true;
