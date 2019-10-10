@@ -1,4 +1,4 @@
-# SCRIPT BASE DE DATOS DE GIFTSTORE
+﻿# SCRIPT BASE DE DATOS DE GIFTSTORE
 
 # Ultima actualizacion: 4/10/19
 
@@ -40,11 +40,26 @@ CREATE TABLE tipo_usuario(
 	tipo varchar(15),
 	primary key(id_tipousuario));
 
+CREATE TABLE Cocobanco
+(
+	ID_Cuenta int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	Saldo double,
+	correo varchar(30),
+	contrasenia varchar(30)
+);
+
+CREATE TABLE Cuentas
+(
+	ID_Cuentas int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	ID_Cuenta int,
+	ID_UsuarioGift int
+);
 
 ALTER TABLE usuario ADD FOREIGN KEY (id_tipousuario) REFERENCES tipo_usuario(id_tipousuario);
 ALTER TABLE compra ADD FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
 ALTER TABLE compra ADD FOREIGN KEY (id_producto) REFERENCES Producto(id_producto);
 ALTER TABLE producto ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+ALTER TABLE Cuentas ADD FOREIGN KEY(ID_UsuarioGift) REFERENCES Usuario(ID_usuario);
 
 INSERT INTO categoria VALUES (0,"Cachucha");
 INSERT INTO categoria VALUES (0,"Camisa");
@@ -77,7 +92,6 @@ INSERT INTO usuario VALUES (0,3,"David", "david@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Jose", "jose@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Esteban", "esteban@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Natalia", "natalia@gmail.mx", "1234");
-
 
 
 
