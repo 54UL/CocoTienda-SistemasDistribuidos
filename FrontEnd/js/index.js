@@ -1,5 +1,5 @@
 //import {endpoint} from './Globales.js';
-
+var lol;
 
 function productoComponent(ModeloProducto)
 {
@@ -9,8 +9,8 @@ function productoComponent(ModeloProducto)
 						"<img src='img/Llaveros/Lguitarra.jpg' alt=''>"+
 					"</div>"+
 				"<div class='product-body'>"+
-					"<p class='product-category'>SHIT</p>"+
-						"<h3 class='product-name'><a href='#'>"+ModeloProducto.nombre+"</a></h3>"+
+					"<p class='product-category'>SHIT</p id=" +ModeloProducto.id_producto +">"+
+						"<h3 class='product-name' id=" + ModeloProducto.id_producto+ "><a href='#'>"+ModeloProducto.nombre+"</a></h3>"+
 						"<h4 class='product-price'>"+ModeloProducto.precio_unitario+"</h4>"+
 							"<div class='product-btns'>"+
 								"<button class='add-to-wishlist'><i class='fa fa-heart-o'></i></button>"+
@@ -24,8 +24,12 @@ function productoComponent(ModeloProducto)
 			"</div>"
 }
 
+/*$('#'+lol.id_producto).find('h3').click( function(){
+	var id = $(this).attr('id');
+	if(id!=null && id!= undefined) console.log(id);
 
-
+	else console.log("error al conseguir la id de la fila");
+});*/
 
 
 
@@ -59,8 +63,13 @@ function loadProducts(category)
 			{
 			    var actualModel  =jsonProductos.productos[i];
 				$("#containerProductos").append(productoComponent(actualModel));
-			
-				$("#"+actualModel.id_producto).click(()=> {
+				$('#'+actualModel.id_producto).find('h3').click( function(){
+					var id = $(this).attr('id');
+					if(id!=null && id!= undefined) console.log(id);
+
+					else console.log("error al conseguir la id de la fila");
+				});
+				/*$("#"+actualModel.id_producto).click(()=> {
 					
 					var  resultadoCompra =  comprar(globales.getUsrToken(),ids[algunIndiceValido]);
 
@@ -69,7 +78,7 @@ function loadProducts(category)
 					else
 					alert(resultadoCompra.msg);
 
-				})
+				})*/
 			}
 		}
 	}
