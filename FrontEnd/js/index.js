@@ -31,7 +31,7 @@ function productoComponent(ModeloProducto)
 
 
 function comprar(token,productoID){
-	return {compra:1,msg :"nel no hay fgeria: product id"+productoID;
+	return {compra:1 ,msg :"nel no hay fgeria: product id"+productoID};
 }
 
 
@@ -100,3 +100,4 @@ $("#cachuchas").click(function () {
 
 	loadProducts(1);
 })
+
