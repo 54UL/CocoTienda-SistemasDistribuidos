@@ -35,7 +35,7 @@ const DEFAULT_SHOP_BANK_ACCOUNT=1;
 
 function buyProduct(product,usrToken,callback)
 {
-      var resultModel =  {compra:1,msg :""};
+      var resultModel =  {compra:0,msg :"compra fallida;"};
       var getPriceQuery= "SELECT * FROM producto where id_producto ="+product;
       bdApi.query(getPriceQuery,(product)=>
       {
@@ -43,16 +43,23 @@ function buyProduct(product,usrToken,callback)
                                         product.precio_unitario,
                                         (transactionRes)=>
             {
-
-                  if(transaction==1)
+                  if(transactionRes.transaction==1)
                   {
-                  bdApi.query("INSERT INTO compra (id_compra,id_usuario,id_producto) values ")
+                  var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0,"+usrToken+","+product+")";
+                  bdApi.query(insertBuyQuery,(insertRes)=>
+                  {
+                    resultModel.compra = insertRes.insertId;
+                    resultModel.msg = "compra exitosa !";
+                    callback(resultModel);
+                  });
+                  
                   }
                   else
                   {
-
-                  }
-                   callback(transactionRes);
+                  resultModel.compra =0;
+                  resultModel.msg = transactionRes.msg;
+                  callback(resultModel);
+                  }    
             })
       });
 }

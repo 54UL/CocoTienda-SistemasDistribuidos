@@ -36,7 +36,6 @@ function authTransaction(orgTkn,dest,amount,callback)
             setFounds(orgTkn,currentCurrencyOrg);
 
             //Obtenemos el dinero de la cuenta destinataria y luego se le sumara el amount
-            
             getFounds(dest,(currencyDest)=>
             {
                 var currentCurrencyDest = currencyDest+amount;
@@ -60,16 +59,23 @@ function authTransaction(orgTkn,dest,amount,callback)
 //returns: el dinero que tiene
 function getFounds(usr,callback)
 {
-    mysql.query("SELECT * from cocobanco where ID_Cuenta="+usr,(result)=>
+    mysql.query("SELECT * from cuentas where ID_UsuarioGift="+usr,(result)=>
     {
-        callback(result.Saldo);
+        mysql.query("SELECT * from cocobanco where ID_Cuenta="+result.ID_Cuenta,
+        (cocoBancoResult)=>
+        {
+            callback(cocoBancoResult.Saldo);
+        })   
     })
 }
 
 //tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad
 function setFounds(tkn,amount)
 {
-    mysql.query("UPDATE SET Saldo="+amount+"where ID_Cuenta ="+tkn,(result)=>{});
+    mysql.query("SELECT * from cuentas where ID_UsuarioGift="+tkn,(result)=>
+    {
+        mysql.query("UPDATE cocobanco SET Saldo="+amount+" where ID_Cuenta ="+result.ID_Cuenta,(upRes)=>{});
+    })
 }
 
 

@@ -30,6 +30,7 @@ app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
 //comprobar fondos y proceder
 app.get("/Payments/getFounds/:usr", function(req, res){
     var fondos = {usr:"mycacapis",dinero:100}
+    
     res.json(fondos);
 });
 
@@ -37,7 +38,10 @@ app.get("/Payments/authTransaction/:cantidad/:origin/:dest", function(req, res){
     var origin = req.param.origin;
     var cantidad = req.param.cantidad;
     var dest = req.param.dest;
-    apiPagos.authTransaction(origin,dest,cantidad);
+    apiPagos.authTransaction(origin,dest,cantidad,(result)=>
+    {
+        res.json(result);
+    });
 });
 
 

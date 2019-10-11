@@ -38,8 +38,5 @@ productsRouter.route('/buy/:productid/:token')
       {
          res.json(buyInfo);
       });
-
-      
-      //Here would go the database query for the product requested or the handler for the next middleware step
    })
 module.exports.productsRouter = productsRouter;
