@@ -1,7 +1,9 @@
+var apiPagos = require('./Payments.js')
 var express = require('express')
 var app = express()
 
 var PORT= 4269
+
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -23,10 +25,7 @@ app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
     }
 );
 
-app.listen(PORT,()=>
-{
-    console.log("payments server running in "+PORT);
-})
+
 
 //comprobar fondos y proceder
 app.get("/Payments/getFounds/:usr", function(req, res){
@@ -38,16 +37,12 @@ app.get("/Payments/authTransaction/:cantidad/:origin/:dest", function(req, res){
     var origin = req.param.origin;
     var cantidad = req.param.cantidad;
     var dest = req.param.dest;
-
-    if(cantidad > origin){
-        res.json("Fondos insufucientes");
-    }
-    else if(origin <= 0){
-        res.json("No tienes fondos");
-    }
-    else if(cantidad >= origin){
-        origin = origin-cantidad;
-        dest = dest+cantidad;
-        res.json("Compra realizada con éxito");
-    }  
+    apiPagos.authTransaction(origin,dest,cantidad);
 });
+
+
+
+app.listen(PORT,()=>
+{
+    console.log("payments server running in "+PORT);
+})

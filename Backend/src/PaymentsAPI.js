@@ -7,47 +7,47 @@ var http  = require('http');
 function requestTransaction(orgTkn,amount)
 {
     var recivedData ='';
+
+    
     console.log("query sended: "+Query);
-    //
+
     const data = JSON.stringify({
         query: Query
     })
   
-  const options = {
-    hostname: 'localhost',
-    port: 3001,
-    path: '/payments/requestTransaction/',
-    method: 'POST',
-    headers: {
-      'Content-Type'  : 'application/json',
-      'Content-Length': data.length
-    }
-  }
   
-    const req = http.request(options, res => {
-      //console.log(`statusCode: ${res.statusCode}`)
-      res.on('data', d => {
-          recivedData += d;
-          //console.log(d.toString());
-      }).on('end',()=>
-      {
-        Callback(JSON.parse(recivedData));
-      });
-    })
-
-    req.on('error', error => {
-    console.error(error)
-    })
-
-  
-  req.write(data)
-  req.end()
 }
 
 //orgTkn: origin user, dest: destionation
-function authTransaction(orgTkn,dest)
+function authTransaction(orgTkn,dest,amount,Callback)
 {
+  var recivedData ='';
+  var requestPath = "'/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
 
+  const options = {
+    hostname: 'localhost',
+    port: 4269,
+    path: requestPath,
+    method: 'GET',
+  }
+
+  const req = http.request(options, res => {
+    
+    res.on('data', d => {
+        recivedData += d;
+    }).on('end',()=>
+    {
+      Callback(JSON.parse(recivedData));
+    });
+  })
+
+  req.on('error', error => {
+  console.error(error)
+  })
+
+
+req.write()
+req.end()
 }
 
 
