@@ -4,18 +4,18 @@ var lol;
 function productoComponent(ModeloProducto)
 {
 	return  "<div id="+ModeloProducto.id_producto+" class='col-md-3 col-xs-6'>" +
-				"<div class='product'>"+
+				"<div class='product' id=" + ModeloProducto.id_producto+">"+
 					"<div class='product-img'>"+
 						"<img src='img/Llaveros/Lguitarra.jpg' alt=''>"+
 					"</div>"+
-				"<div class='product-body'>"+
-					"<p class='product-category'>SHIT</p id=" +ModeloProducto.id_producto +">"+
+				"<div class='product-body' >"+
+					"<p class='product-category'>SHIT</p>"+
 						"<h3 class='product-name' id=" + ModeloProducto.id_producto+ "><a href='#'>"+ModeloProducto.nombre+"</a></h3>"+
 						"<h4 class='product-price'>"+ModeloProducto.precio_unitario+"</h4>"+
 							"<div class='product-btns'>"+
-								"<button class='add-to-wishlist'><i class='fa fa-heart-o'></i></button>"+
+								"<button class='add-to-wishlist' ><i class='fa fa-heart-o'></i></button>"+
 								"<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+
-								"<button class='add-to-cart'><i class='fa fa-credit-card custom'></i></button>"+
+								"<button class='tarjeta' id=" +ModeloProducto.id_producto + "><i class='fa fa-credit-card custom'></i></button>"+
 							"</div>"+
 				"</div>"+
 				"</div>"+
@@ -56,19 +56,31 @@ function loadProducts(category)
 		{
 			$("#containerProductos").html("");
 			var jsonProductos =   JSON.parse(this.responseText);
-			console.log('hola', jsonProductos);
+			//console.log('hola', jsonProductos);
 			//console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
 			
 			for(var i =0; i<jsonProductos.productos.length;i++)
 			{
 			    var actualModel  =jsonProductos.productos[i];
 				$("#containerProductos").append(productoComponent(actualModel));
-				$('#'+actualModel.id_producto).find('h3').click( function(){
+
+				//Todo el div
+				/*$('#'+actualModel.id_producto).find('div[class="product"]').click( function(){
 					var id = $(this).attr('id');
 					if(id!=null && id!= undefined) console.log(id);
+					else console.log("Error al consegir el id");
+				});*/
 
-					else console.log("error al conseguir la id de la fila");
+				//Solo tarjeta
+				$('#'+actualModel.id_producto).find('button[class="tarjeta"]').click( function(){
+					var id = $(this).attr('id');
+					if(id!=null && id!= undefined) console.log(id);
+					else console.log("Error al consegir el id");
 				});
+
+
+
+
 				/*$("#"+actualModel.id_producto).click(()=> {
 					
 					var  resultadoCompra =  comprar(globales.getUsrToken(),ids[algunIndiceValido]);
