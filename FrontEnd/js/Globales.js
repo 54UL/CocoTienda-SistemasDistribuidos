@@ -12,7 +12,8 @@ var CURRENT_IP = "localhost:3000"
 }
 
  function getUserToken(){
-	return document.cookie.user_token;
+	 console.log("COOKIE DE USUARIO: "+document.cookie)
+	return document.cookie;
 }
 
 

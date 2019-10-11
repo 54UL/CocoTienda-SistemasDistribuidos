@@ -33,8 +33,19 @@ function productoComponent(ModeloProducto)
 
 
 
-function comprar(token,productoID){
-	return {compra:1,msg :"nel no hay fgeria: product id"+productoID};
+function comprar(token,productoID,callback){
+	var xhr = new XMLHttpRequest();
+		
+	xhr.open("GET", endpoint("/ProductSelling/buy/"+productoID+"/"+token));
+	xhr.send();
+	xhr.onreadystatechange= function()
+	{
+		if(this.readyState ==4 && this.status ==200)
+		{
+			var compra =   JSON.parse(this.responseText);
+			callback(compra)
+		}
+	}
 }
 $("#tazas").click(function () {
 	
@@ -74,7 +85,15 @@ function loadProducts(category)
 				//Solo tarjeta
 				$('#'+actualModel.id_producto).find('button[class="tarjeta"]').click( function(){
 					var id = $(this).attr('id');
-					if(id!=null && id!= undefined) console.log(id);
+					if(id!=null && id!= undefined)
+					{
+						alert(id);
+						comprar(getUserToken(),id,(cResult)=>
+						{
+							alert(cResult.msg);
+						});
+				
+					}
 					else console.log("Error al consegir el id");
 				});
 

@@ -22,11 +22,11 @@ function requestTransaction(orgTkn,amount)
 function authTransaction(orgTkn,dest,amount,Callback)
 {
   var recivedData ='';
-  var requestPath = "'/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
-
+  var requestPath = "/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
+ 
   const options = {
     hostname: 'localhost',
-    port: 4269,
+    port: 3007,
     path: requestPath,
     method: 'GET',
   }
@@ -35,18 +35,19 @@ function authTransaction(orgTkn,dest,amount,Callback)
     
     res.on('data', d => {
         recivedData += d;
+        
+       
     }).on('end',()=>
     {
+      console.debug(recivedData)
       Callback(JSON.parse(recivedData));
     });
   })
 
   req.on('error', error => {
-  console.error(error)
+  console.error("error!!  "+error)
   })
 
-
-req.write()
 req.end()
 }
 

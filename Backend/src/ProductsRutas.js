@@ -27,16 +27,17 @@ productsRouter.get('/retrive/:category', function (req, res)
 // });
 
 productsRouter.route('/buy/:productid/:token')
-   .all(function (res,res,next){
-      next();
-   })
-   .get(function(req,res,next){
+   .get(function(req,res,next)
+   {
       var productid = req.params.productid;
       var token = req.params.token;
 
       productsApi.buyProduct(productid,token,(buyInfo)=>
       {
-         res.json(buyInfo);
+         console.debug(buyInfo);
+         res.json(buyInfo);    
       });
+      
+    
    })
 module.exports.productsRouter = productsRouter;

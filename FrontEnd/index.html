@@ -195,7 +195,7 @@
 	
 	<!-- /Modal de transaccion-->
 	<!-- modal de datos bancarios-->
-			<div class="modal" tabindex="-1" role="dialog">
+			<div class="modal" tabindex="-1" role="dialog" id="banco">
 				<div class="modal-dialog" role="document">
 				  <div class="modal-content">
 					<div class="modal-header">
@@ -205,8 +205,10 @@
 					  </button>
 					</div>
 					<div class="modal-body">
-						numero de tarjeta: <input type="text" name="fname"id="cardNumber">
+						<center><label>Numero de cuenta:</label>  <input type="number" name="fname"id="cardNumber">
+						<br><label>Correo:          </label>  <input type="email" name="fname"id="correo"></center>
 					</div>
+				
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-primary">Aceptar</button>
 					  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -220,8 +222,14 @@
 		</footer>
 
 		<script src="js/Globales.js"></script>
-		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			alert("ouri");
+			$(banco).modal("show");
+			
+		
+		</script>
 		<script src="js/index.js"></script> 
 		
 	</body>

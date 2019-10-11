@@ -28,12 +28,12 @@ function ingresar(event){
                     if(resultadoLogin.asignedToken == 0){
                         $("#errorIniciar").css("display", "block");
                         $('#errorIniciar').text(resultadoLogin.message); 
-                        document.cookie = "user_token = 0"
+                        document.cookie = "0"
                         alert ( document.cookie);
                         console.debug(document.cookie);
                     }
                     else{
-                        document.cookie = "user_token = "+resultadoLogin.asignedToken
+                        document.cookie = resultadoLogin.asignedToken
                         alert ( document.cookie);
                     }
                     

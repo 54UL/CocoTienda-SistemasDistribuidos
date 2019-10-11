@@ -55,7 +55,9 @@ function bdQueryH(Query,Callback)
           //console.log(d.toString());
       }).on('end',()=>
       {
+     
         Callback(JSON.parse(recivedData));
+       
       });
     })
 

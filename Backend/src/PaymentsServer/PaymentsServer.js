@@ -2,7 +2,7 @@ var apiPagos = require('./Payments.js')
 var express = require('express')
 var app = express()
 
-var PORT= 4269
+var PORT= 3007
 
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
@@ -35,11 +35,13 @@ app.get("/Payments/getFounds/:usr", function(req, res){
 });
 
 app.get("/Payments/authTransaction/:cantidad/:origin/:dest", function(req, res){
-    var origin = req.param.origin;
-    var cantidad = req.param.cantidad;
-    var dest = req.param.dest;
-    apiPagos.authTransaction(origin,dest,cantidad,(result)=>
+    var origin = req.params.origin;
+    var cantidad = req.params.cantidad;
+    var dest = req.params.dest;
+   
+    apiPagos.authTransaction(origin,dest,Number(cantidad),(result)=>
     {
+        console.log("transaction! uwu")
         res.json(result);
     });
 });

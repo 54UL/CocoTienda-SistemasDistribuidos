@@ -26,6 +26,7 @@ update al campo dinero de la Cuenta B  la suma de su dinero actual + el que se l
 //orgTkn: origin, user, dest: destionation
 function authTransaction(orgTkn,dest,amount,callback)
 {
+   
     var resultModel =  {transaction:1,msg :""};
     getFounds(orgTkn,(currencyOrg)=>
     {
@@ -38,7 +39,7 @@ function authTransaction(orgTkn,dest,amount,callback)
             //Obtenemos el dinero de la cuenta destinataria y luego se le sumara el amount
             getFounds(dest,(currencyDest)=>
             {
-                var currentCurrencyDest = currencyDest+amount;
+                var currentCurrencyDest = Number(currencyDest)+Number(amount);
                 setFounds(dest,currentCurrencyDest);
 
                 resultModel.transaction =1;
@@ -61,10 +62,10 @@ function getFounds(usr,callback)
 {
     mysql.query("SELECT * from cuentas where ID_UsuarioGift="+usr,(result)=>
     {
-        mysql.query("SELECT * from cocobanco where ID_Cuenta="+result.ID_Cuenta,
+        mysql.query("SELECT * from cocobanco where ID_Cuenta="+result[0].ID_Cuenta,
         (cocoBancoResult)=>
         {
-            callback(cocoBancoResult.Saldo);
+            callback(Number (cocoBancoResult[0].Saldo));
         })   
     })
 }
@@ -74,7 +75,7 @@ function setFounds(tkn,amount)
 {
     mysql.query("SELECT * from cuentas where ID_UsuarioGift="+tkn,(result)=>
     {
-        mysql.query("UPDATE cocobanco SET Saldo="+amount+" where ID_Cuenta ="+result.ID_Cuenta,(upRes)=>{});
+        mysql.query("UPDATE cocobanco SET Saldo="+Number(amount)+" where ID_Cuenta ="+result[0].ID_Cuenta,(upRes)=>{});
     })
 }
 

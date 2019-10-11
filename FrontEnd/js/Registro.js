@@ -31,7 +31,7 @@ function registrar(event)
 
 function register(usuario,correo,pass){
     var xhr = new XMLHttpRequest();
-    alert(CURRENT_IP);
+    
     xhr.open("POST", endpoint("/Users/Register/"));
     xhr.setRequestHeader("Access-Control-Allow-Origin","*");
     xhr.setRequestHeader("Content-Type","application/json");

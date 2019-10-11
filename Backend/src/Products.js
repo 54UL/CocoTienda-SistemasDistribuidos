@@ -31,25 +31,34 @@ function retriveProducts(cat,cb)
 //Mostrara error
 
 
-const DEFAULT_SHOP_BANK_ACCOUNT=1;
+const DEFAULT_SHOP_BANK_ACCOUNT=22;
 
 function buyProduct(product,usrToken,callback)
 {
       var resultModel =  {compra:0,msg :"compra fallida;"};
       var getPriceQuery= "SELECT * FROM producto where id_producto ="+product;
-      bdApi.query(getPriceQuery,(product)=>
+      bdApi.query(getPriceQuery,(products)=>
       {
+            
+            var product = products[0];
+            if(product == undefined)
+            {
+                  callback(resultModel);
+                  return;
+            }
+            console.debug(product);
             paymentsApi.authTransaction(usrToken,DEFAULT_SHOP_BANK_ACCOUNT,
                                         product.precio_unitario,
                                         (transactionRes)=>
             {
                   if(transactionRes.transaction==1)
                   {
-                  var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0,"+usrToken+","+product+")";
+                  var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0,"+usrToken+","+product.id_producto+")";
                   bdApi.query(insertBuyQuery,(insertRes)=>
                   {
                     resultModel.compra = insertRes.insertId;
                     resultModel.msg = "compra exitosa !";
+                    console.log("succesful buy!");
                     callback(resultModel);
                   });
                   
