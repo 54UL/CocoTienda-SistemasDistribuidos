@@ -1,5 +1,4 @@
-var CURRENT_IP = "192.168.1.107:3000"
-
+//import {endpoint} from './Globales.js';
 
 
 
@@ -19,7 +18,7 @@ function ingresar(event){
     else {http://"+CURRENT_IP+"
         var xhr = new XMLHttpRequest();                    
         
-        xhr.open("GET","http://"+CURRENT_IP+"/Users/Login/"+usr+"/"+pass);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        xhr.open("GET",endpoint("/Users/Login/"+usr+"/"+pass));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         xhr.send();
         xhr.onreadystatechange= function(event){
             event.preventDefault();
