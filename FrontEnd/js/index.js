@@ -1,5 +1,4 @@
-//var CURRENT_IP = "192.168.1.107:3000"
-var globales = import ("./Globales.js")
+//import {endpoint} from './Globales.js';
 
 
 function productoComponent(ModeloProducto)
@@ -31,16 +30,20 @@ function productoComponent(ModeloProducto)
 
 
 function comprar(token,productoID){
-	return {compra:1,msg :"nel no hay fgeria: product id"+productoID;
+	return {compra:1,msg :"nel no hay fgeria: product id"+productoID};
 }
+$("#tazas").click(function () {
+	
+	loadProducts(4)
+})
+
 
 
 function loadProducts(category)
 {
 	var xhr = new XMLHttpRequest();
 		
-	xhr.open("GET", getBaseUrl()+"/ProductSelling/retrive/"+category);
-	alert("ip "+CURRENT_IP )
+	xhr.open("GET", endpoint("/ProductSelling/retrive/"+category));
 	xhr.send();
 	$("#containerProductos").html("<h1>CARGANDO...</h1>");
 	xhr.onreadystatechange= function()
@@ -75,19 +78,11 @@ function loadProducts(category)
 
 window.onload = function() {
 		loadProducts(0);
-};
+}
 
-$("#tazas").click(function () {
-	
-	loadProducts(4)
-})
 
-var ibk = enpoint();
-ibk.id_producto;
 
 $("#llaveros").click(function () {
-
-	alert("usr cookie"+document.cookie.user_token)
 	loadProducts(3);
 })
 
