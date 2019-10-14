@@ -26,6 +26,7 @@ CREATE TABLE producto(
 	id_producto int auto_increment, 
 	nombre varchar(50),  
 	id_categoria int,
+	cantidad int,
 	precio_unitario int,
 	imagen varchar(30),
 	primary key(id_producto));
