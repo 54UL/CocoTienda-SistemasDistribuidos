@@ -27,18 +27,17 @@ productsRouter.get('/retrive/:category', function (req, res)
 // });
 
 productsRouter.route('/buy/:productid/:token')
-   .all(function (res,res,next){
-      next();
-   })
-   .get(function(req,res,next){
+   .get(function(req,res,next)
+   {
       var productid = req.params.productid;
       var token = req.params.token;
 
-      var objRes = {
-         token: token,
-         msg: "The product id you wanna buy is: "+productid,
-      };
-      //Here would go the database query for the product requested or the handler for the next middleware step
-      res.json(objRes);
+      productsApi.buyProduct(productid,token,(buyInfo)=>
+      {
+         console.debug(buyInfo);
+         res.json(buyInfo);    
+      });
+      
+    
    })
 module.exports.productsRouter = productsRouter;

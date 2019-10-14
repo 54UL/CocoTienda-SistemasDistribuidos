@@ -8,14 +8,16 @@
 	    <meta http-equiv="author" content="8B2">
 
 		<title>GIFStore</title>
-
+        <script type="module" src="./index.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link type="text/css" rel="stylesheet" href="css/custom.css"/>
 
 		<script>
-		var CURRENT_IP = "192.168.137.1:3000"
+
+		//var CURRENT_IP = "192.168.0.0"
+		
         </script>
 		<script
 		src="https://code.jquery.com/jquery-3.4.1.js"
@@ -193,7 +195,7 @@
 	
 	<!-- /Modal de transaccion-->
 	<!-- modal de datos bancarios-->
-			<div class="modal" tabindex="-1" role="dialog">
+			<div class="modal" tabindex="-1" role="dialog" id="banco">
 				<div class="modal-dialog" role="document">
 				  <div class="modal-content">
 					<div class="modal-header">
@@ -203,8 +205,10 @@
 					  </button>
 					</div>
 					<div class="modal-body">
-						numero de tarjeta: <input type="text" name="fname"id="cardNumber">
+						<center><label>Numero de cuenta:</label>  <input type="number" name="fname"id="cardNumber">
+						<br><label>Correo:          </label>  <input type="email" name="fname"id="correo"></center>
 					</div>
+				
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-primary">Aceptar</button>
 					  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -217,10 +221,16 @@
 
 		</footer>
 
-		
-		<script src="js/bootstrap.min.js"></script>
+		<script src="js/Globales.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			alert("ouri");
+			$(banco).modal("show");
+			
+		
+		</script>
 		<script src="js/index.js"></script> 
-	
+		
 	</body>
 </html>

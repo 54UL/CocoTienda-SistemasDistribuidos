@@ -1,3 +1,4 @@
+//import {endpoint} from './Globales.js';
 
 
 
@@ -14,10 +15,10 @@ function ingresar(event){
         $("#errorIniciar").css("display", "block");
         $('#errorIniciar').text("No puede haber campos vacios"); 
     }
-    else {
+    else {http://"+CURRENT_IP+"
         var xhr = new XMLHttpRequest();                    
-        // xhr.open("GET","http://localhost:3000/Users/Login/:usr/:pass");    
-        xhr.open("GET","http://localhost:3000/Users/Login/"+usr+"/"+pass);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        
+        xhr.open("GET",endpoint("/Users/Login/"+usr+"/"+pass));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         xhr.send();
         xhr.onreadystatechange= function(event){
             event.preventDefault();
@@ -27,12 +28,12 @@ function ingresar(event){
                     if(resultadoLogin.asignedToken == 0){
                         $("#errorIniciar").css("display", "block");
                         $('#errorIniciar').text(resultadoLogin.message); 
-                        document.cookie = "user_token = 0"
+                        document.cookie = "0"
                         alert ( document.cookie);
                         console.debug(document.cookie);
                     }
                     else{
-                        document.cookie = "user_token = "+resultadoLogin.asignedToken
+                        document.cookie = resultadoLogin.asignedToken
                         alert ( document.cookie);
                     }
                     
