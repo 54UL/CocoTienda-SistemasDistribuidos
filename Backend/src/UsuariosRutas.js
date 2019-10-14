@@ -3,6 +3,9 @@ var express  = require('express');
 var usrApi = require('./Usuarios.js')
 
 var usrRouter = express.Router();
+//import colorsCodes  from './colorCodes'
+var colorCodes = require("./colorCodes");
+var colors = colorCodes.colors;
 
 usrRouter.get("/Login/:usuario/:pass",function(req,res)
 {
@@ -26,13 +29,15 @@ usrRouter.get("/Login/:usuario/:pass",function(req,res)
 
 
 usrRouter.use(bodyParser.json());
-usrRouter.post("/Register",function(req,res)
+usrRouter.post("/Register",async(req,res) =>
 {
-    console.debug(req.body)
-    usrApi.createUser(req.body,(qresult)=>
-    { 
-       res.json(qresult);
-    })
+   try {
+      console.debug(req.body)
+      var responseFromCreateUser = await usrApi.createUser(req.body);
+      res.json(responseFromCreateUser);      
+   } catch (error) {
+      console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
+   }   
 });
 
 module.exports.usrRouter = usrRouter;

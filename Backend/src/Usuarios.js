@@ -46,57 +46,69 @@ function logIn (user,pass,callback)
   });
 }
 
+async function createUser(NewUserModel){
 
+  return new Promise((resolve, reject)=>{
+    try {
+      var responseModel = {asignedToken:0,msg:"text"}
+      var errorString ="";
+      var hasOcurredAnError=false;
 
-//TO DO: AGREGAR VALIDACIONES y verificaciones
-//retorna un token de usuario
-function createUser(NewUserModel,callback)
-{
-  var responseModel = {asignedToken:0,msg:"text"}
-  var errorString ="";
-  var hasOcurredAnError=false;
+      //Form validation, i think front should validate this data, not us
+      if(NewUserModel.usr==="")
+      {
+        errorString+="No se permite usuario vacio;";
+        hasOcurredAnError = true;
+      }
+      
+      if(NewUserModel.email==="")
+      {
+        errorString+="\n No se permite email vacio;";
+        hasOcurredAnError = true;
+      }
+                
+      if(NewUserModel.pass==="")
+      {
+        errorString+="\n No se permite pass vacio;";
+        hasOcurredAnError = true;
+      }
 
-  if(NewUserModel.usr==="")
-  {
-    errorString+="No se permite usuario vacio;";
-    hasOcurredAnError = true;
-  }
-  
-  if(NewUserModel.email==="")
-  {
-    errorString+="No se permite email vacio;";
-    hasOcurredAnError = true;
-  }
-  
-    
-  if(NewUserModel.pass==="")
-  {
-    errorString+="No se permite pass vacio;";
-    hasOcurredAnError = true;
-  }
+      if(hasOcurredAnError)
+      {
+        responseModel.asignedToken = 0;
+        responseModel.msg = errorString;
+        resolve(responseModel);
+      }else{
 
-  if(hasOcurredAnError)
-  {
-    responseModel.msg = errorString;
-    callback(responseModel)
-    return;
-  }
+        
+        const queryNewBancocoAccount = 
+          "INSERT INTO ";
 
-  var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-  bdApi.query(queryStr,(result)=>
-  {
-   /*
-   MODELO QUE ARROJA result CON querys tipo inserts
-    { fieldCount: 0,
-    affectedRows: 1,
-    insertId: 14,
-    info: '',
-    serverStatus: 2,
-    warningStatus: 0 }
-    */
-   responseModel.asignedToken = result.insertId
-   responseModel.msg = "¡usuario registrado con exito!"
-   callback(responseModel)
+        const queryNewAccount;
+        
+
+        var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
+        bdApi.query(queryStr,(result)=>
+        {
+          /*
+          MODELO QUE ARROJA result CON querys tipo inserts
+            { fieldCount: 0,
+            affectedRows: 1,
+            insertId: 14,
+            info: '',
+            serverStatus: 2,
+            warningStatus: 0 }
+            */
+
+           //After inserting user, create banks accounts
+          responseModel.asignedToken = result.insertId;
+          responseModel.msg = "¡usuario registrado con exito!"        
+          resolve(responseModel);
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }    
   });
 }
 
