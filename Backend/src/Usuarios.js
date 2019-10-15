@@ -10,38 +10,46 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 var MAX_ELEMENTS=400;
 
 //arguments -> trivial, returns an auth token ( used by everything)
-function logIn (user,pass,callback)
+function logIn (user,pass)
 {
-  var queryStr =  "SELECT * from Usuario where nombre ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
+  return new Promise((resolve,reject)=>{
+    try {
+      var queryStr =  "SELECT * from Usuario where nombre ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
   
-  bdApi.query(queryStr,(result)=>
-  {
-    console.debug(result)
-    var message ="bienvenido =)";
-    var asignedToken=0;
-    var firstOf  =result[0];
-    var userType = 1;
-
-    if(firstOf==undefined)
-    {
-      message = "usuario o clave incorrectos";
-      callback({asignedToken,message});
-      return;
-    }
-  
-    if(user === firstOf.nombre)
-    {
-      if(pass === firstOf.contrasenia)
-      {
-        asignedToken =firstOf.id_usuario
-        userType     =firstOf.id_tipousuario
+    bdApi.query(queryStr,(result)=>{
+      console.debug(result)
+      var message ="bienvenido =)";
+      var asignedToken=0;
+      var firstOf  =result[0];
+      var userType = 1;
+      console.log(JSON.stringify(firstOf));
+      if(firstOf==undefined){
+        message = "usuario o clave incorrectos";
+        resolve({asignedToken,message});
       }
-      else
-      message = "clave incorrecta";
+
+      else{
+        if(user === firstOf.nombre){
+          if(pass === firstOf.contrasenia){
+            asignedToken = firstOf.id_usuario;
+            userType     = firstOf.id_tipousuario;
+          }
+          else
+            message = "clave incorrecta";
+        }
+      }
+    
+      
+      var model = {asignedToken,message,userType}
+      resolve(model);
+      });
+    } 
+    catch (error) {
+      reject(error);
     }
-    var model = {asignedToken,message,userType}
-    callback(model);
-  });
+    
+  })
+  
 }
 
 async function createUser(NewUserModel){

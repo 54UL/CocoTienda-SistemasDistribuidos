@@ -7,15 +7,19 @@ var usrRouter = express.Router();
 var colorCodes = require("./colorCodes");
 var colors = colorCodes.colors;
 
-usrRouter.get("/Login/:usuario/:pass",function(req,res)
+usrRouter.get("/Login/:usuario/:pass",async function(req,res)
 {
-   var usuario = req.params.usuario;
-   var pass = req.params.pass;
-   usrApi.logIn(usuario,pass,(qresult)=>
-   {
-   console.debug(qresult);
-   res.json(qresult);
-   });
+   try {
+      var usuario = req.params.usuario;
+      var pass = req.params.pass;
+      var qResult = await usrApi.logIn(usuario,pass);
+      res.json(qResult);
+      console.debug(colors.green + "UsuariosRutas ->" + colors.cyan + JSON.stringify(qResult));
+
+   } catch (error) {
+      console.log(new Error(colors.red + "[UsuariosRutas]-> "+ colors.white + error));
+   }
+   
 });
 
 // JSON MODEL (NewUserModel)
