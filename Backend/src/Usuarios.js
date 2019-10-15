@@ -9,7 +9,8 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 //Members of user sys
 var MAX_ELEMENTS=400;
 
-
+var colorCodes = require("./colorCodes");
+var colors = colorCodes.colors;
 
 
 //arguments -> trivial, returns an auth token ( used by everything)
@@ -78,32 +79,26 @@ async function createUser(NewUserModel){
         responseModel.asignedToken = 0;
         responseModel.msg = errorString;
         resolve(responseModel);
-      }else{
-
-        
-        const queryNewBancocoAccount = 
-          "INSERT INTO ";
-
-        const queryNewAccount;
-        
-
+      }else{               
         var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
         bdApi.query(queryStr,(result)=>
         {
-          /*
-          MODELO QUE ARROJA result CON querys tipo inserts
-            { fieldCount: 0,
-            affectedRows: 1,
-            insertId: 14,
-            info: '',
-            serverStatus: 2,
-            warningStatus: 0 }
-            */
-
-           //After inserting user, create banks accounts
           responseModel.asignedToken = result.insertId;
-          responseModel.msg = "¡usuario registrado con exito!"        
-          resolve(responseModel);
+          responseModel.msg = "¡usuario registrado con exito!" 
+
+          const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
+          bdApi.query(queryNewBancocoAccount,()=>{
+
+            const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
+
+            bdApi.query(queryGetAmountOfAccounts,(resGetAmountOfAccounts)=>{
+              var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
+              const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
+              bdApi.query(queryNewAccount,()=>{                     
+                resolve(responseModel);
+              });
+            })            
+          });                    
         });
       }
     } catch (error) {
@@ -126,3 +121,13 @@ function getUser(id)
 
 module.exports.logIn = logIn;
 module.exports.createUser =createUser;
+
+ /*
+          MODELO QUE ARROJA result CON querys tipo inserts
+            { fieldCount: 0,
+            affectedRows: 1,
+            insertId: 14,
+            info: '',
+            serverStatus: 2,
+            warningStatus: 0 }
+            */
