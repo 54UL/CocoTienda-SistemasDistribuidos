@@ -14,6 +14,9 @@ mysql.config()
 mysql.connect()
 
 
+const colorCodes = require("./colorCodes");
+const colors = colorCodes.colors;
+
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -24,7 +27,7 @@ app.use(function (req, res, next) {
 
 app.get("/db/connect",(req,res) =>
 {
-    console.log("connecting to the db");
+    console.log(colors.green + "[BD]" + colors.yellow + "->" + colors.green + "connecting to the db");
     mysql.connect()
    
 });
@@ -44,8 +47,8 @@ app.use(bodyParser.json());
 app.post("/db/fetch/",(req,res) =>
 {
    var query = req.body.query;
-   console.debug(query);
-   console.log("incoming QUERY: "+query);
+   //console.debug(query);
+   console.log(colors.green + "[BD]" + colors.yellow + "->" + colors.green + " incoming QUERY: "+colors.magenta + query);
    var asyncRes = mysql.query(query);
    asyncRes.then((result)=>
    {
@@ -56,5 +59,5 @@ app.post("/db/fetch/",(req,res) =>
 
 app.listen(3001,()=>
 {
-console.log("DATA BASE SERVER MANAGER(node js:mySql) ON 3001");
+console.log(colors.blue + "DATA BASE SERVER MANAGER(node js:mySql) ON 3001");
 })

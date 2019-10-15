@@ -9,10 +9,6 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 //Members of user sys
 var MAX_ELEMENTS=400;
 
-var colorCodes = require("./colorCodes");
-var colors = colorCodes.colors;
-
-
 //arguments -> trivial, returns an auth token ( used by everything)
 function logIn (user,pass,callback)
 {
@@ -25,6 +21,7 @@ function logIn (user,pass,callback)
     var asignedToken=0;
     var firstOf  =result[0];
     var userType = 1;
+
     if(firstOf==undefined)
     {
       message = "usuario o clave incorrectos";
@@ -55,7 +52,6 @@ async function createUser(NewUserModel){
       var errorString ="";
       var hasOcurredAnError=false;
 
-      //Form validation, i think front should validate this data, not us
       if(NewUserModel.usr==="")
       {
         errorString+="No se permite usuario vacio;";
@@ -122,12 +118,4 @@ function getUser(id)
 module.exports.logIn = logIn;
 module.exports.createUser =createUser;
 
- /*
-          MODELO QUE ARROJA result CON querys tipo inserts
-            { fieldCount: 0,
-            affectedRows: 1,
-            insertId: 14,
-            info: '',
-            serverStatus: 2,
-            warningStatus: 0 }
-            */
+ 
