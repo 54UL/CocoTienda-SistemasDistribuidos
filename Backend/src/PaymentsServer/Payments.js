@@ -33,15 +33,11 @@ function authTransaction(orgTkn,dest,amount)
 
             if(currencyOrg.status == "ok"){
                 console.log("Server: "+JSON.stringify(currencyOrg));
-
                 if(currencyOrg.founds>0 && currencyOrg.founds>=amount)
                 {
                     //Quitamos dinero
-
                     //Todo: verify if dest user exits before making 
-
-
-                    var currentCurrencyOrg = currencyOrg.founds -amount;
+                    var currentCurrencyOrg = Number(currencyOrg.founds) -Number(amount);
                     //We substract amout of the product
                     await setFounds(orgTkn,Number(currentCurrencyOrg));
                     console.log("It works til here");
@@ -50,18 +46,20 @@ function authTransaction(orgTkn,dest,amount)
                     var currencyDest = await getFounds(dest);
 
                     if(currencyOrg.status == "ok"){
-                        var currentCurrencyDest = Number(currencyDest)+Number(amount);
+                        var currentCurrencyDest = Number(currencyDest.founds)+Number(amount);
+                        console.log("puto chon");
+                        console.log(currentCurrencyDest);
                         await setFounds(dest,currentCurrencyDest);
     
                         resultModel.transaction =1;
                         resultModel.msg="Transaccion realizada con exito";
+                        resolve(resultModel);
                     }else{
-                        resultModel.transaction =1;
+                        resultModel.transaction =0;
                         resultModel.msg=currencyDest.errorMessage;
+                        resolve(resultModel);
                         console.log("ServerPayments: "+ currencyOrg.errorMessage);
-                    }
-
-                   
+                    }                   
                 }
                 else
                 {
@@ -141,8 +139,12 @@ function setFounds(tkn,amount)
         try {
             mysql.query("SELECT * from cuentas where ID_UsuarioGift="+tkn,(result)=>
             {
+                console.debug(amount);
+                console.log(amount);
+
                 if(result != null){
                     mysql.query("UPDATE cocobanco SET Saldo="+Number(amount)+" where ID_Cuenta ="+result[0].ID_Cuenta,(upRes)=>{
+                        
                         resolve();
                     });
                 }else{

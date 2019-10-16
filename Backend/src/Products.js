@@ -33,44 +33,51 @@ function retriveProducts(cat,cb)
 
 const DEFAULT_SHOP_BANK_ACCOUNT=2;
 
-function buyProduct(product,usrToken,callback)
+async function buyProduct(product,usrToken)
 {
-      var resultModel =  {compra:0,msg :"compra fallida;"};
-      var getPriceQuery= "SELECT * FROM producto where id_producto ="+product;
-      bdApi.query(getPriceQuery,(products)=>
+      try {
+      return new Promise((resolve,reject)=>
       {
-            
-            var product = products[0];
-            if(product == undefined)
+
+            var resultModel =  {compra:0,msg :"compra fallida;"};
+            var getPriceQuery= "SELECT * FROM producto where id_producto ="+product;
+            bdApi.query(getPriceQuery,async (products)=>
             {
-                  callback(resultModel);
-                  return;
-            }
-            console.debug(product);
-            paymentsApi.authTransaction(usrToken,DEFAULT_SHOP_BANK_ACCOUNT,
-                                        product.precio_unitario,
-                                        (transactionRes)=>
-            {
-                  if(transactionRes.transaction==1)
-                  {
-                  var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0,"+usrToken+","+product.id_producto+")";
-                  bdApi.query(insertBuyQuery,(insertRes)=>
-                  {
-                    resultModel.compra = insertRes.insertId;
-                    resultModel.msg = "compra exitosa !";
-                    console.log("succesful buy!");
-                    callback(resultModel);
-                  });
                   
-                  }
-                  else
+                  var product = products[0];
+                  if(product == undefined)
                   {
-                  resultModel.compra =0;
-                  resultModel.msg = transactionRes.msg;
-                  callback(resultModel);
-                  }    
-            })
-      });
+                        resolve(resultModel);
+                  }
+                  console.debug(product);
+                  
+                  var transactionRes = await paymentsApi.authTransaction(usrToken,DEFAULT_SHOP_BANK_ACCOUNT,product.precio_unitario);
+                  
+                  
+                  if(transactionRes.transaction==1){
+                        var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0,"+usrToken+","+product.id_producto+")";
+                        bdApi.query(insertBuyQuery,(insertRes)=>
+                        {
+                              resultModel.compra = insertRes.insertId;
+                              resultModel.msg = "compra exitosa !";
+                              console.log("succesful buy!");
+                              resolve(resultModel);
+                        });
+                        
+                  }  
+                  else{
+                        resultModel.compra =0;
+                        resultModel.msg = transactionRes.msg;
+                        resolve(resultModel);
+                  }                    
+            })                        
+
+      })
+           
+      } catch (error) {
+            console.log(error);
+      }
+      
 }
 
 
