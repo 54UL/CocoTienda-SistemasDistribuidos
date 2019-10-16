@@ -133,8 +133,28 @@
 		<div class="contenedor-formulario">
 			<div class="formulario-ingreso">
 				<form>
-					
-					<!-- Subir imagen -->
+					<span class="titulo-ingreso">
+						Agregar Producto
+					</span>
+					<center>
+						<div class="campo-texto" data-validate = "Categorias"><span></span>
+						  <select name="select" class="input-select">
+							<option value="0">Categorías</option>
+							<option value="1">Tazas</option>
+							<option value="1">Camisas</option>
+							<option value="1">Llaveros</option>
+							<option value="1">Cachuchas</option>
+						  </select>
+						</div>
+					</center>
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre del producto" id="inNombreP">
+						<span></span>
+					</div>
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input class="input-ingreso" type="text" name="usuario" placeholder="Precio" id="inPrecioP">
+						<span></span>
+					</div>
 					
 					<div class="imagen-usuario">
 						<img src="img/imagen.png" alt="AVATAR">
@@ -142,46 +162,23 @@
 					
 					<div>
 					<center>
-					<input id="btnimagen" type="file"
-						   accept=".jpeg" required>
+					<input id="inImagen" type="file"
+						   accept=".png" required>
 					</center>
 					</div>
 					
 					
 
-					<span class="titulo-ingreso">
-						Agregar Producto
-				  </span>
-					<!-- AdminUser -->
-
-					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre del producto">
-						<span></span>
-					</div>
-					<!-- AdminUser -->
-					<center>
-					<div class="campo-texto" data-validate = "Categorias"><span></span>
-					  <select name="select" class="input-select">
-					    <option value="0">Categorías</option>
-					    <option value="1">Tazas</option>
-					    <option value="1">Camisas</option>
-					    <option value="1">Llaveros</option>
-					    <option value="1">Cachuchas</option>
-				      </select>
-					</div>
-					</center>
-					<!-- AdminUser -->
+				
 					
-					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Precio">
-						<span></span>
-					</div>
+					
+					
 				
 
 				  <div>
-						<button class="boton-ingresar">
+						<button class="boton-ingresar" id="btnInsertar">
 							Agregar
-					</button>
+						</button>
 					</div>
 
 				</form>
@@ -228,6 +225,8 @@
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/inventario.js"></script>
+
 
 	</body>
 </html>
