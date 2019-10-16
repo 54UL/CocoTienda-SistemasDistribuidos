@@ -133,6 +133,7 @@ function usuarioComponent(ModeloUsuario) {
         "<th scope='col'>Editar</th>" +
         "<th scope='col'>Eliminar</th>" +
         "</tr>" +
+        "</thead>" +
         "<tbody>" +
         "<tr>" +
         "<td scope='col'>" + ModeloUsuario.id_Usuario + "</td>" +
@@ -140,30 +141,9 @@ function usuarioComponent(ModeloUsuario) {
         "<td scope='col'><form><input type='submit' value='Editar'style='width:50%'></form></td>" +
         "<td scope='col'><form><input type='submit' value='Eliminar'style='width:50%'></form></td>" +
         "</tr>" +
-
-
-
-
-        // "<th scope='col'>" + ModeloUsuario.nombre + "</th>"+
-
-
-
-
-        "<div class='product-body' >" +
-        "<p class='product-category'>SHIT</p>" +
-        "<h3 class='product-name' id=" + ModeloUsuario.id_Usuario + "><a href='#'>" + ModeloUsuario.nombre + "</a></h3>" +
-        "<h4 class='product-price'>" + ModeloUsuario.precio_unitario + "</h4>" +
-        "<div class='product-btns'>" +
-        "<button class='add-to-wishlist' ><i class='fa fa-heart-o'></i></button>" +
-        "<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>" +
-        "<button class='tarjeta' id=" + ModeloUsuario.id_Usuario + "><i class='fa fa-credit-card custom'></i></button>" +
+        "</tbody>" +
+        "</table>" +
         "</div>" +
         "</div>" +
-        "</div>" +
-        "</div>" +
-        "<div class='clearfix visible-sm visible-xs'>" +
         "</div>"
-
-
-
 }
