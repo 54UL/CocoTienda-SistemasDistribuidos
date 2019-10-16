@@ -1,11 +1,10 @@
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Ariel, ariel@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Alex, alex@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Joel, joel@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Jorge, jorge@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Tano, tano@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Carlos, carlos@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (David, david@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Jose, jose@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Esteban, esteban@gmail.mx, 1234);
-INSERT INTO Usuario (Nombre, Correo, Contraseña) VALUES (Natalia, natalia@gmail.mx, 1234);
-
+INSERT INTO usuario VALUES (0,2,"Ariel", "ariel@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,2,"Alex", "alex@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,2,"Joel", "joel@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,2,"Jorge", "jorge@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,3,"Tano", "tano@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,3,"Carlos", "carlos@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,3,"David", "david@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,4,"Jose", "jose@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,4,"Esteban", "esteban@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,4,"Natalia", "natalia@gmail.mx", "1234");

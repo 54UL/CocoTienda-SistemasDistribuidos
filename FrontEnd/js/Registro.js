@@ -1,45 +1,59 @@
-document.getElementById("btnRegistrar").addEventListener("click", registrar);
+//import {endpoint} from './Globales.js';
 
+
+document.getElementById("btnRegistrar").addEventListener("click", registrar);
+// seleccionar producto (obtener el product id)
+//
+
+module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
 var correoUsuario;
 var contraUsuario;
 var otraContraUsuario;
 
-function registrar(event){
+function registrar(event)
+{
     event.preventDefault();
-    //alert("Ajua");
+   //alert("Ajua");
 
     nombreUsuario = $('#nombreUsuario').val();
     correoUsuario = $('#correoUsuario').val();
     contraUsuario = $('#contraUsuario').val();
     otraContraUsuario = $('#otraContraUsuario').val();
+    
 
-    if(!nombreUsuario.equals("") || !correoUsuario.equals("") || !contraUsuario.equals("") || !otraContraUsuario.equals("")){
-        if(contraUsuario.equals(otraContraUsuario)){
-            register();
-        }
-        else{
-            alert("Verifique su contraseña.");
-        }
-    }
+    
+    console.debug(otraContraUsuario);
+   
+    register(nombreUsuario,correoUsuario,contraUsuario);
+         
 }
 
-function register(){
+function register(usuario,correo,pass){
     var xhr = new XMLHttpRequest();
-
-    xhr.open("GET", "http://localhost:3000/Users/Register/"+nombreUsuario+"/"+correoUsuario+"/"+contraUsuario);
-    xhr.send();
+    
+    xhr.open("POST", endpoint("/Users/Register/"));
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.send(JSON.stringify({
+        usr:usuario,
+        email:correo,
+        pass:pass
+       }));
+    
+  
     xhr.onreadystatechange = function(event){
         event.preventDefault();
         if(this.readyState == 4 && this.status == 200){
 
             var response = JSON.parse(xhr.responseText);
-            if(response.status == "OK"){
-                alert("Bienveid@ " + nombreUsuario + ".");
+            console.debug(response);
+            if(response.asignedToken !== 0 ){
+                alert(response.msg+". Bienveid@ " + usuario + ".");
             }
             else{
-                alert(nombreUsuario + " no existe, verifique los campos.");
-                alert(response.message);
+                
+                alert("Error:"+response.msg);
             }
 
             /*

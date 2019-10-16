@@ -37,3 +37,11 @@ INSERT INTO Usuario VALUES (0,"David", "david@gmail.mx", "1234");
 INSERT INTO Usuario VALUES (0,"Jose", "jose@gmail.mx", "1234");
 INSERT INTO Usuario VALUES (0,"Esteban", "esteban@gmail.mx", "1234");
 INSERT INTO Usuario VALUES (0,"Natalia", "natalia@gmail.mx", "1234");
+
+
+delete from cuentas where id_cuentas > 0;
+delete from cocobanco where id_cuenta >0;
+
+alter table cuentas auto_increment = 1;
+alter table cocobanco auto_increment = 1;
+
