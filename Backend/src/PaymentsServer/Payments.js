@@ -24,50 +24,70 @@ realizar transaccion , update a la fila de la cuenta A en el campo de dinero - c
 update al campo dinero de la Cuenta B  la suma de su dinero actual + el que se le quito al usuario
 */
 //orgTkn: origin, user, dest: destionation
-function authTransaction(orgTkn,dest,amount,callback)
+function authTransaction(orgTkn,dest,amount)
 {
-   
-    var resultModel =  {transaction:1,msg :""};
-    getFounds(orgTkn,(currencyOrg)=>
-    {
-        if(currencyOrg>0 && currencyOrg>=amount)
-        {
-            //Quitamos dinero
-            var currentCurrencyOrg = currencyOrg -amount;
-            setFounds(orgTkn,currentCurrencyOrg);
+    return new Promise(async (resolve,reject)=>{
+        try {
+            var resultModel =  {transaction:1,msg :""};
+            var currencyOrg = await getFounds(orgTkn,(=>{
 
-            //Obtenemos el dinero de la cuenta destinataria y luego se le sumara el amount
-            getFounds(dest,(currencyDest)=>
-            {
-                var currentCurrencyDest = Number(currencyDest)+Number(amount);
-                setFounds(dest,currentCurrencyDest);
-
-                resultModel.transaction =1;
-                resultModel.msg="Transaccion realizada con exito";
-                callback(resultModel)
+                if(currencyOrg>0 && currencyOrg>=amount)
+                {
+                    //Quitamos dinero
+                    var currentCurrencyOrg = currencyOrg -amount;
+                    setFounds(orgTkn,currentCurrencyOrg);
+    
+                    //Obtenemos el dinero de la cuenta destinataria y luego se le sumara el amount
+                    getFounds(dest,(currencyDest)=>
+                    {
+                        var currentCurrencyDest = Number(currencyDest)+Number(amount);
+                        setFounds(dest,currentCurrencyDest);
+    
+                        resultModel.transaction =1;
+                        resultModel.msg="Transaccion realizada con exito";
+                        callback(resultModel)
+                    })
+                }
+                else
+                {
+                    resultModel.transaction =0;
+                    resultModel.msg="nel, no tienes feria";
+                    callback(resultModel)
+                }
             })
-        }
-        else
-        {
-            resultModel.transaction =0;
-            resultModel.msg="nel, no tienes feria";
-            callback(resultModel)
+        } catch (error) {
+            
         }
     })
+    
+    
 }
 
 //usr: nombre de usuario
 //returns: el dinero que tiene
-function getFounds(usr,callback)
-{
-    mysql.query("SELECT * from cuentas where ID_UsuarioGift="+usr,(result)=>
-    {
-        mysql.query("SELECT * from cocobanco where ID_Cuenta="+result[0].ID_Cuenta,
-        (cocoBancoResult)=>
-        {
-            callback(Number (cocoBancoResult[0].Saldo));
-        })   
+function getFounds(usr){
+
+    return new Promise((resolve,reject)=>{
+        mysql.query("SELECT * from cuentas where ID_UsuarioGift="+usr, (result)=>{  
+            var firstOf = result[0];
+            if(firstOf == undefined || firstOf == null){
+                reject({errorCode: 1,errorMessage: "User not found"})
+            }
+            else{
+                mysql.query("SELECT * from cocobanco where ID_Cuenta="+firstOf[0].ID_Cuenta,(cocoBancoResult)=>{
+
+                    if(cocoBancoResult == null || cocoBancoResult == undefined){
+                        reject({errorCode: 1,errorMessage: "CocoBancoAccount not found"})
+                    }else{
+                        resolve(Number(cocoBancoResult[0].Saldo));
+                    }
+
+                }) 
+            }
+            
+        })
     })
+    
 }
 
 //tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad
