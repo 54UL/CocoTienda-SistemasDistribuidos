@@ -31,7 +31,7 @@ function retriveProducts(cat,cb)
 //Mostrara error
 
 
-const DEFAULT_SHOP_BANK_ACCOUNT=22;
+const DEFAULT_SHOP_BANK_ACCOUNT=2;
 
 function buyProduct(product,usrToken,callback)
 {
