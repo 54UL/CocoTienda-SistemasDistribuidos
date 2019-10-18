@@ -6,7 +6,7 @@ function productoComponent(ModeloProducto)
 	return  "<div id="+ModeloProducto.id_producto+" class='col-md-3 col-xs-6'>" +
 				"<div class='product' id=" + ModeloProducto.id_producto+">"+
 					"<div class='product-img'>"+
-						"<img src='img/Llaveros/Lguitarra.jpg' alt=''>"+
+						"<img style='width: 250px; height: 250px' src='"+ModeloProducto.imagen+"' alt=''>"+
 					"</div>"+
 				"<div class='product-body' >"+
 					"<p class='product-category'>SHIT</p>"+
