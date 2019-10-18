@@ -19,7 +19,7 @@ function init()
       mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
           this.apiName = "lowlevel",
           this.bdenpoint = "",
-          this.user = "",
+          this.user = "root",
           this.pass = "",
           this.query = bdQueryl,
           this.config = bdConfigureParametersl,

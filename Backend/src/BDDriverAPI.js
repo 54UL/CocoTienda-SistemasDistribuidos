@@ -11,9 +11,9 @@ function init()
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
         mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName =   "highlevel",
-        this.bdenpoint = "localhost",
-        this.user =      "root",
-        this.pass =      "",
+        this.bdenpoint = "192.168.1.116",
+        this.user =      "distribuidos",
+        this.pass =      " ",
         this.query =  bdQueryH,
         this.config = bdConfigureParametersH,
         this.connect = bdConnectH
