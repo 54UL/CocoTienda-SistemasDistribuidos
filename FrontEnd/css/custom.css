@@ -782,7 +782,7 @@ a:hover, a:focus {
 }
 
 .sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
-  color: var(--vanilla-y);
+  color: #F3753A;
 }
 
 .sidebar.toggled {
