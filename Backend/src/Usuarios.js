@@ -17,49 +17,38 @@ function logIn (user,pass)
       var queryStr =  "SELECT * from Usuario where correo ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
 
       bdApi.query(queryStr,async (result)=>{
-        console.debug(result)
         var message ="bienvenido =)";
         var asignedToken=0;
         var firstOf  =result[0];
         var userType = 1;
         console.log(JSON.stringify(firstOf));
 
-
         if(firstOf==undefined){
           message = "usuario o clave incorrectos";
           resolve({asignedToken,message});
         }
 
-        else{
-          if(user === firstOf.correo){
-            if(pass === firstOf.contrasenia){
+        else{                        
+          const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstOf.id_usuario;
 
+          bdApi.query(queryCheckIfUserHasAnOpenedSession,(resultQueryCheckSesion)=>{
+            var firstOfCheck = resultQueryCheckSesion[0];
+            if(firstOfCheck == null || firstOfCheck == undefined || firstOfCheck == ""){
+              const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstOf.id_usuario+"')";
+              
               asignedToken = firstOf.id_usuario;
               userType     = firstOf.id_tipousuario;  
 
-              const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstOf.id_usuario;
-
-              bdApi.query(queryCheckIfUserHasAnOpenedSession,(resultQueryCheckSesion)=>{
-                if(resultQueryCheckSesion == null || resultQueryCheckSesion == undefined || resultQueryCheckSesion == ""){
-                  const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstOf.id_usuario+"')";
-
-                  bdApi.query(queryCreateNewSession,()=>{
-                    
-                    resolve({asignedToken,message,userType});
-                  })
-                  
-                }else{                  
-                  message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
-                  resolve({asignedToken,message,userType});
-                }
-              })            
-            }
-            else{
-              message = "Clave incrrecta";
+              bdApi.query(queryCreateNewSession,()=>{               
+                resolve({asignedToken,message,userType});
+              })              
+            }else{                  
+              message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
+              asignedToken = 0;
               resolve({asignedToken,message,userType});
             }
-          }
-        }                      
+          })            
+        }                               
       });
     } 
     catch (error) {

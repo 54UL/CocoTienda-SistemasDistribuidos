@@ -1,6 +1,6 @@
 ﻿# SCRIPT BASE DE DATOS DE GIFTSTORE
 
-# Ultima actualizacion: 18/10/19
+# Ultima actualizacion: 19/10/19
 
 DROP DATABASE giftstoreDB;
 
@@ -56,11 +56,19 @@ CREATE TABLE Cuentas
 	ID_UsuarioGift int
 );
 
+CREATE TABLE Sesion
+(
+	ID_Sesion int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	ID_Usuario int
+);
+
+
 ALTER TABLE usuario ADD FOREIGN KEY (id_tipousuario) REFERENCES tipo_usuario(id_tipousuario);
 ALTER TABLE compra ADD FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
 ALTER TABLE compra ADD FOREIGN KEY (id_producto) REFERENCES Producto(id_producto);
 ALTER TABLE producto ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
 ALTER TABLE Cuentas ADD FOREIGN KEY(ID_UsuarioGift) REFERENCES Usuario(ID_usuario);
+ALTER TABLE Sesion ADD FOREIGN KEY(ID_Usuario) REFERENCES Usuario(ID_usuario);
 
 INSERT INTO categoria VALUES (0,"Cachucha");
 INSERT INTO categoria VALUES (0,"Camisa");
