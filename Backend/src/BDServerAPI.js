@@ -36,17 +36,16 @@ function init()
 //SQL IMPLEMENTATION
 var sql_connection;
 
-async function bdQueryl(query)
+function bdQueryl(query)
 { 
-   return new Promise((resolve, reject)=>{
-      try {
-         let [rows, fields] = await sql_connection.execute(query);
-         resolve (rows);      
-      } catch (error) {
-         console.errorx(new Error(colors.yellow+ "BDServerApi -> "+colors.red + error));
-         reject(error);
-      }
-   })
+   try {
+      let [rows, fields] = await sql_connection.execute(query);
+      resolve (rows);      
+   } catch (error) {
+      console.errorx(new Error(colors.yellow+ "BDServerApi -> "+colors.red + error));
+      reject(error);
+   }
+   
 }
 
 function bdConnectl()

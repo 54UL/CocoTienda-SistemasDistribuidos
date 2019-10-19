@@ -10,14 +10,13 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 var MAX_ELEMENTS=400;
 
 //arguments -> trivial, returns an auth token ( used by everything)
-async function logIn (user,pass)
+function logIn (user,pass)
 {
   return new Promise((resolve,reject)=>{
     try {
       var queryStr =  "SELECT * from Usuario where correo ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
-      
-      
-      await bdApi.query(queryStr,async (result)=>{
+
+      bdApi.query(queryStr,async (result)=>{
         console.debug(result)
         var message ="bienvenido =)";
         var asignedToken=0;
@@ -33,34 +32,36 @@ async function logIn (user,pass)
 
         else{
           if(user === firstOf.correo){
-            if(pass === firstOf.contrasenia){    
-              console.log("holaaaaa");      
+            if(pass === firstOf.contrasenia){
+
+              asignedToken = firstOf.id_usuario;
+              userType     = firstOf.id_tipousuario;  
+
               const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstOf.id_usuario;
+
               bdApi.query(queryCheckIfUserHasAnOpenedSession,(resultQueryCheckSesion)=>{
-                if(resultQueryCheckSesion == null || resultQueryCheckSesion == undefined){
+                if(resultQueryCheckSesion == null || resultQueryCheckSesion == undefined || resultQueryCheckSesion == ""){
                   const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstOf.id_usuario+"')";
 
                   bdApi.query(queryCreateNewSession,()=>{
-                    asignedToken = firstOf.id_usuario;
-                    userType     = firstOf.id_tipousuario;
+                    
+                    resolve({asignedToken,message,userType});
                   })
-                  console.log("")
-                }else{
-                  asignedToken = 0;
+                  
+                }else{                  
                   message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
+                  resolve({asignedToken,message,userType});
                 }
               })            
             }
-            else
-              message = "clave incorrecta";
+            else{
+              message = "Clave incrrecta";
+              resolve({asignedToken,message,userType});
+            }
           }
-        }
-      
-        
-        var model = {asignedToken,message,userType}
-        resolve(model);
-        });
-      } 
+        }                      
+      });
+    } 
     catch (error) {
       reject(error);
     }
