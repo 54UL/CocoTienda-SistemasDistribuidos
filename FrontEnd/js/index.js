@@ -23,6 +23,35 @@ function productoComponent(ModeloProducto) {
         "</div>"
 }
 
+function usuarioComponent(ModeloUsuario) {
+    return "<div id=" + ModeloUsuario.id_ModeloUsuario + " class='col-md-3 col-xs-6'>" +
+        "<div class='product' id=" + ModeloUsuario.id_Usuario + ">" +
+        "</div>" +
+        "<table class='table'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th scope='col'>Id</th>" +
+        "<th scope='col'>Nombre</th>" +
+        "<th scope='col'>Editar</th>" +
+        "<th scope='col'>Eliminar</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>" +
+        "<tr>" +
+        "<td scope='col'>" + ModeloUsuario.id_Usuario + "</td>" +
+        "<td scope='col'>" + ModeloUsuario.nombre + "</td>" +
+        "<td scope='col'><form><input type='submit' value='Editar'style='width:50%'></form></td>" +
+        "<td scope='col'><form><input type='submit' value='Eliminar'style='width:50%'></form></td>" +
+        "</tr>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+}
+
+
+
 /*$('#'+lol.id_producto).find('h3').click( function(){
 	var id = $(this).attr('id');
 	if(id!=null && id!= undefined) console.log(id);
@@ -34,7 +63,6 @@ function productoComponent(ModeloProducto) {
 
 function comprar(token, productoID, callback) {
     var xhr = new XMLHttpRequest();
-
     xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
     xhr.send();
     xhr.onreadystatechange = function() {
@@ -45,9 +73,31 @@ function comprar(token, productoID, callback) {
     }
 }
 $("#tazas").click(function() {
-
     loadProducts(4)
 })
+
+
+
+function loadUSuarios() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/ProductSelling/retrive/" + category));
+    xhr.send();
+    $("#containerUsuarios").html("<h1>CARGANDO...</h1>");
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $("#containerUsuarios").html("");
+            var jsonUsuarios = JSON.parse(this.responseText);
+            //console.log('hola', jsonUsuarios);
+            //console.log("numero aleatorio" +this.getResponseHeader("holaxd"));\
+
+            for (var i = 0; i < jsonUsuarios.Usuarios.length; i++) {
+                var actualModel = jsonUsuarios.Usuarios[i];
+                $("#containerUsuarios").append(usuarioComponent(actualModel));
+
+            }
+        }
+    }
+}
 
 
 
@@ -119,31 +169,3 @@ $("#cachuchas").click(function() {
 
     loadProducts(1);
 })
-
-
-function usuarioComponent(ModeloUsuario) {
-    return "<div id=" + ModeloUsuario.id_ModeloUsuario + " class='col-md-3 col-xs-6'>" +
-        "<div class='product' id=" + ModeloUsuario.id_Usuario + ">" +
-        "</div>" +
-        "<table class='table'>" +
-        "<thead>" +
-        "<tr>" +
-        "<th scope='col'>Id</th>" +
-        "<th scope='col'>Nombre</th>" +
-        "<th scope='col'>Editar</th>" +
-        "<th scope='col'>Eliminar</th>" +
-        "</tr>" +
-        "</thead>" +
-        "<tbody>" +
-        "<tr>" +
-        "<td scope='col'>" + ModeloUsuario.id_Usuario + "</td>" +
-        "<td scope='col'>" + ModeloUsuario.nombre + "</td>" +
-        "<td scope='col'><form><input type='submit' value='Editar'style='width:50%'></form></td>" +
-        "<td scope='col'><form><input type='submit' value='Eliminar'style='width:50%'></form></td>" +
-        "</tr>" +
-        "</tbody>" +
-        "</table>" +
-        "</div>" +
-        "</div>" +
-        "</div>"
-}
