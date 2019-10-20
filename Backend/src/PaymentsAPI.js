@@ -19,36 +19,39 @@ function requestTransaction(orgTkn,amount)
 }
 
 //orgTkn: origin user, dest: destionation
-function authTransaction(orgTkn,dest,amount,Callback)
+async function authTransaction(orgTkn,dest,amount)
 {
-  var recivedData ='';
-  var requestPath = "/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
- 
-  const options = {
-    hostname: 'localhost',
-    port: 3007,
-    path: requestPath,
-    method: 'GET',
-  }
-
-  const req = http.request(options, res => {
-    
-    res.on('data', d => {
-        recivedData += d;
-        
-       
-    }).on('end',()=>
-    {
-      console.debug(recivedData)
-      Callback(JSON.parse(recivedData));
-    });
+  return new Promise((resolve,reject)=>{
+    var recivedData ='';
+    var requestPath = "/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
+   
+    const options = {
+      hostname: 'localhost',
+      port: 3007,
+      path: requestPath,
+      method: 'GET',
+    }
+  
+    const req = http.request(options, res => {
+      
+      res.on('data', d => {
+          recivedData += d;
+          
+         
+      }).on('end',()=>
+      {
+        console.debug(recivedData)
+        resolve(JSON.parse(recivedData));
+      });
+    })
+  
+    req.on('error', error => {
+    console.error("error!!  "+error)
+    reject(error)
+    })
+  
+  req.end()
   })
-
-  req.on('error', error => {
-  console.error("error!!  "+error)
-  })
-
-req.end()
 }
 
 

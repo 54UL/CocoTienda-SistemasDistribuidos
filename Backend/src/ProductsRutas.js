@@ -27,17 +27,15 @@ productsRouter.get('/retrive/:category', function (req, res)
 // });
 
 productsRouter.route('/buy/:productid/:token')
-   .get(function(req,res,next)
+   .get(async(req,res,next)=>
    {
-      var productid = req.params.productid;
-      var token = req.params.token;
-
-      productsApi.buyProduct(productid,token,(buyInfo)=>
-      {
-         console.debug(buyInfo);
-         res.json(buyInfo);    
-      });
-      
-    
+     var productid = req.params.productid;
+     var token = req.params.token;
+     try {
+      var response = await productsApi.buyProduct(productid,token)
+      res.json(response);  
+     } catch (error) {
+      console.log(new Error(colors.red + "[ProductosRutas]-> "+ colors.white + error));
+     }
    })
 module.exports.productsRouter = productsRouter;

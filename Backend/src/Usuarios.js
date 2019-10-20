@@ -14,7 +14,7 @@ function logIn (user,pass)
 {
   return new Promise((resolve,reject)=>{
     try {
-      var queryStr =  "SELECT * from Usuario where nombre ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
+      var queryStr =  "SELECT * from Usuario where correo ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
   
     bdApi.query(queryStr,(result)=>{
       console.debug(result)
@@ -29,7 +29,7 @@ function logIn (user,pass)
       }
 
       else{
-        if(user === firstOf.nombre){
+        if(user === firstOf.correo){
           if(pass === firstOf.contrasenia){
             asignedToken = firstOf.id_usuario;
             userType     = firstOf.id_tipousuario;
