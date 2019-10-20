@@ -10,56 +10,66 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 var MAX_ELEMENTS=400;
 
 //arguments -> trivial, returns an auth token ( used by everything)
-function logIn (user,pass)
+ function logIn (user,pass)
 {
-  return new Promise((resolve,reject)=>{
+  return new Promise(async (resolve,reject)=>{
     try {
-      var queryStr =  "SELECT * from Usuario where correo ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
-  
-    bdApi.query(queryStr,(result)=>{
-      console.debug(result)
+      //json model (convertir)
       var message ="bienvenido =)";
       var asignedToken=0;
-      var firstOf  =result[0];
       var userType = 1;
-      console.log(JSON.stringify(firstOf));
-      if(firstOf==undefined){
+      var usuarioLoginQryResult;
+      
+      
+      try {
+        const usuarioLoginQry =  "SELECT * from Usuario where correo ='"+user+"'"+" AND "+"contrasenia ='"+pass+"'";
+        usuarioLoginQryResult  = await bdApi.query(usuarioLoginQry);
+      } catch (error) {
+        reject(error);
+      }
+      
+
+      var firstUserOf  =usuarioLoginQryResult[0];
+      console.log(JSON.stringify(firstUserOf));
+
+      if(firstUserOf==undefined)
+      {
         message = "usuario o clave incorrectos";
         resolve({asignedToken,message});
       }
+      else
+      {     
+        const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstUserOf.id_usuario;
+        resultQueryCheckSesion = await  bdApi.query(queryCheckIfUserHasAnOpenedSession);
 
-      else{
-        if(user === firstOf.correo){
-          if(pass === firstOf.contrasenia){
-            asignedToken = firstOf.id_usuario;
-            userType     = firstOf.id_tipousuario;
-          }
-          else
-            message = "clave incorrecta";
+        var firstOfCheck = resultQueryCheckSesion[0];
+        if(firstOfCheck == null || firstOfCheck == undefined || firstOfCheck == "")
+        {
+          const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstUserOf.id_usuario+"')";
+          asignedToken = firstUserOf.id_usuario;
+          userType     = firstUserOf.id_tipousuario;  
+          await bdApi.query(queryCreateNewSession)
+          resolve({asignedToken,message,userType})           
         }
-      }
-    
-      
-      var model = {asignedToken,message,userType}
-      resolve(model);
-      });
+        else
+        {                  
+          message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
+          asignedToken = 0;
+          resolve({asignedToken,message,userType});
+        }       
+      }                               
     } 
     catch (error) {
       reject(error);
     }
-    
   })
-  
 }
-
-async function createUser(NewUserModel){
-
-  return new Promise((resolve, reject)=>{
-    try {
-      var responseModel = {asignedToken:0,msg:"text"}
+//funcion de validacion para los criterios de crear un usuario
+function validationPipe(NewUserModel)
+{
+      var responseModel = {asignedToken:0,msg:""}
       var errorString ="";
       var hasOcurredAnError=false;
-
       if(NewUserModel.usr==="")
       {
         errorString+="No se permite usuario vacio;";
@@ -82,28 +92,39 @@ async function createUser(NewUserModel){
       {
         responseModel.asignedToken = 0;
         responseModel.msg = errorString;
-        resolve(responseModel);
-      }else{               
-        var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-        bdApi.query(queryStr,(result)=>
-        {
-          responseModel.asignedToken = result.insertId;
-          responseModel.msg = "¡usuario registrado con exito!" 
+      }
+     return responseModel;
+}
 
-          const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
-          bdApi.query(queryNewBancocoAccount,()=>{
+ function createUser(NewUserModel){
 
-            const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
+  return new Promise(async(resolve, reject)=>{
+    try 
+    {
+      var responseModel = {asignedToken:0,msg:"text"}
+     
 
-            bdApi.query(queryGetAmountOfAccounts,(resGetAmountOfAccounts)=>{
-              var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
-              const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
-              bdApi.query(queryNewAccount,()=>{                     
-                resolve(responseModel);
-              });
-            })            
-          });                    
-        });
+      const error =validationPipe(NewUserModel);
+
+      if(error.msg !="")
+      resolve(error);
+      else 
+      {               
+      var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
+      var result =   bdApi.query(queryStr);
+          
+       
+      responseModel.asignedToken = result.insertId;
+      responseModel.msg = "¡usuario registrado con exito!" 
+      const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
+      await bdApi.query(queryNewBancocoAccount);
+      const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
+      resGetAmountOfAccounts = await  bdApi.query(queryGetAmountOfAccounts)
+
+      var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
+      const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
+      await  bdApi.query(queryNewAccount)              
+      resolve(responseModel); 
       }
     } catch (error) {
       reject(error);

@@ -10,8 +10,8 @@ bdApi.init();
 
 //La implementacion de low level es de mysql
 var mysql= mwApi.globalApiManager.getApi("lowlevel");
-mysql.config()
-mysql.connect()
+ mysql.config()
+ mysql.connect()
 
 
 const colorCodes = require("./colorCodes");
@@ -44,17 +44,22 @@ app.get("/db/config",(req,res) =>
 });
 
 app.use(bodyParser.json());
-app.post("/db/fetch/",(req,res) =>
+app.post("/db/fetch/",async (req,res) =>
 {
    var query = req.body.query;
-   //console.debug(query);
-   console.log(colors.green + "[BD]" + colors.yellow + "->" + colors.green + " incoming QUERY: "+colors.magenta + query);
-   var asyncRes = mysql.query(query);
-   asyncRes.then((result)=>
-   {
-    res.json(result);
-   })
-   //res.send(req.body);
+ //  console.log(colors.green + "[BD]" + colors.yellow + "->" + colors.green + " incoming QUERY: "+colors.magenta + query);
+     
+   console.log( "[BD QUERY]->"+query);//COMPATIBILIDAD CON POWERSHELL;
+
+   try {
+
+   var asyncRes = await mysql.query(query);
+   //console.debug(asyncRes)
+   res.json(asyncRes);
+  
+   } catch (error) {
+        console.error(new Error(colors.yellow+ "BDServer.js-> "+colors.red + error));
+   }
 });
 
 app.listen(3001,()=>

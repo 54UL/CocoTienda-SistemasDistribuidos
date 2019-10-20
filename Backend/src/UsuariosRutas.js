@@ -17,7 +17,7 @@ usrRouter.get("/Login/:usuario/:pass",async function(req,res)
       console.debug(colors.green + "UsuariosRutas ->" + colors.cyan + JSON.stringify(qResult));
 
    } catch (error) {
-      console.log(new Error(colors.red + "[UsuariosRutas]-> "+ colors.white + error));
+      console.log(new Error(colors.red + "[UsuariosRutas]-> " + error));
    }
    
 });
