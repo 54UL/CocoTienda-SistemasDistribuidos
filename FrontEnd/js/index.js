@@ -1,27 +1,26 @@
 //import {endpoint} from './Globales.js';
 var lol;
 
-function productoComponent(ModeloProducto)
-{
-	return  "<div id="+ModeloProducto.id_producto+" class='col-md-3 col-xs-6'>" +
-				"<div class='product' id=" + ModeloProducto.id_producto+">"+
-					"<div class='product-img'>"+
-						"<img style='width: 250px; height: 250px' src='"+ModeloProducto.imagen+"' alt=''>"+
-					"</div>"+
-				"<div class='product-body' >"+
-					"<p class='product-category'>SHIT</p>"+
-						"<h3 class='product-name' id=" + ModeloProducto.id_producto+ "><a href='#'>"+ModeloProducto.nombre+"</a></h3>"+
-						"<h4 class='product-price'> &#36; "+ModeloProducto.precio_unitario+".00</h4>"+
-							"<div class='product-btns'>"+
-								"<button class='add-to-wishlist' ><i class='fa fa-heart-o'></i></button>"+
-								"<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+
-								"<button class='tarjeta' id=" +ModeloProducto.id_producto + "><i class='fa fa-credit-card custom'></i></button>"+
-							"</div>"+
-				"</div>"+
-				"</div>"+
-			"</div>"+
-			"<div class='clearfix visible-sm visible-xs'>" + 
-			"</div>"
+function productoComponent(ModeloProducto) {
+    return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +
+        "<div class='product' id=" + ModeloProducto.id_producto + ">" +
+        "<div class='product-img'>" +
+        "<img style='width: 250px; height: 250px' src='" + ModeloProducto.imagen + "' alt=''>" +
+        "</div>" +
+        "<div class='product-body' >" +
+        "<p class='product-category'>SHIT</p>" +
+        "<h3 class='product-name' id=" + ModeloProducto.id_producto + "><a href='#'>" + ModeloProducto.nombre + "</a></h3>" +
+        "<h4 class='product-price'> &#36; " + ModeloProducto.precio_unitario + ".00</h4>" +
+        "<div class='product-btns'>" +
+        "<button class='add-to-wishlist' ><i class='fa fa-heart-o'></i></button>" +
+        "<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>" +
+        "<button class='tarjeta' id=" + ModeloProducto.id_producto + "><i class='fa fa-credit-card custom'></i></button>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<div class='clearfix visible-sm visible-xs'>" +
+        "</div>"
 }
 
 function usuarioComponent(ModeloUsuario) {
@@ -73,15 +72,12 @@ function comprar(token, productoID, callback) {
         }
     }
 }
-$("#tazas").click(function() {
-    loadProducts(4)
-})
 
 
 
 function loadUSuarios() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/ProductSelling/retrive/" + category));
+    xhr.open("GET", endpoint(""));
     xhr.send();
     $("#containerUsuarios").html("<h1>CARGANDO...</h1>");
     xhr.onreadystatechange = function() {
@@ -156,6 +152,9 @@ window.onload = function() {
 }
 
 
+$("#tazas").click(function() {
+    loadProducts(4)
+})
 
 $("#llaveros").click(function() {
     loadProducts(3);
