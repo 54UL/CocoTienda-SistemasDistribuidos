@@ -183,7 +183,8 @@ async function requestBuy(productID, userTkn, Amount) {
       })
 }
 
-
+//compara la autorizacion para comprar
+//realiza el cambio de stock en la bd, comprueba por ultima vez si hay stock valido
 async function authBuy(productID,userTkn)
 {
       return new Promise((resolve,reject)=>
