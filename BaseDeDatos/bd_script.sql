@@ -6,12 +6,10 @@ create table usuario(id_usuario int auto_increment,nombre varchar(30), correo va
 create table compra(id_compra int auto_increment, id_usuario int, id_producto int, primary key(id_compra));
 create table producto( id_producto int auto_increment, nombre varchar(50), id_categoria int, primary key(id_producto));
 create table categoria(id_categoria int auto_increment, nombre varchar(50), primary key(id_categoria));
-create table sesion(id_sesion int auto_increment, id_usuario int, primary key(id_sesion));
 
 alter table compra add foreign key (id_usuario) references usuario(id_usuario);
 alter table compra add foreign key (id_producto) references Producto(id_producto);
 alter table producto add foreign key (id_categoria) references categoria(id_categoria);
-alter table sesion add foreign key (id_usuario) references usuario(id_usuario);
 
 INSERT INTO Categoria VALUES (0,"Cachucha");
 INSERT INTO Categoria VALUES (0,"Camisa");
@@ -41,15 +39,10 @@ INSERT INTO Usuario VALUES (0,"Esteban", "esteban@gmail.mx", "1234");
 INSERT INTO Usuario VALUES (0,"Natalia", "natalia@gmail.mx", "1234");
 
 
-delete from cocobanco where id_cuenta >0;
 delete from cuentas where id_cuentas > 0;
-delete from compra where id_compra >0;
+delete from cocobanco where id_cuenta >0;
 delete from usuario where id_usuario >0;
-delete from sesion where id_sesion >0;
 
 alter table cuentas auto_increment = 1;
 alter table cocobanco auto_increment = 1;
 alter table usuario auto_increment = 1;
-alter table compra auto_increment = 1;
-alter table sesion auto_increment = 1;
-

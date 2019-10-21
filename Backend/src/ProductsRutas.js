@@ -4,11 +4,13 @@ var productsApi    = require('./Products.js')
 //ESTO MOVERLO A PRODUCTO RUTAS .JS
 
 
-productsRouter.get('/retrive/:category', async function (req, res) 
+productsRouter.get('/retrive/:category', function (req, res) 
 {
    var category = req.params.category;
-   var products = await productsApi.retriveProducts(category)
-   res.json({productos : products});
+   productsApi.retriveProducts(category,(products)=>
+   {
+      res.json({productos : products});
+   });
 });
 
 // productsRouter.get('/buy/:productid/:token', (req,res)=>{
