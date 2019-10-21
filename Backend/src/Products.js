@@ -215,7 +215,7 @@ async function buyProduct(productID, usrToken) {
                         resolve(resultModel);
                   }
 
-                  //Resolver autorizacion por token de compra; si el usuario esta en el mapa de request,preguntar;
+                  //autorizacion para comprar el producto:
                   var  orderRequest;
                
                   try {
@@ -249,7 +249,7 @@ async function buyProduct(productID, usrToken) {
                         } catch (error) {
                               reject(error);
                         }
-                        /
+                        
 
                         resultModel.compra = insertRes.insertId;
                         resultModel.msg = "compra exitosa !";
