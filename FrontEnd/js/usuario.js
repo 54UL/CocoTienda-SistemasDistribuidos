@@ -24,7 +24,10 @@ function ingresar(event) {
             event.preventDefault();
             if (this.readyState == 4 && this.status == 200) {
                 var resultadoLogin = JSON.parse(xhr.responseText)
-                alert(resultadoLogin.asignedToken);
+
+                // alert(resultadoLogin.asignedToken);
+                // alert(resultadoLogin.userType);
+
                 if (resultadoLogin.asignedToken == 0) {
                     $("#errorIniciar").css("display", "block");
                     $('#errorIniciar').text(resultadoLogin.message);
@@ -32,8 +35,18 @@ function ingresar(event) {
                     alert(document.cookie);
                     console.debug(document.cookie);
                 } else {
-                    document.cookie = resultadoLogin.asignedToken
-                    alert(document.cookie);
+
+                    document.cookie = "asignedToken=" + resultadoLogin.asignedToken;
+                    document.cookie = "userType=" + resultadoLogin.userType;
+
+                    alert(resultadoLogin.asignedToken);
+                    alert(resultadoLogin.userType);
+
+                    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)asignedToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+                    alert(cookieValue)
+
+
                 }
 
                 if (resultadoLogin.userType == 4) { //Es administrador
