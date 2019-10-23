@@ -11,7 +11,7 @@ function productoComponent(ModeloProducto)
 				"<div class='product-body' >"+
 					"<p class='product-category'>SHIT</p>"+
 						"<h3 class='product-name' id=" + ModeloProducto.id_producto+ "><a href='#'>"+ModeloProducto.nombre+"</a></h3>"+
-						"<h4 class='product-price'>"+ModeloProducto.precio_unitario+"</h4>"+
+						"<h4 class='product-price'> &#36; "+ModeloProducto.precio_unitario+".00</h4>"+
 							"<div class='product-btns'>"+
 								"<button class='add-to-wishlist' ><i class='fa fa-heart-o'></i></button>"+
 								"<button class='add-to-cart'><i class='fa fa-shopping-cart'></i></button>"+

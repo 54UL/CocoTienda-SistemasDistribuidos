@@ -19,7 +19,7 @@ function init()
       mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
           this.apiName = "lowlevel",
           this.bdenpoint = "",
-          this.user = "root",
+          this.user = "",
           this.pass = "",
           this.query = bdQueryl,
           this.config = bdConfigureParametersl,
@@ -36,18 +36,20 @@ function init()
 //SQL IMPLEMENTATION
 var sql_connection;
 
-async function bdQueryl(query)
+ async function bdQueryl(query)
 { 
-   try {
-      let [rows, fields] = await sql_connection.execute(query);
+   try 
+   {
+      let [rows, fields] =  await sql_connection.execute(query);
       return rows;
-      
-   } catch (error) {
+   } 
+   catch (error) {
       console.error(new Error(colors.yellow+ "BDServerApi -> "+colors.red + error));
+      return null;
    }
 }
 
-function bdConnectl()
+async function bdConnectl()
 {
    // sql_connection.connect();
 }

@@ -11,9 +11,9 @@ function init()
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
         mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName =   "highlevel",
-        this.bdenpoint = "192.168.1.116",
-        this.user =      "distribuidos",
-        this.pass =      " ",
+        this.bdenpoint = "localhost",
+        this.user =      "root",
+        this.pass =      "",
         this.query =  bdQueryH,
         this.config = bdConfigureParametersH,
         this.connect = bdConnectH
@@ -29,14 +29,18 @@ function init()
 // la api de http es todo por post
 // las rutas que hay son unicamente las funciones de abajo (junto con sus argumentos)
 
-function bdQueryH(Query,Callback)
+async function bdQueryH(Query)
 {
+  return new Promise((resolve,reject)=>
+  {
     var recivedData ='';
     console.log("query sended: "+Query);
     const data = JSON.stringify({
         query: Query
     })
   
+
+    //TO DO : DES-HARDCODEAR ESTO:
   const options = {
     hostname: 'localhost',
     port: 3001,
@@ -47,27 +51,23 @@ function bdQueryH(Query,Callback)
       'Content-Length': data.length
     }
   }
-  
+
     const req = http.request(options, res => {
-      //console.log(`statusCode: ${res.statusCode}`)
+      //Configuracion de la señales, data-> cada que llega un dato, end-> se llama al final del request
       res.on('data', d => {
           recivedData += d;
           //console.log(d.toString());
       }).on('end',()=>
       {
-     
-        Callback(JSON.parse(recivedData));
-       
+        resolve(JSON.parse(recivedData));
       });
     })
-
     req.on('error', error => {
-    console.error(error)
+    reject(error);
     })
-
-  
   req.write(data)
   req.end()
+  })
 }
 
 function bdConnectH()
