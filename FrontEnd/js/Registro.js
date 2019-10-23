@@ -33,7 +33,7 @@ function register(usuario,correo,pass){
     var xhr = new XMLHttpRequest();
     
     xhr.open("POST", endpoint("/Users/Register/"));
-    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+   // xhr.setRequestHeader("Access-Control-Allow-Origin","*");
     xhr.setRequestHeader("Content-Type","application/json");
     xhr.send(JSON.stringify({
         usr:usuario,

@@ -109,9 +109,15 @@ function validationPipe(NewUserModel)
       else 
       {               
       var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-      var result =   bdApi.query(queryStr);
-          
-       
+      
+      var result;
+      try {
+         result =   await bdApi.query(queryStr);
+      } catch (error) {
+        reject(error)
+      }
+      
+   
       responseModel.asignedToken = result.insertId;
       responseModel.msg = "¡usuario registrado con exito!" 
       const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
