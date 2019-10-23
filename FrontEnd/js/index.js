@@ -124,15 +124,45 @@ function loadProducts(category) {
 
                 //Solo tarjeta
                 $('#' + actualModel.id_producto).find('button[class="tarjeta"]').click(function() {
-                    var id = $(this).attr('id');
+                    
+                    /*var id = $(this).attr('id');
                     if (id != null && id != undefined) {
                         alert(id);
                         comprar(getUserToken(), id, (cResult) => {
                             alert(cResult.msg);
                         });
 
-                    } else console.log("Error al consegir el id");
+                    } else console.log("Error al consegir el id");*/
+                    $(banco).modal("show");
+
                 });
+
+                $("#btnApartar").click(function(){
+                    var nArticulos = $('#numeroArticulos').val();
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", endpoint("/requestBuy/"+actualModel.id+"/"+getUserToken+"/"+nArticulos));
+                    xhr.send();
+                    alert("Tus articulos estan siendo procesados");
+                    xhr.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                            var resultadoApartar = JSON.parse(this.responseText);
+                            alert(resultadoApartar.message);
+                            //Realizar la siguiente peticion
+                            if(resultadoApartar.message == "MensajedeExito"){
+                                //var id = $(this).attr('id');
+                                if (actualModel.id != null && actualModel.id != undefined) {
+                                    alert(id);
+                                    comprar(getUserToken(), id, (cResult) => {
+                                        alert(cResult.msg);
+                                    });
+
+                                } else console.log("Error al consegir el id");
+                            }
+                            else
+                                alert("Lo sentimos no hay productos disponibles");
+                        }
+                    }
+                })
 
                 /*$("#"+actualModel.id_producto).click(()=> {					
                 	var  resultadoCompra =  comprar(globales.getUsrToken(),ids[algunIndiceValido]);
