@@ -1,5 +1,5 @@
 
-var CURRENT_IP = "192.168.1.103:3000"
+var CURRENT_IP = "localhost:3000"
 
  function getBaseUrl(){
 
