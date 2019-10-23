@@ -117,7 +117,7 @@ function validationPipe(NewUserModel)
           }
           else{
             var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-            var result =   bdApi.query(queryStr);
+            var result =  await bdApi.query(queryStr);
               
             responseModel.asignedToken = result.insertId;
             responseModel.msg = "¡usuario registrado con exito!" 
