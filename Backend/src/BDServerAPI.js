@@ -58,9 +58,9 @@ async function bdConfigureParametersl()
 {
    try {
       sql_connection = await mysql.createConnection({
-         host     :"192.168.1.100",
-         user     :"distribuidos",
-         password :" ",
+         host     :"localhost",
+         user     :"root",
+         password :"",
          database :"giftstoredb"
        });
      

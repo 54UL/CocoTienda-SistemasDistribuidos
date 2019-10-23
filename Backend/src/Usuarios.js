@@ -101,37 +101,38 @@ function validationPipe(NewUserModel)
   return new Promise(async(resolve, reject)=>{
     try 
     {
+      console.log("hola");
       var responseModel = {asignedToken:0,msg:"text"}
-      const error =validationPipe(NewUserModel);
+      const error = validationPipe(NewUserModel);
 
       if(error.msg !="")
       resolve(error);
       else 
       {    
-        var queryemail = "SELECT id_usuario FROM user WHERE correo='"+NewUserModel.email+"'";
-        bdApi.query(queryemail,(result)=>
-        {
-          if(result.id_usuario!=undefined || result.id_usuario!= null){
-            responseModel.msg="Esta cuenta ya existe";
-            resolve(responseModel);            
-          }
-          else{
-            var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-            var result =  await bdApi.query(queryStr);
-              
-            responseModel.asignedToken = result.insertId;
-            responseModel.msg = "¡usuario registrado con exito!" 
-            const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
-            await bdApi.query(queryNewBancocoAccount);
-            const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
-            resGetAmountOfAccounts = await  bdApi.query(queryGetAmountOfAccounts)
+        var queryemail = "SELECT id_usuario FROM usuario WHERE correo='"+NewUserModel.email+"'";
+        var result_email =  await bdApi.query(queryemail);
+  
+        if(result_email[0].id_usuario!=0){
+          responseModel.msg="Esta cuenta ya existe";
+          console.log("hola"); 
+          resolve(responseModel);           
+        }
+        else{
+          var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
+          var result =  await bdApi.query(queryStr);
+            
+          responseModel.asignedToken = result.insertId;
+          responseModel.msg = "¡usuario registrado con exito!" 
+          const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
+          await bdApi.query(queryNewBancocoAccount);
+          const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
+          resGetAmountOfAccounts = await  bdApi.query(queryGetAmountOfAccounts)
 
-            var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
-            const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
-            await  bdApi.query(queryNewAccount)              
-            resolve(responseModel); 
-          }
-        });
+          var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
+          const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
+          await  bdApi.query(queryNewAccount)              
+          resolve(responseModel); 
+        }
       }
     } catch (error) {
       reject(error);
@@ -141,6 +142,7 @@ function validationPipe(NewUserModel)
 
 async function deleteUser(id_usuario){
   return new Promise(async(resolve, reject)=>{
+    var msg=" ";
     var query="SELECT *FROM usuario WHERE id_usuario="+id_usuario;
     var result = await bdApi.query(query);
       try {
@@ -153,7 +155,7 @@ async function deleteUser(id_usuario){
           resultquery = await bdApi.query(query);
           query="DELETE FROM usuario WHERE id_usuario="+id_usuario;
           resultquery = await bdApi.query(query);
-          resolve({msg="Usuario eliminado"});
+          resolve({msg:"Usuario eliminado"});
         }
       } catch (error) {
         reject(error);
@@ -179,7 +181,7 @@ async function updateUserById(id_usuario,id_tipousuario){
     var query="UPDATE usario SET id_tipousuario="+id_tipousuario+" WHERE id_usuario="+id_usuario;
     try {
       result=await bdApi.query(query);
-      resolve({msg="Usuario actualizado",result});
+      resolve({msg:"Usuario actualizado",result});
     } catch (error) {
       reject(error);
     }
