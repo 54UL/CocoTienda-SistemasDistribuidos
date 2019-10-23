@@ -189,7 +189,6 @@ async function updateUserById(id_usuario,id_tipousuario){
   });
 }
 
-async function 
 module.exports.getAllUsers = getAllUsers;
 module.exports.deleteUser = deleteUser;
 module.exports.logIn = logIn;
