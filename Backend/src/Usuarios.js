@@ -113,7 +113,7 @@ function validationPipe(NewUserModel)
         var queryemail = "SELECT id_usuario FROM user WHERE correo='"+NewUserModel.email+"'";
         bdApi.query(queryemail,(result)=>
         {
-          if(result.id_usuario==undefined){
+          if(result.id_usuario!=undefined || result.id_usuario!= null){
             responseModel.msg="Esta cuenta ya existe";
             resolve(responseModel);            
           }
@@ -188,6 +188,8 @@ async function updateUserById(id_usuario,id_tipousuario){
     }
   });
 }
+
+async function 
 module.exports.getAllUsers = getAllUsers;
 module.exports.deleteUser = deleteUser;
 module.exports.logIn = logIn;
