@@ -83,27 +83,38 @@ async function createUser(NewUserModel){
         responseModel.asignedToken = 0;
         responseModel.msg = errorString;
         resolve(responseModel);
-      }else{               
-        var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
-        bdApi.query(queryStr,(result)=>
+      }
+      else{  
+        var queryemail = "SELECT id_usuario FROM user WHERE correo='"+NewUserModel.email+"'";
+        bdApi.query(queryemail,(result)=>
         {
-          responseModel.asignedToken = result.insertId;
-          responseModel.msg = "¡usuario registrado con exito!" 
+          if(result.id_usuario==undefined){
+            responseModel.msg="Esta cuenta ya existe";
+            resolve(responseModel);            
+          }
+          else{
+            var queryStr = "INSERT INTO usuario VALUES (0,2,'"+NewUserModel.usr+"','"+NewUserModel.email+"','"+NewUserModel.pass+"')";
+            bdApi.query(queryStr,(result)=>
+            {
+              responseModel.asignedToken = result.insertId;
+              responseModel.msg = "¡usuario registrado con exito!" 
 
-          const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
-          bdApi.query(queryNewBancocoAccount,()=>{
+              const queryNewBancocoAccount = "INSERT INTO COCOBANCO VALUES(0,100000,'"+NewUserModel.email+"','"+NewUserModel.pass+"')";                   
+              bdApi.query(queryNewBancocoAccount,()=>{
 
-            const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
+                const queryGetAmountOfAccounts = "SELECT MAX(ID_CUENTA) AS AMOUNT_OF_ACCOUNTS FROM COCOBANCO";
 
-            bdApi.query(queryGetAmountOfAccounts,(resGetAmountOfAccounts)=>{
-              var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
-              const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
-              bdApi.query(queryNewAccount,()=>{                     
-                resolve(responseModel);
-              });
-            })            
-          });                    
-        });
+                bdApi.query(queryGetAmountOfAccounts,(resGetAmountOfAccounts)=>{
+                  var amountOfAccounts = resGetAmountOfAccounts[0].AMOUNT_OF_ACCOUNTS;
+                  const queryNewAccount = "INSERT INTO CUENTAS VALUES(0,'" +amountOfAccounts + "','"+result.insertId+"')";
+                  bdApi.query(queryNewAccount,()=>{                     
+                    resolve(responseModel);
+                  });
+                });            
+              });                    
+            });
+          }
+        });               
       }
     } catch (error) {
       reject(error);
@@ -111,9 +122,8 @@ async function createUser(NewUserModel){
   });
 }
 
-function deleteUser()
-{
-
+async function deleteUser(id_usuario){
+  
 
 }
 
