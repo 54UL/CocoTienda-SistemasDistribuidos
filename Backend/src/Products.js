@@ -64,23 +64,24 @@ async function deleteProduct(productModel) {
 
 //-------------------------------------------PRODUCT SELLING BUSINESS LOGIC
 
-class buyToken
+class BuyRequestToken
 {
-      constructor(token,quantity)
+      constructor(token,quantity,productid)
       {
-      this.orderTokne = token;
+      this.orderToken    = token;
       this.orderQuantity = quantity;
-      }
+      this.productID     = productid;
+      } 
 }
 
 // map.set(ID_PRODUCTO,VSTOCK) VirtualStock
 var VirtualStock = new Map()
-//map.set(ID_USUARIO,BUY_REQUEST_TKN) Buy request
+//map.set(ID_USUARIO,BuyRequestToken) Buy request
 var BuyRequests = new Map()
 
 
-//VIRTUAL STOCK
-//le asigna un ID de compra a un usuario; si hay suficiente stock le dejara apartar; despues  la compra
+//VIRTUAL STOCK 
+//BRIEF:le asigna un ID de compra a un usuario; si hay suficiente stock le dejara apartar; despues  la compra
 //buscara en el mapa un indice valido relacionado con el usuario; si es valido realizara la transaccion
 //y despues quitara el id del mapa y actualizara el virtual stock con los valores de la bd (doble lado)
 
@@ -112,7 +113,6 @@ async function updateStock(productID, stockValue) {
                   if (updateStatus[0] != undefined) {
                         resolve({ status: 0 })
                   }
-
             }
             catch (error) {
                   reject(error);
@@ -121,16 +121,21 @@ async function updateStock(productID, stockValue) {
 }
 
 
+
+
 function printVirtualStock()
 {
+      console.log("-------------------")
       console.log("VIRTUAL STOCK DEBUG")
       console.debug(VirtualStock);
       console.log("REQUEST BUY DEBUG")
       console.debug(BuyRequests);
+      console.log("-------------------")
 }
 
 //TO DO : DEFINIR MODELOS DE ENTRADA Y SALIDA
 //OUTPUT MODEL {request_tkn,msg}
+var indextoken=0;
 async function requestBuy(productID, userTkn, Amount) {
       return new Promise(async (resolve, reject) => 
       {
@@ -138,25 +143,29 @@ async function requestBuy(productID, userTkn, Amount) {
             {
                   var productStock = VirtualStock.get(productID);
                   var remainingStock = productStock - Amount;
-                  console.log("requested stock "+remainingStock)
-                  if (remainingStock > 0) 
+                 
+                  if (remainingStock >= 0) 
                   {
-                        var buyRequestToken = BuyRequests.size + 1
-                        if(!BuyRequests.has(userTkn))
-                        {
-                           BuyRequests.set(userTkn,buyRequestToken);
-                        }
-                        else
-                        {
-                            resolve({request_tkn:0,msg:"ya tienes apartado este producto; realiza una compra"}) 
-                            return;
-                        }
+                        var buyRequestToken = ++indextoken // super ultra mega complex algorithm to retrive a token
+                        console.log("asigned token="+BuyRequests.size);
+                        // if(!BuyRequests.has(userTkn))
+                       // {
+                           var orderReq  = new BuyRequestToken(buyRequestToken,Amount,productID);
+                           console.log("ORDER REQUEST:");
+                           console.debug(orderReq);
+                           BuyRequests.set(userTkn,orderReq);
+                       // }
+                      //  else
+                      //  {
+                          //  resolve({request_tkn:0,msg:"ya tienes apartado este producto; realiza una compra"}) 
+                         //   return;
+                      //  }
                         
                         ///actualizamos el mapa
                         VirtualStock.delete(productID);
                         VirtualStock.set(productID,remainingStock);
-
                         resolve({request_tkn:buyRequestToken,msg:"producto apartado!"})
+                        return;
                   }
                   else
                         resolve({request_tkn:0,msg:"YA NO HAY STOCK EN ESPERA"});
@@ -174,7 +183,6 @@ async function requestBuy(productID, userTkn, Amount) {
                         }
                         else
                         resolve(0);
-                      
                   }
                   catch (error) {
                         reject(error)
@@ -185,16 +193,57 @@ async function requestBuy(productID, userTkn, Amount) {
 
 //compara la autorizacion para comprar
 //realiza el cambio de stock en la bd, comprueba por ultima vez si hay stock valido
+//RETURN MODEL
+//{status:"ok/error",msg:"custom message",orderReq:BuyRequestToken}
+
 async function authBuy(productID,userTkn)
 {
-      return new Promise((resolve,reject)=>
+      return new Promise(async (resolve,reject)=>
       {
-            
-
+            try {
+                  if(BuyRequests.has(userTkn))
+                  {
+                    var pendingBuyRequest  = BuyRequests.get(userTkn);
+                   
+                    //safty validation
+                    if(pendingBuyRequest.productID != productID)
+                    {
+                        resolve({status:"error",msg:"¿tienes alguna compra pendiente ?,cancela la orden antes de querer comprar otro producto"});
+                        return;
+                    }
+                   
+                    //Double check stock, then 
+                    if(VirtualStock.has(productID))
+                    {
+                        var actualVirtualStock = VirtualStock.get(productID)
+                        if(actualVirtualStock >= 0) 
+                        {
+                              updateStock(productID,actualVirtualStock);
+                              BuyRequests.delete(userTkn);
+                              resolve({status:"ok",msg:"succesful auth"})
+                        }
+                        else
+                        {
+                              resolve({status:"error",msg:"inesperadamente sin stock, compra cancelada."});
+                              BuyRequests.delete(userTkn);
+                        }
+                    }
+                    else
+                    {
+                          resolve({status:"error",msg:"producto aun sin apartar"})
+                    }
+                  }
+                  else
+                  {
+                  resolve({status:"error",msg:"no has apartado el producto!"});
+                  } 
+            } catch (error) {
+                  reject(error);
+            }
       })
 }
 
-
+//Realizar refactor....
 async function buyProduct(productID, usrToken) {
       try {
             return new Promise(async (resolve, reject) => {
@@ -217,31 +266,44 @@ async function buyProduct(productID, usrToken) {
                   }
 
                   //autorizacion para comprar el producto:
-                  var  orderRequest;
-               
+                  
+
+                  var buyRqst =  BuyRequests.get(usrToken);
+                  console.debug(buyRqst);
+                  if(buyRqst ==undefined)
+                  {
+                        resultModel.msg="no se encontro el request de compra";
+                        resolve(resultModel);
+                        return;
+                  }
+
+                  var transactionRes;
+                 
                   try {
-                         orderRequest = await authBuy(productID,usrToken);
+                        var cost =  Number(product.precio_unitario*buyRqst.orderQuantity);
+                        console.log("actual cost"+cost)
+                        transactionRes = await paymentsApi.authTransaction(usrToken, DEFAULT_SHOP_BANK_ACCOUNT,cost);
                   } catch (error) {
                         reject(error);
                   }
-                  
-                  var transactionRes;
-                  if(orderRequest.status === "ok")
-                  {
+
+                  if (transactionRes.transaction == 1)
+                   {
+
+                        var  orderRequest;
+
                         try {
-                              transactionRes = await paymentsApi.authTransaction(usrToken, DEFAULT_SHOP_BANK_ACCOUNT, product.precio_unitario*orderRequest.orderCount);
+                              orderRequest = await authBuy(productID,usrToken);
                         } catch (error) {
                               reject(error);
                         }
-                  }
-                  else
-                  {
-                        resolve({ compra: 0, msg: "buy auth status exception:"+orderRequest.status});
-                        return;
-                  }
-                  
-                  //TO DO: modificar esto por mensajes lejibles de respuesta
-                  if (transactionRes.transaction == 1) {
+
+                        if(orderRequest.status !== "ok")
+                        {
+                              resolve({ compra: 0, msg: "buy auth status exception:"+orderRequest.msg});
+                              return; 
+                        }
+                       
                         var insertRes;
                         try 
                         {
@@ -251,7 +313,6 @@ async function buyProduct(productID, usrToken) {
                               reject(error);
                         }
                         
-
                         resultModel.compra = insertRes.insertId;
                         resultModel.msg = "compra exitosa !";
                         console.log("succesful buy!");
