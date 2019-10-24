@@ -17,7 +17,7 @@ usrRouter.get("/Login/:usuario/:pass",async function(req,res)
       console.debug(colors.green + "UsuariosRutas ->" + colors.cyan + JSON.stringify(qResult));
 
    } catch (error) {
-      console.log(new Error(colors.red + "[UsuariosRutas]-> " + error));
+      console.log(new Error(colors.red + "[UsuariosRutas]-> "+ colors.white + error));
    }
    
 });
@@ -43,43 +43,5 @@ usrRouter.post("/Register",async(req,res) =>
       console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
    }   
 });
-
-usrRouter.use(bodyParser.json());
-usrRouter.post("/Delete/:id_usuario",async(req,res) =>
-{
-   try {
-      var id_usuario = req.params.id_usuario;
-      var responseFromDeleteUser = await usrApi.deleteUser(id_usuario);
-      res.json(responseFromDeleteUser);      
-   } catch (error) {
-      console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-   }   
-});
-
-usrRouter.use(bodyParser.json());
-usrRouter.post("/GetAllUsers",async(req,res) =>
-{
-   try {
-      var  responseFromUsers = await usrApi.getAllUsers();
-      res.json(responseFromUsers);      
-   } catch (error) {
-      console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-   }   
-});
-
-usrRouter.use(bodyParser.json());
-usrRouter.post("/updateUserById/:id_usuario/:id_tipo",async(req,res) =>
-{
-   try {
-      var id_usuario = req.param.id_usuario;
-      var id_tipo = req.param.id_tipo;
-      
-      var  responseFromUpdateUsers = await usrApi.updateUserById(id_usuario,id_tipo);
-      res.json(responseFromUpdateUsers);      
-   } catch (error) {
-      console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-   }   
-});
-
 
 module.exports.usrRouter = usrRouter;

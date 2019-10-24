@@ -4,11 +4,13 @@ var productsApi    = require('./Products.js')
 //ESTO MOVERLO A PRODUCTO RUTAS .JS
 
 
-productsRouter.get('/retrive/:category', async function (req, res) 
+productsRouter.get('/retrive/:category', function (req, res) 
 {
    var category = req.params.category;
-   var products = await productsApi.retriveProducts(category)
-   res.json({productos : products});
+   productsApi.retriveProducts(category,(products)=>
+   {
+      res.json({productos : products});
+   });
 });
 
 // productsRouter.get('/buy/:productid/:token', (req,res)=>{
@@ -36,27 +38,4 @@ productsRouter.route('/buy/:productid/:token')
       console.log(new Error(colors.red + "[ProductosRutas]-> "+ colors.white + error));
      }
    })
-
-
-   //request testing
-productsRouter.route('/RequestBuy/:productid/:token/:amount')
-   .get(async(req,res)=>
-{
-
-    var product = req.params.productid;
-    var tkn = req.params.token;
-    var amnt = req.params.amount;
-    try 
-    {
-       var response = await productsApi.requestBuy(product,tkn,amnt);
-       productsApi.printVirtualStock();
-       res.json(response);
-    } 
-    catch (error) 
-    {
-      res.json({msg:"error:"+error});
-    }
-
-})
-
 module.exports.productsRouter = productsRouter;

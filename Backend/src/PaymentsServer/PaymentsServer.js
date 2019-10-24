@@ -38,6 +38,7 @@ app.get("/Payments/getFounds/:usr", function(req, res){
 });
 
 app.get("/Payments/authTransaction/:cantidad/:origin/:dest", async function(req, res){
+
     try {
         var origin = req.params.origin;
         var cantidad = req.params.cantidad;
@@ -49,6 +50,9 @@ app.get("/Payments/authTransaction/:cantidad/:origin/:dest", async function(req,
     } catch (error) {
         console.log
     }
+    
+    
+    
 });
 
 
