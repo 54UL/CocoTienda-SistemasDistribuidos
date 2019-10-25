@@ -48,10 +48,7 @@ function comprar(token,productoID,callback){
 		}
 	}
 }
-$("#tazas").click(function () {
-	
-	loadProducts(4)
-})
+
 
 
 
@@ -118,10 +115,8 @@ function loadProducts(category)
 
 
 window.onload = function() {
-		loadProducts(0);
+		//loadProducts(0);
 }
-
-
 
 $("#llaveros").click(function () {
 	loadProducts(3);
@@ -137,3 +132,6 @@ $("#cachuchas").click(function () {
 	loadProducts(1);
 })
 
+$("#tazas").click(function () {
+	loadProducts(4)
+})

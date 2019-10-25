@@ -70,11 +70,11 @@
 							<div class="header-search">
 								<form>
 									<select class="input-select">
-										<option value="0" >Categorías</option>
+										<option value="1" >Categorías</option>
 										<option value="1" >Tazas</option>
-										<option value="2" >Camisas</option>
-										<option value="3" >Llaveros</option>
-										<option value="4" >Cachuchas</option>
+										<option value="1" >Camisas</option>
+										<option value="1" >Llaveros</option>
+										<option value="1" >Cachuchas</option>
 									</select>
 									<input class="input" placeholder="Artículo a buscar">
 									<button class="search-btn">Buscar</button>
@@ -116,7 +116,7 @@
 		</header>
 
 		<!--Sidebar-->
-<ul class="sidebar navbar-nav">
+<!-- <ul class="sidebar navbar-nav">
 		<li><span>Categorias</span></li>
 		<li class="nav-item">
 			<a class="nav-link" href="tazas.html">
@@ -147,7 +147,19 @@
 			<a class="nav-link" href="#">
 			<span>Cerrar sesión</span></a>
 		</li>
-	</ul>
+	</ul> -->
+
+	<div class="container">
+		<div id="responsive-nav">
+			<ul class="main-nav nav navbar-nav">
+				<li class="active" onclick="loadProducts(0)" ><a href="#">Inicio</a></li>
+				<li id="tazas" onclick="loadProducts(4)"><a href="#">Tazas</a></li>
+				<li id="camisas"><a href="#">Camisas</a></li>
+				<li id="llaveros"><a href="#">Llaveros</a></li>
+				<li id="cachuchas"><a href="#">Cachuchas</a></li>
+			</ul>
+		</div>
+	</div>
 
 		<!--<nav id="navigation">
 			<div class="container">
@@ -259,16 +271,7 @@
 		<script src="js/Globales.js"></script>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script>
-			alert("ouri");
-<<<<<<< HEAD
-			$(banco).modal("show");
 
-=======
->>>>>>> dev
-			
-		
-		</script>
 		<script src="js/index.js"></script> 
 		
 	</body>
