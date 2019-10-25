@@ -115,6 +115,7 @@ function loadProducts(category)
 
 
 window.onload = function() {
+		//document.location.href="index.html";
 		loadProducts(0);
 }
 
