@@ -104,7 +104,7 @@ function validationPipe(NewUserModel)
       console.log("hola");
       var responseModel = {asignedToken:0,msg:"text"}
       const error = validationPipe(NewUserModel);
-
+      
       if(error.msg !="")
       resolve(error);
       else 

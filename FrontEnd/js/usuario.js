@@ -54,6 +54,10 @@ function ingresar(event){
     }
 }
 
+function mostrar(){
+    //alert("hola");
+    $("#infoUsuario").show("modal");
+}
 
 /*
     var jsonUsuario = ({
