@@ -111,8 +111,10 @@ function validationPipe(NewUserModel)
       {    
         var queryemail = "SELECT id_usuario FROM usuario WHERE correo='"+NewUserModel.email+"'";
         var result_email =  await bdApi.query(queryemail);
-  
-        if(result_email[0].id_usuario!=0){
+        
+        
+
+        if(result_email[0]!=undefined){
           responseModel.msg="Esta cuenta ya existe";
           console.log("hola"); 
           resolve(responseModel);           
