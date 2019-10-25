@@ -115,7 +115,7 @@ function loadProducts(category)
 
 
 window.onload = function() {
-		//loadProducts(0);
+		loadProducts(0);
 }
 
 $("#llaveros").click(function () {
