@@ -1,14 +1,13 @@
-var express        = require('express')
+var express = require('express')
 var productsRouter = express.Router()
-var productsApi    = require('./Products.js')
-//ESTO MOVERLO A PRODUCTO RUTAS .JS
+var productsApi = require('./Products.js')
+    //ESTO MOVERLO A PRODUCTO RUTAS .JS
 
 
-productsRouter.get('/retrive/:category', async function (req, res) 
-{
-   var category = req.params.category;
-   var products = await productsApi.retriveProducts(category)
-   res.json({productos : products});
+productsRouter.get('/retrive/:category', async function(req, res) {
+    var category = req.params.category;
+    var products = await productsApi.retriveProducts(category)
+    res.json({ productos: products });
 });
 
 // productsRouter.get('/buy/:productid/:token', (req,res)=>{
@@ -25,38 +24,33 @@ productsRouter.get('/retrive/:category', async function (req, res)
 // });
 
 productsRouter.route('/buy/:productid/:token')
-   .get(async(req,res,next)=>
-   {
-     var productid = req.params.productid;
-     var token = req.params.token;
-     try {
-      var response = await productsApi.buyProduct(productid,token)
-      res.json(response);  
-     } catch (error) {
-      console.log(new Error(colors.red + "[ProductosRutas]-> "+ colors.white + error));
-     }
-   })
+    .get(async(req, res, next) => {
+        var productid = req.params.productid;
+        var token = req.params.token;
+        try {
+            var response = await productsApi.buyProduct(productid, token)
+            res.json(response);
+        } catch (error) {
+            console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));
+        }
+    })
 
 
-   //request testing
+//request testing
 productsRouter.route('/RequestBuy/:productid/:token/:amount')
-   .get(async(req,res)=>
-{
+    .get(async(req, res) => {
 
-    var product = req.params.productid;
-    var tkn = req.params.token;
-    var amnt = req.params.amount;
-    try 
-    {
-       var response = await productsApi.requestBuy(product,tkn,amnt);
-       productsApi.printVirtualStock();
-       res.json(response);
-    } 
-    catch (error) 
-    {
-      res.json({msg:"error:"+error});
-    }
+        var product = req.params.productid;
+        var tkn = req.params.token;
+        var amnt = req.params.amount;
+        try {
+            var response = await productsApi.requestBuy(product, tkn, amnt);
+            productsApi.printVirtualStock();
+            res.json(response);
+        } catch (error) {
+            res.json({ msg: "error:" + error });
+        }
 
-})
+    })
 
 module.exports.productsRouter = productsRouter;
