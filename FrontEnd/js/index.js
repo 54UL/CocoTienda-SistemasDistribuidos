@@ -127,7 +127,7 @@ function loadProducts(category)
                     $(banco).modal("show");
 
                     $("#btnApartar").click(function(){
-                        console.log("n veces");
+                        //console.log("n veces");
                         $(banco).modal("hide");
                         var nArticulos = $('#numeroArticulos').val();
                         //alert(nArticulos);
@@ -139,14 +139,16 @@ function loadProducts(category)
                         //alert("Tus articulos estan siendo procesados");
                         xhr.onreadystatechange = function(){
                                 if(this.readyState == 4 && this.status == 200){
+                                    msg = "ya tienes apartado este producto; realiza una compra";
                                     var resultadoApartar = JSON.parse(this.responseText);
                                     alert(resultadoApartar.msg);
                                     //Realizar la siguiente peticion
-                                    if(resultadoApartar.msg == "MensajedeExito"){
+                                    if(resultadoApartar.msg == msg){
                                         //var id = $(this).attr('id');
-                                        if (actualModel.id != null && actualModel.id != undefined) {
+                                        if (actualModel.id_producto != null && actualModel.id_producto != undefined) {
                                             //alert("id " + actualModel.id);
-                                            comprar(getUserToken(), id, (cResult) => {
+                                            console.log("comprar "+ actualModel.id_producto);
+                                            comprar(getUserToken(), actualModel.id_producto, (cResult) => {
                                                 alert(cResult.msg);
                                             });
     
