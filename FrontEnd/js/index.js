@@ -82,6 +82,7 @@ function loadProducts(category)
 
 				//Solo tarjeta
 				$('#'+actualModel.id_producto).find('button[class="tarjeta"]').click( function(){
+					$("#banco").show("modal");
 					var id = $(this).attr('id');
 					if(id!=null && id!= undefined)
 					{
@@ -95,6 +96,9 @@ function loadProducts(category)
 					else console.log("Error al consegir el id");
 				});
 
+				$('#siComprar').click(function(){
+					
+				})
 
 
 
