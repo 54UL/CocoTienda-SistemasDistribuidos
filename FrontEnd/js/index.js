@@ -76,32 +76,6 @@ function loadProducts(category)
 			    var actualModel  =jsonProductos.productos[i];
 				$("#containerProductos").append(productoComponent(actualModel));
 
-		
-				//Solo tarjeta
-				/*$('#'+actualModel.id_producto).find('button[class="tarjeta"]').click( function(){
-					$("#banco").show("modal");
-					var id = $(this).attr('id');
-					if(id!=null && id!= undefined)
-					{
-						alert(id);
-						comprar(getUserToken(),id,(cResult)=>
-						{
-							alert(cResult.msg);
-						});
-				
-					}
-					else console.log("Error al consegir el id");
-				});
-
-				/*$("#"+actualModel.id_producto).click(()=> {
-					var  resultadoCompra =  comprar(globales.getUsrToken(),ids[algunIndiceValido]);
-
-					if(resultadoCompra.compra== 0)
-					alert("ha sucedio algo"+resultadoCompra.msg);
-					else
-					alert(resultadoCompra.msg);
-
-                })*/
                 
                 //Solo tarjeta
                 // $('#' + actualModel.id_producto).find('button[class="tarjeta"]').click(function() {
@@ -160,11 +134,36 @@ function loadProducts(category)
 	}
 }
 
-$(document).on('click', 'button[class="aceptarkk"]', function(event) {
+$(document).on('click', 'button[id="btnApartar"]', function(event) {
     let id = this.value;
-    console.log("S Id :"+ id)
-    alert("muahaha" + id);
+    $(banco).modal("hide");
+    var nArticulos = $('#numeroArticulos').val();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+id+"/"+getUserToken()+"/"+nArticulos));
+    xhr.send();
+    //alert("Tus articulos estan siendo procesados");
+    xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                msg = "ya tienes apartado este producto; realiza una compra";
+                var resultadoApartar = JSON.parse(this.responseText);
+                alert(resultadoApartar.msg);
+                //Realizar la siguiente peticion
+                if(resultadoApartar.msg == msg){
+                    //var id = $(this).attr('id');
+                    if (id != null && id != undefined) {
+                        //alert("id " + actualModel.id);
+                        console.log("comprar "+ id);
+                        comprar(getUserToken(), id, (cResult) => {
+                            alert(cResult.msg);
+                        });
 
+                    } else console.log("Error al consegir el id");
+                }
+                else
+                    //alert("Lo sentimos no hay productos disponibles");
+                    console.log(resultadoApartar.msg);
+            }
+   }
 })
 
 
@@ -174,41 +173,6 @@ $(document).on('click', 'button[class="tarjeta"]', function(event) {
     console.log("Se presionó el Boton con Id :"+ id)
          $(banco).modal("show");
          document.getElementById("btnApartar").value = id;
-       /*  $("#btnApartar").click(function(){
-                        //console.log("n veces");
-                        $(banco).modal("hide");
-                        var nArticulos = $('#numeroArticulos').val();
-                        //alert(nArticulos);
-                        //alert(actualModel.id_producto);
-                        //alert(getUserToken());
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+id+"/"+getUserToken()+"/"+nArticulos));
-                        xhr.send();
-                        //alert("Tus articulos estan siendo procesados");
-                        xhr.onreadystatechange = function(){
-                                if(this.readyState == 4 && this.status == 200){
-                                    msg = "ya tienes apartado este producto; realiza una compra";
-                                    var resultadoApartar = JSON.parse(this.responseText);
-                                    alert(resultadoApartar.msg);
-                                    //Realizar la siguiente peticion
-                                    if(resultadoApartar.msg == msg){
-                                        //var id = $(this).attr('id');
-                                        if (id != null && id != undefined) {
-                                            //alert("id " + actualModel.id);
-                                            console.log("comprar "+ id);
-                                            comprar(getUserToken(), id, (cResult) => {
-                                                alert(cResult.msg);
-                                            });
-    
-                                        } else console.log("Error al consegir el id");
-                                    }
-                                    else
-                                        //alert("Lo sentimos no hay productos disponibles");
-                                        console.log(resultadoApartar.msg);
-                                }
-                            //else(console.log(this.readyState));
-                         }
-                    })  */
 
   });
 
