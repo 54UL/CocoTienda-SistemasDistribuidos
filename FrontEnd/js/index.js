@@ -22,7 +22,10 @@ function productoComponent(ModeloProducto)
 				"</div>"+
 			"</div>"+
 			"<div class='clearfix visible-sm visible-xs'>" + 
-			"</div>"
+            "</div>"
+            
+            //"<button type='submit' class='aceptarkk' id="+ ModeloProducto.id_producto+">Aceptar</button>"
+
 }
 
 /*$('#'+lol.id_producto).find('h3').click( function(){
@@ -73,13 +76,7 @@ function loadProducts(category)
 			    var actualModel  =jsonProductos.productos[i];
 				$("#containerProductos").append(productoComponent(actualModel));
 
-				//Todo el div
-				/*$('#'+actualModel.id_producto).find('div[class="product"]').click( function(){
-					var id = $(this).attr('id');
-					if(id!=null && id!= undefined) console.log(id);
-					else console.log("Error al consegir el id");
-				});*/
-
+		
 				//Solo tarjeta
 				/*$('#'+actualModel.id_producto).find('button[class="tarjeta"]').click( function(){
 					$("#banco").show("modal");
@@ -96,14 +93,7 @@ function loadProducts(category)
 					else console.log("Error al consegir el id");
 				});
 
-				$('#siComprar').click(function(){
-					
-				})*/
-
-
-
 				/*$("#"+actualModel.id_producto).click(()=> {
-					
 					var  resultadoCompra =  comprar(globales.getUsrToken(),ids[algunIndiceValido]);
 
 					if(resultadoCompra.compra== 0)
@@ -114,19 +104,77 @@ function loadProducts(category)
                 })*/
                 
                 //Solo tarjeta
-                $('#' + actualModel.id_producto).find('button[class="tarjeta"]').click(function() {
-                    
-                    /*var id = $(this).attr('id');
-                    if (id != null && id != undefined) {
-                        alert(id);
-                        comprar(getUserToken(), id, (cResult) => {
-                            alert(cResult.msg);
-                        });
+                // $('#' + actualModel.id_producto).find('button[class="tarjeta"]').click(function() {
+                //     console.log("click " + actualModel.id_producto);
+                //     /*var id = $(this).attr('id');
+                //     if (id != null && id != undefined) {
+                //         alert(id);
+                //         comprar(getUserToken(), id, (cResult) => {
+                //             alert(cResult.msg);
+                //         });
 
-                    } else console.log("Error al consegir el id");*/
-                    $(banco).modal("show");
+                //     } else console.log("Error al consegir el id");*/
+                //     $(banco).modal("show");
 
-                    $("#btnApartar").click(function(){
+                //     $("#btnApartar").click(function(){
+                //         //console.log("n veces");
+                //         $(banco).modal("hide");
+                //         var nArticulos = $('#numeroArticulos').val();
+                //         //alert(nArticulos);
+                //         //alert(actualModel.id_producto);
+                //         //alert(getUserToken());
+                //         var xhr = new XMLHttpRequest();
+                //         xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+actualModel.id_producto+"/"+getUserToken()+"/"+nArticulos));
+                //         xhr.send();
+                //         //alert("Tus articulos estan siendo procesados");
+                //         xhr.onreadystatechange = function(){
+                //                 if(this.readyState == 4 && this.status == 200){
+                //                     msg = "ya tienes apartado este producto; realiza una compra";
+                //                     var resultadoApartar = JSON.parse(this.responseText);
+                //                     alert(resultadoApartar.msg);
+                //                     //Realizar la siguiente peticion
+                //                     if(resultadoApartar.msg == msg){
+                //                         //var id = $(this).attr('id');
+                //                         if (actualModel.id_producto != null && actualModel.id_producto != undefined) {
+                //                             //alert("id " + actualModel.id);
+                //                             console.log("comprar "+ actualModel.id_producto);
+                //                             comprar(getUserToken(), actualModel.id_producto, (cResult) => {
+                //                                 alert(cResult.msg);
+                //                             });
+    
+                //                         } else console.log("Error al consegir el id");
+                //                     }
+                //                     else
+                //                         //alert("Lo sentimos no hay productos disponibles");
+                //                         console.log(resultadoApartar.msg);
+                //                 }
+                //             //else(console.log(this.readyState));
+                //          }
+                //     })  
+
+                // });*/
+
+               
+			}
+		}
+	}
+}
+
+$(document).on('click', 'button[class="aceptarkk"]', function(event) {
+    let id = this.value;
+    console.log("S Id :"+ id)
+    alert("muahaha" + id);
+
+})
+
+
+
+$(document).on('click', 'button[class="tarjeta"]', function(event) {
+    let id = this.id;
+    console.log("Se presionó el Boton con Id :"+ id)
+         $(banco).modal("show");
+         document.getElementById("btnApartar").value = id;
+       /*  $("#btnApartar").click(function(){
                         //console.log("n veces");
                         $(banco).modal("hide");
                         var nArticulos = $('#numeroArticulos').val();
@@ -134,7 +182,7 @@ function loadProducts(category)
                         //alert(actualModel.id_producto);
                         //alert(getUserToken());
                         var xhr = new XMLHttpRequest();
-                        xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+actualModel.id_producto+"/"+getUserToken()+"/"+nArticulos));
+                        xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+id+"/"+getUserToken()+"/"+nArticulos));
                         xhr.send();
                         //alert("Tus articulos estan siendo procesados");
                         xhr.onreadystatechange = function(){
@@ -145,10 +193,10 @@ function loadProducts(category)
                                     //Realizar la siguiente peticion
                                     if(resultadoApartar.msg == msg){
                                         //var id = $(this).attr('id');
-                                        if (actualModel.id_producto != null && actualModel.id_producto != undefined) {
+                                        if (id != null && id != undefined) {
                                             //alert("id " + actualModel.id);
-                                            console.log("comprar "+ actualModel.id_producto);
-                                            comprar(getUserToken(), actualModel.id_producto, (cResult) => {
+                                            console.log("comprar "+ id);
+                                            comprar(getUserToken(), id, (cResult) => {
                                                 alert(cResult.msg);
                                             });
     
@@ -160,16 +208,9 @@ function loadProducts(category)
                                 }
                             //else(console.log(this.readyState));
                          }
-                    })  
+                    })  */
 
-                });
-
-               
-			}
-		}
-	}
-}
-
+  });
 
 window.onload = function() {
 		//document.location.href="index.html";
