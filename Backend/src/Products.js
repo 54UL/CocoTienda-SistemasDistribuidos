@@ -4,7 +4,7 @@ var paymentsApi = require('./PaymentsAPI.js')
 
 dbDriver.init();
 var bdApi = mwApi.globalApiManager.getApi("highlevel");
-const DEFAULT_SHOP_BANK_ACCOUNT = 1;
+const DEFAULT_SHOP_BANK_ACCOUNT = 12;
 
 //------------------------------------------- CRUD PRODUCTS
 
@@ -234,22 +234,25 @@ async function authBuy(productID, userTkn) {
 }
 
 //Realizar refactor....
-async function buyProduct(productID, usrToken) {
+async function buyProduct(productID, usrToken,quantity) {
       try {
-            
-            try {
-                  var buyRequest =  await requestBuy(productID,usrToken,1);
-                  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA "+usrToken)
-                  console.debug(buyRequest);
-             } catch (error) {
-                reject(error)   
-             }
-
             return new Promise(async (resolve, reject) => {
                   var resultModel = { compra: 0, msg: "compra fallida;" };
 
-                
-                 
+             try {
+                  var buyRequest =  await requestBuy(productID,usrToken,quantity);
+                  console.debug(buyRequest);
+
+                  if(buyRequest.request_tkn == 0)
+                  {
+                        resultModel.msg = buyRequest.msg;
+                        resolve(resultModel);
+                        return;
+                  }
+             } catch (error) {
+                reject(error)   
+             }
+             
                   //busqueda del producto a comprar en la BD (validacion)
                   var products;
                   try {
