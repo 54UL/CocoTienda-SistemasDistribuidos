@@ -136,34 +136,42 @@ function loadProducts(category)
 
 $(document).on('click', 'button[id="btnApartar"]', function(event) {
     let id = this.value;
-    $(banco).modal("hide");
     var nArticulos = $('#numeroArticulos').val();
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+id+"/"+getUserToken()+"/"+nArticulos));
-    xhr.send();
-    //alert("Tus articulos estan siendo procesados");
-    xhr.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                msg = "ya tienes apartado este producto; realiza una compra";
-                var resultadoApartar = JSON.parse(this.responseText);
-                alert(resultadoApartar.msg);
-                //Realizar la siguiente peticion
-                if(resultadoApartar.msg == msg){
-                    //var id = $(this).attr('id');
-                    if (id != null && id != undefined) {
-                        //alert("id " + actualModel.id);
-                        console.log("comprar "+ id);
-                        comprar(getUserToken(), id, (cResult) => {
-                            alert(cResult.msg);
-                        });
+        if(nArticulos>0){
+            $(banco).modal("hide");
+            var xhr = new XMLHttpRequest();
+            console.log("num"+nArticulos);
+            xhr.open("GET", endpoint("/ProductSelling/requestBuy/"+id+"/"+getUserToken()+"/"+nArticulos));
+            xhr.send();
+            //alert("Tus articulos estan siendo procesados");
+            xhr.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        msg = "ya tienes apartado este producto; realiza una compra";
+                        var resultadoApartar = JSON.parse(this.responseText);
+                        alert(resultadoApartar.msg);
+                        //Realizar la siguiente peticion
+                        if(resultadoApartar.msg == msg){
+                            //var id = $(this).attr('id');
+                            if (id != null && id != undefined) {
+                                //alert("id " + actualModel.id);
+                                console.log("comprar "+ id);
+                                comprar(getUserToken(), id, (cResult) => {
+                                    alert(cResult.msg);
+                                    //Falta este mensaje, quitar realiza una compra
+                                });
 
-                    } else console.log("Error al consegir el id");
+                            } else console.log("Error al consegir el id");
+                        }
+                        else
+                            //alert("Lo sentimos no hay productos disponibles");
+                            alert(resultadoApartar.msg)
+                            console.log(resultadoApartar.msg);
+                        }
                 }
-                else
-                    //alert("Lo sentimos no hay productos disponibles");
-                    console.log(resultadoApartar.msg);
-            }
-   }
+        }
+        else{
+            alert("Selecciona un numero de articulos");
+        }
 })
 
 
