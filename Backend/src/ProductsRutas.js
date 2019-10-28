@@ -1,7 +1,7 @@
 var express = require('express')
 var productsRouter = express.Router()
 var productsApi = require('./Products.js')
-    //ESTO MOVERLO A PRODUCTO RUTAS .JS
+var bodyParser = require("body-parser")
 
 
 productsRouter.get('/retrive/:category', async function(req, res) {
@@ -22,6 +22,37 @@ productsRouter.get('/retrive/:category', async function(req, res) {
 //    res.send(objRes);
 
 // });
+
+productsRouter.use(bodyParser.json());
+productsRouter.route('/CreateProduct')
+    .post(async(req, res, next) => 
+    {
+       // var productModel = JSON.parse(req.body);
+       // console.debug(req.body);
+       //para guardar la imagen en el servidor
+        try {
+          var onCreatedProductResponse =  await productsApi.createProduct(req.body)
+          res.json(onCreatedProductResponse);
+        } catch (error) {
+            res.json(error);
+        }
+    })
+
+productsRouter.use(bodyParser.json());
+productsRouter.route('/UpdateProduct')
+    .post(async(req, res, next) => 
+    {
+    
+    })
+
+
+
+productsRouter.use(bodyParser.json());
+productsRouter.route('/DeleteProduct')
+    .post(async(req, res, next) => 
+    {
+       
+    })
 
 productsRouter.route('/buy/:productid/:token/:amount')
     .get(async(req, res, next) => {
