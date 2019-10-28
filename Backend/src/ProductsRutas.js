@@ -1,4 +1,6 @@
 var express = require('express')
+var fs      = require('fs');
+var bodyParser = require('body-parser')
 var productsRouter = express.Router()
 var productsApi = require('./Products.js')
     //ESTO MOVERLO A PRODUCTO RUTAS .JS
@@ -23,11 +25,22 @@ productsRouter.get('/retrive/:category', async function(req, res) {
 
 // });
 
+productsRouter.use(bodyParser.json());
+productsRouter.route('/CreateProduct')
+    .post(async(req, res, next) => 
+    {
+       // var productModel = JSON.parse(req.body);
+        console.debug(req.body);
+    
+       // fs.writeFileSync('yeeeeeeeeeeeeeeeeeah.jpg', req.body.imgData);
+        res.send("image recived");
+    })
+
 productsRouter.route('/buy/:productid/:token/:amount')
     .get(async(req, res, next) => {
         var productid = req.params.productid;
         var token = req.params.token;
-        var qnty =  req.params.amount
+        var qnty =  req.params.amount;
         try {
             var response = await productsApi.buyProduct(productid, token,qnty)
             res.json(response);
