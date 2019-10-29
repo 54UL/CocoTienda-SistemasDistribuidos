@@ -3,6 +3,8 @@
 var  mwApi     = require('./BDMiddleWareApi.js')
 var  dbDriver  = require('./BDDriverAPI.js')
 
+var usersAuthenticated = new Array();
+
 //AQUI HAY UN BUG CON EL GESTIONADOR DE LAS API'S
 dbDriver.init();
 var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
@@ -39,12 +41,31 @@ var MAX_ELEMENTS=400;
       }
       else
       {     
+
+        let responseModel;
+
+        const posUserOnSessionsArray = usersAuthenticated.findIndex(id_usuario);
+        if(posUserOnSessionsArray == -1 ){
+          respondeModel = {
+            message: "Usuario no encontrado en las sesiones!",
+            error: "User not found on function logout",
+          }
+        }else{
+          usersAuthenticated.splice();
+          responseModel = usersAuthenticated.findIndex(id_usuario) == -1 ? {message: "Sesión cerrada correctamente!"}:{message: "No se pudo cerrar sesión.!"};
+        }
+
+
+        
         const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstUserOf.id_usuario;
         resultQueryCheckSesion = await  bdApi.query(queryCheckIfUserHasAnOpenedSession);
 
         var firstOfCheck = resultQueryCheckSesion[0];
         if(firstOfCheck == null || firstOfCheck == undefined || firstOfCheck == "")
         {
+          usersAuthenticated.push(firstUserOf.id_usuario);
+          usersAuthenticated.sort();
+          console.log(usersAuthenticated);
           const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstUserOf.id_usuario+"')";
           asignedToken = firstUserOf.id_usuario;
           userType     = firstUserOf.id_tipousuario;  
@@ -186,6 +207,27 @@ async function updateUserById(id_usuario,id_tipousuario){
       reject(error);
     }
   });
+}
+
+
+function logOut(id_usuario){
+
+  let responseModel;
+
+  const posUserOnSessionsArray = usersAuthenticated.findIndex(id_usuario);
+  if(posUserOnSessionsArray == -1 ){
+    respondeModel = {
+      message: "Usuario no encontrado en las sesiones!",
+      error: "User not found on function logout",
+    }
+  }else{
+    usersAuthenticated.splice();
+    responseModel = usersAuthenticated.findIndex(id_usuario) == -1 ? {message: "Sesión cerrada correctamente!"}:{message: "No se pudo cerrar sesión.!"};
+  }
+
+  return responseModel;
+
+  
 }
 
 module.exports.getAllUsers = getAllUsers;
