@@ -1,4 +1,4 @@
-function usuarioComponent(ModeloUsuario) {
+function libroComponent(ModeloLibro) {
     return "<div class='col-md-12 col-xs-12'>" +
         "<table class='table'>" +
         "<thead>" +
@@ -13,10 +13,10 @@ function usuarioComponent(ModeloUsuario) {
         "</thead>" +
         "<tbody>" +
         "<tr>" +
-        "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td>" + ModeloUsuario.nombre + "</td>" +
-        " <td>" + ModeloUsuario.correo + "</td>" +
-        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
+        "<th scope='row'>" + ModeloLibro.id_usuario + "</th>" +
+        " <td>" + ModeloLibro.nombre + "</td>" +
+        " <td>" + ModeloLibro.correo + "</td>" +
+        " <td>" + ModeloLibro.id_tipousuario + "</td>" +
 
         "<td>" +
         "<form><button type='button'>Editar</form>" +
@@ -42,14 +42,14 @@ function loadUsuarios() {
             console.log(jsonUsuarios);
             for (var i = 0; i < jsonUsuarios.usuarios.length; i++) {
                 var actualModel = jsonUsuarios.usuarios[i];
-                $("#containerUsuarios").append(usuarioComponent(actualModel));
+                $("#containerUsuarios").append(libroComponent(actualModel));
             }
         }
     }
 }
 
 
-function deleteUsuario(id_usuario, callback) {
+function deleteLibro(id_usuario, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
 
