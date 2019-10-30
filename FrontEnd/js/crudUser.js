@@ -14,17 +14,16 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td> <input id='nombre' value=" + ModeloUsuario.nombre + "></input></td>" +
-        " <td> <input id='correo' value=" + ModeloUsuario.correo + "></td>" +
-        " <td> <input id='tipoU' value=" + ModeloUsuario.id_tipousuario + "></td>" +
+        " <td>" + ModeloUsuario.nombre + "</td>" +
+        " <td>" + ModeloUsuario.correo + "</td>" +
+        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
+
         "<td>" +
+        "<form><button type='button'>Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button  type='button' class='eliminar' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
+        "<form><button type='button'>Eliminar</form>" +
         "</td>" +
-        "<td>" +
-        "<form><button type='button' class ='btnComentario'id=" + ModeloUsuario.id_usuario + " >Comentario</form>" +
-        " </td>" +
         "</tr>" +
         "</tbody>" +
         "</table>" +
@@ -50,39 +49,6 @@ function loadUsuarios() {
 }
 
 
-$(document).on('click', 'button[class="eliminar"]', function(event) {
-    let id = this.id;
-    console.log("Se presionó el Boton con Id :" + id)
-    var nombre = $('#nombre').val();
-    console.log("nombre" + nombre);
-
-   // $(banco).modal("show");
-   /// document.getElementById("btnApartar").value = id;
-    //endpoint modificar
-});
-
-$(document).on('click', 'button[class="btnComentario"]', function(event) {
-    //alert("click");
-    let id = this.id;
-    console.log("Se presionó el Boton con Id :" + id)
-    $(banco).modal("show");
-
-   /// document.getElementById("btnApartar").value = id;
-   //endpoint eliminar
-
-});
-
-
-$(document).on('click', 'button[class="btnComentario"]', function(event) {
-    //alert("click");
-    let id = this.id;
-    console.log("Se presionó el Boton con Id :" + id)
-   // $(banco).modal("show");
-   /// document.getElementById("btnApartar").value = id;
-   //endpoint eliminar
-
-});
-
 function deleteUsuario(id_usuario, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
@@ -97,6 +63,12 @@ function deleteUsuario(id_usuario, callback) {
     }
 
 }
+
+
+
+
+
+
 
 
 window.onload = function() {
