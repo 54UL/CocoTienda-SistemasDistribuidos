@@ -19,7 +19,7 @@ function usuarioComponent(ModeloUsuario) {
         " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
 
         "<td>" +
-        "<form><button type='button'>Editar</form>" +
+        "<form><button type='button' class='btnedit'>Editar</form>" +
         " </td>" +
         " <td>" +
         "<form><button type='button'>Eliminar</form>" +
@@ -49,6 +49,15 @@ function loadUsuarios() {
 }
 
 
+$(document).on('click', 'button[class="btnedit"]', function(event) {
+    let id = this.id;
+    console.log("Se presionó el Boton con Id :" + id)
+   // $(banco).modal("show");
+   /// document.getElementById("btnApartar").value = id;
+
+});
+
+
 function deleteUsuario(id_usuario, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
@@ -63,12 +72,6 @@ function deleteUsuario(id_usuario, callback) {
     }
 
 }
-
-
-
-
-
-
 
 
 window.onload = function() {
