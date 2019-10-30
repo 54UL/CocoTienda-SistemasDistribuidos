@@ -1,5 +1,5 @@
 //import {endpoint} from './Globales.js';
-var lol;
+mostrarBarraTipoUsuario();
 
 function productoComponent(ModeloProducto) {
     return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +
@@ -183,6 +183,7 @@ window.onload = function() {
 
 $("#llaveros").click(function() {
     loadProducts(3);
+    
 })
 
 $("#camisas").click(function() {
