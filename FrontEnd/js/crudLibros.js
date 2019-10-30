@@ -6,11 +6,12 @@ function usuarioComponent(ModeloUsuario) {
         "<thead>" +
         " <tr>" +
         " <th scope='col'>Id</th>" +
-        " <th scope='col'>Nombre</th>" +
-        "<th scope='col'>Correo</th>" +
-        "<th scope='col'>Tipo de Usuario</th>" +
-
+        " <th scope='col'>Autor</th>" +
+        "<th scope='col'>Titulo</th>" +
         "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+
         "</tr>" +
         "</thead>" +
         "<tbody>" +
@@ -18,7 +19,6 @@ function usuarioComponent(ModeloUsuario) {
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
         " <td> <input id='nombre' value=" + ModeloUsuario.nombre + "></input></td>" +
         " <td> <input id='correo' value=" + ModeloUsuario.correo + "></td>" +
-        " <td> <input id='tipoU' value=" + ModeloUsuario.id_tipousuario + "></td>" +
         "<td>" +
         " </td>" +
         " <td>" +
@@ -50,12 +50,18 @@ function loadUsuarios() {
         }
     }
 }
-
+$('#agregarLibro').on('click', function(){
+    //Endpoint
+})
 
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
     var nombre = $('#nombre').val();
+    var correo = $('#correo').val();
+
+
+
     console.log("nombre" + nombre);
 
    // $(banco).modal("show");

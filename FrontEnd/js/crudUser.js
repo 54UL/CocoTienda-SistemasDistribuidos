@@ -5,9 +5,8 @@ function usuarioComponent(ModeloUsuario) {
         "<thead>" +
         " <tr>" +
         " <th scope='col'>Id</th>" +
-        " <th scope='col'>Nombre</th>" +
-        "<th scope='col'>Correo</th>" +
-        "<th scope='col'>Tipo de Usuario</th>" +
+        " <th scope='col'>Titulo</th>" +
+        "<th scope='col'>Autor</th>" +
 
         "<th scope='col'></th>" +
         "</tr>" +
@@ -17,7 +16,6 @@ function usuarioComponent(ModeloUsuario) {
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
         " <td>" + ModeloUsuario.nombre + "</td>" +
         " <td>" + ModeloUsuario.correo + "</td>" +
-        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
 
         "<td>" +
         "<form><button type='button'>Editar</form>" +
