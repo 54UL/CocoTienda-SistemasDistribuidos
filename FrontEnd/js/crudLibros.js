@@ -14,12 +14,10 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td>" + ModeloUsuario.nombre + "</td>" +
-        " <td>" + ModeloUsuario.correo + "</td>" +
-        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
-
+        " <td> <input value=" + ModeloUsuario.nombre + "></input></td>" +
+        " <td> <input value=" + ModeloUsuario.correo + "></td>" +
+        " <td> <input value=" + ModeloUsuario.id_tipousuario + "></td>" +
         "<td>" +
-        "<form><button type='button' class ='btnelim'id=" + ModeloUsuario.id_usuario + " >Editar</form>" +
         " </td>" +
         " <td>" +
         "<form><button class='btnelim' type='button' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
@@ -61,11 +59,11 @@ $(document).on('click', 'button[class="btnedit "]', function(event) {
     //endpoint modificar
 });
 
-$(document).on('click', 'button[class="btnelim"]', function(event) {
+$(document).on('click', 'button[class="btnComentario"]', function(event) {
     //alert("click");
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
-   // $(banco).modal("show");
+    $(banco).modal("show");
    /// document.getElementById("btnApartar").value = id;
    //endpoint eliminar
 
