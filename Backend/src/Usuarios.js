@@ -51,7 +51,7 @@ var MAX_ELEMENTS=400;
             error: "User not found on function logout",
           }
         }else{
-          usersAuthenticated.splice();
+          usersAuthenticated.push();
           responseModel = usersAuthenticated.findIndex(id_usuario) == -1 ? {message: "Sesión cerrada correctamente!"}:{message: "No se pudo cerrar sesión.!"};
         }
 
