@@ -40,7 +40,8 @@ function register(usuario,correo,pass){
         email:correo,
         pass:pass
        }));
-    
+
+     
   
     xhr.onreadystatechange = function(event){
         event.preventDefault();
