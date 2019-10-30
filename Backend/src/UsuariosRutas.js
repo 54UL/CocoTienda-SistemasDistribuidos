@@ -53,11 +53,13 @@ usrRouter.post("/Delete/:id_usuario", async(req, res) => {
     }
 });
 
-// usrRouter.use(bodyParser.json());
+usrRouter.use(bodyParser.json());
 usrRouter.get("/GetAllUsers", async(req, res) => {
     try {
         var responseFromUsers = await usrApi.getAllUsers();
-        res.json(responseFromUsers);
+        // res.json(responseFromUsers);
+        res.json({ usuarios: responseFromUsers });
+
     } catch (error) {
         console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
     }

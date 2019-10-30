@@ -5,8 +5,9 @@ function usuarioComponent(ModeloUsuario) {
         " <tr>" +
         " <th scope='col'>Id</th>" +
         " <th scope='col'>Nombre</th>" +
-        " <th scope='col'>Username</th>" +
         "<th scope='col'>Correo</th>" +
+        "<th scope='col'>Tipo de Usuario</th>" +
+
         "<th scope='col'></th>" +
         "</tr>" +
         "</thead>" +
@@ -14,13 +15,14 @@ function usuarioComponent(ModeloUsuario) {
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
         " <td>" + ModeloUsuario.nombre + "</td>" +
-        " <td>" + ModeloUsuario.username + "</td>" +
         " <td>" + ModeloUsuario.correo + "</td>" +
+        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
+
         "<td>" +
-        "<form><input type=submit style='width:50%'></form>" +
+        "<form><button type='button'>Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><input type=submit style='width:50%'></form>" +
+        "<form><button type='button'>Eliminar</form>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
@@ -28,18 +30,47 @@ function usuarioComponent(ModeloUsuario) {
         "</div>"
 }
 
-
 function loadUsuarios() {
     var xhr = new XMLHttpRequest();
-    console.log('hola');
-    xhr.open("GET", endpoint("/GetAllUsers"));
+    xhr.open("GET", endpoint("/Users/GetAllUsers"));
     xhr.send();
-    if (this.readyState == 4 && this.status == 200) {
-        $("#containerUsuarios").html("");
-        var jsonUsuarios = JSON.parse(this.responseText);
-        for (var i = 0; i < jsonUsuarios.Usuarios.length; i++) {
-            var actualModel = jsonUsuarios.Usuarios[i];
-            $("#containerUsuarios").append(productoComponent(actualModel));
+    $("#containerProductos").html("<h1>CARGANDO...</h1>");
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $("#containerUsuarios").html("");
+            var jsonUsuarios = JSON.parse(this.responseText);
+            console.log(jsonUsuarios);
+            for (var i = 0; i < jsonUsuarios.usuarios.length; i++) {
+                var actualModel = jsonUsuarios.usuarios[i];
+                $("#containerUsuarios").append(usuarioComponent(actualModel));
+            }
         }
     }
+}
+
+
+function deleteUsuario(id_usuario, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
+
+    // xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var borrar = JSON.parse(this.responseText);
+            callback(borrar)
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+window.onload = function() {
+    loadUsuarios();
 }

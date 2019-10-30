@@ -67,6 +67,7 @@ function loadProducts(category) {
 
             for (var i = 0; i < jsonProductos.productos.length; i++) {
                 var actualModel = jsonProductos.productos[i];
+                console.log(jsonProductos.productos[i]);
                 $("#containerProductos").append(productoComponent(actualModel));
 
 
