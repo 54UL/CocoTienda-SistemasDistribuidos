@@ -155,7 +155,7 @@ async function getFounds(usr)
                 )
             }    
         }                
-    })    
+    })  
 }
 
 //tkn: token de admin, usr: usuario a enviar dinero, amount: cantidad

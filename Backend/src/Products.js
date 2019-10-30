@@ -1,10 +1,10 @@
 var mwApi = require('./BDMiddleWareApi.js')
 var dbDriver = require('./BDDriverAPI.js')
 var paymentsApi = require('./PaymentsAPI.js')
-
+var fs  = require("fs")
 dbDriver.init();
 var bdApi = mwApi.globalApiManager.getApi("highlevel");
-const DEFAULT_SHOP_BANK_ACCOUNT = 1;
+const DEFAULT_SHOP_BANK_ACCOUNT = 12;
 
 //------------------------------------------- CRUD PRODUCTS
 
@@ -27,18 +27,62 @@ async function retriveProducts(cat, cb) {
       })
 }
 
-async function createProduct(productModel) {
-      try {
-            return new Promise((resolve, reject) => {
-                  resolve(productModel);
-            })
-      }
-      catch (error) {
-            reject(error)
+
+//input json: product{name:"",imgName:"",imgData:[],price:777,stock:30,category:0}
+//outputjson: response{status:0,msg:""}
+
+//LOS RESPONSES YA SE DEFINEN EN MODELOS
+class CreatedProductResponse
+{
+      constructor(resStatus,resMsg)
+      {
+            this.status = resStatus;
+            this.msg = resMsg;
       }
 }
 
+async function createProduct(productModel) 
+{
+      return new Promise(async(resolve, reject) =>
+       {
+       var imagePath =  "img/";
+      switch(productModel.category)
+      {
+            case 1:
+            imagePath += "Cachuchas/"
+            break;
+            case 2:
+            imagePath += "Camisas/"
+            break;
+            case 3:
+            imagePath += "LLaveros/"
+            break;
+            case 4:
+            imagePath += "Tazas/"
+            break;
+      }
+      var imageFolderPath = imagePath+productModel.imgName;
+      var insertProductQry = 
+      "INSERT INTO producto(id_producto, nombre, id_categoria, cantidad, precio_unitario, imagen)  \
+      VALUES (0,'"+productModel.name+"',"+productModel.category+","+productModel.stock+","+productModel.price+",'"+imageFolderPath+"')";
+      
+      try {
+            await bdApi.query(insertProductQry);
+      } catch (error) {
+            reject(error);
+      }
+      var inputBuff = new Buffer.from(productModel.imgData);
+      var relativePath = "../../FrontEnd/"+imageFolderPath
+  
 
+      fs.writeFileSync(relativePath,inputBuff);
+      // console.debug(productModel);
+       resolve(new CreatedProductResponse(1,"producto creado"))
+      })
+}
+
+//input json: product{id:0,price:0,stock:0}
+//outputjson: response{status:0,msg:""}
 async function updateProduct(productModel) {
       try {
             return new Promise((resolve, reject) => {
@@ -49,7 +93,8 @@ async function updateProduct(productModel) {
             reject(error)
       }
 }
-
+//input json: product{id:0}
+//outputjson: response{status:0,msg:""}
 async function deleteProduct(productModel) {
       try {
             return new Promise((resolve, reject) => {
@@ -233,23 +278,27 @@ async function authBuy(productID, userTkn) {
       })  
 }
 
+ 
 //Realizar refactor....
-async function buyProduct(productID, usrToken) {
+async function buyProduct(productID, usrToken,quantity) {
       try {
-            
-            try {
-                  var buyRequest =  await requestBuy(productID,usrToken,1);
-                  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA "+usrToken)
-                  console.debug(buyRequest);
-             } catch (error) {
-                reject(error)   
-             }
-
             return new Promise(async (resolve, reject) => {
                   var resultModel = { compra: 0, msg: "compra fallida;" };
 
-                
-                 
+             try {
+                  var buyRequest =  await requestBuy(productID,usrToken,quantity);
+                  console.debug(buyRequest);
+
+                  if(buyRequest.request_tkn == 0)
+                  {
+                        resultModel.msg = buyRequest.msg;
+                        resolve(resultModel);
+                        return;
+                  }
+             } catch (error) {
+                reject(error)   
+             }
+             
                   //busqueda del producto a comprar en la BD (validacion)
                   var products;
                   try {
@@ -339,9 +388,11 @@ async function buyProduct(productID, usrToken) {
 
 module.exports.retriveProducts = retriveProducts;
 module.exports.buyProduct = buyProduct;
-
-//EXPERIMENTAL FEATURES
 module.exports.updateStock = updateStock;
 module.exports.getBDStock = getBDStock;
 module.exports.requestBuy = requestBuy;
 module.exports.printVirtualStock = printVirtualStock;
+//CRUD
+module.exports.createProduct = createProduct;
+module.exports.updateProduct = updateProduct;
+module.exports.deleteProduct = deleteProduct;

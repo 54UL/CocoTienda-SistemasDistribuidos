@@ -23,3 +23,19 @@ function getUserType() {
     console.log('Id del usuario:', userType)
     return userType;
 }
+
+function mostrarBarraTipoUsuario(){
+    if (getUserType() == 4) { //Es administrador
+        $("#ulInventario").css("display", "block");
+        $("#ulAdmin").css("display", "block");
+
+
+    } else if (getUserType() == 3) { // Es almacenista
+        $("#ulInventario").css("display", "block");
+    }
+    else if(getUserType() == 2){
+        //Es usuario 
+    }
+}
+
+

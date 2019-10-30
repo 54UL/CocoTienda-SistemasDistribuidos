@@ -165,7 +165,7 @@
 		<!-- USUARIO -->
 		<div class="contenedor-formulario">
 			<div class="formulario-ingreso">
-				<form>
+			
 					
 					<!-- Subir imagen -->
 					
@@ -176,7 +176,7 @@
 					<div>
 					<center>
 					<input id="btnimagen" type="file"
-						   accept=".jpeg" required>
+						   accept=".jpg" required>
 					</center>
 					</div>
 					
@@ -187,18 +187,19 @@
 				  </span>
 					<!-- AdminUser -->
 
+				
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre del producto">
+						<input  id="productNameInput" class="input-ingreso" type="text" name="usuario" placeholder="nombreProducto">
 						<span></span>
 					</div>
 					<!-- AdminUser -->
 					<center>
-					<div class="campo-texto" data-validate = "Categorias"><span></span>
-					  <select name="select" class="input-select">
+					<div  class="campo-texto" data-validate = "Categorias"><span></span>
+					  <select id="productCategoryInput" name="select" class="input-select">
 					    <option value="0">Categorías</option>
-					    <option value="1">Tazas</option>
-					    <option value="1">Camisas</option>
-					    <option value="1">Llaveros</option>
+					    <option value="4">Tazas</option>
+					    <option value="2">Camisas</option>
+					    <option value="3">Llaveros</option>
 					    <option value="1">Cachuchas</option>
 				      </select>
 					</div>
@@ -206,18 +207,23 @@
 					<!-- AdminUser -->
 					
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Precio">
+						<input  id="productPriceInput" class="input-ingreso" type="text" name="usuario" placeholder="Precio">
 						<span></span>
 					</div>
-				
+
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input  id="productStockInput" class="input-ingreso" type="text" name="usuario" placeholder="Stock">
+						<span></span>
+					</div>
+					
 
 				  <div>
-						<button class="boton-ingresar">
+						<button id="crearProductoBtn" class="boton-ingresar">
 							Agregar
 					</button>
 					</div>
 
-				</form>
+				
 			</div>
 		</div>
 
@@ -258,6 +264,77 @@
 			</div>
 		</footer>
 		<!-- /FOOTER -->
+		<script>
+			//SAUL CREATE PRODUCT CODE!!!
+			function sendCreateProductRequest(imgArray,nombreProducto,nombreImagen,precio,Stock,categoria)
+			{
+			var xhr = new XMLHttpRequest()
+			xhr.open("POST","http://localhost:3000/ProductSelling/CreateProduct")
+			xhr.setRequestHeader("Content-Type","application/json")
+			xhr.send(JSON.stringify({name:nombreProducto,imgName:nombreImagen,price:precio,stock:Stock,category:Number(categoria),imgData:imgArray}))
+			xhr.onreadystatechange = function() 
+			{
+			if (this.readyState == 4 && this.status == 200)
+				{
+					alert(this.responseText)
+				}
+			}
+			
+			}
+
+			async function readSingleFile(e) 
+			{
+				return new Promise(async(resolve,reject)=>
+				{
+					var file = e
+					if (!file) {
+					return;
+					}
+					var reader = new FileReader();
+					reader.onload = function(e) {
+					var contents = e.target.result;
+				
+					var arrayOfPixels = new Uint8Array(contents);
+					var array = Array.from(arrayOfPixels)
+					resolve(array)
+					
+					};
+					reader.readAsArrayBuffer(file);
+				})		
+			}
+
+			async function submitCreateProductData(event)
+			{
+				var archivoImg =  document.getElementById('btnimagen').files[0];
+				var nombreProducto = $("#productNameInput").val();
+				var category = $("#productCategoryInput").val();
+				var stockProducto = $("#productStockInput").val();
+				var precioProducto = $("#productPriceInput").val();
+
+				//console.debug(archivoImg)
+				console.log("nombre         "+nombreProducto);
+				console.log("category       "+category);
+				console.log("stockProducto  "+stockProducto);
+				console.log("precioProducto "+precioProducto);
+				
+				var imageArrayData;
+				try {
+					imageArrayData= await readSingleFile(archivoImg);
+				} catch (error) {
+					console.log(error);
+				}
+			
+				
+				sendCreateProductRequest(imageArrayData,nombreProducto,archivoImg.name,precioProducto,stockProducto,category);
+				//sendImage(files);
+			};
+			try {
+				document.getElementById("crearProductoBtn").onclick =  submitCreateProductData
+			} catch (error) {
+				alert(error)
+			}
+			
+			</script>
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>

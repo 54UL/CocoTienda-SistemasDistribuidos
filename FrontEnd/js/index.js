@@ -1,5 +1,5 @@
 //import {endpoint} from './Globales.js';
-var lol;
+mostrarBarraTipoUsuario();
 
 function productoComponent(ModeloProducto) {
     return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +
@@ -36,14 +36,15 @@ function productoComponent(ModeloProducto) {
 
 
 
-function comprar(token, productoID, callback) {
+function comprar(token, productoID, nProductos, callback) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
+    xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token + "/" + nProductos));
     xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var compra = JSON.parse(this.responseText);
+            console.log(compra);
             callback(compra)
         }
     }
@@ -133,34 +134,34 @@ $(document).on('click', 'button[id="btnApartar"]', function(event) {
     var nArticulos = $('#numeroArticulos').val();
     if (nArticulos > 0) {
         $(banco).modal("hide");
-        var xhr = new XMLHttpRequest();
-        console.log("num" + nArticulos);
-        xhr.open("GET", endpoint("/ProductSelling/requestBuy/" + id + "/" + getUserToken() + "/" + nArticulos));
-        xhr.send();
+       // var xhr = new XMLHttpRequest();
+        //console.log("num" + nArticulos);
+        //xhr.open("GET", endpoint("/ProductSelling/requestBuy/" + id + "/" + getUserToken() + "/" + nArticulos));
+        //xhr.send();
         //alert("Tus articulos estan siendo procesados");
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                msg = "ya tienes apartado este producto; realiza una compra";
-                var resultadoApartar = JSON.parse(this.responseText);
-                alert(resultadoApartar.msg);
+        //xhr.onreadystatechange = function() {
+           // if (this.readyState == 4 && this.status == 200) {
+               // msg = "ya tienes apartado este producto; realiza una compra";
+               // var resultadoApartar = JSON.parse(this.responseText);
+                //alert(resultadoApartar.msg);
                 //Realizar la siguiente peticion
-                if (resultadoApartar.msg == msg) {
+                //if (resultadoApartar.msg == msg) {
                     //var id = $(this).attr('id');
                     if (id != null && id != undefined) {
                         //alert("id " + actualModel.id);
                         console.log("comprar " + id);
-                        comprar(getUserToken(), id, (cResult) => {
+                        comprar(getUserToken(), id, nArticulos, (cResult) => {
                             alert(cResult.msg);
                             //Falta este mensaje, quitar realiza una compra
                         });
 
                     } else console.log("Error al consegir el id");
-                } else
+                //} else
                 //alert("Lo sentimos no hay productos disponibles");
-                    alert(resultadoApartar.msg)
-                console.log(resultadoApartar.msg);
-            }
-        }
+                    //alert(resultadoApartar.msg)
+                    //console.log(resultadoApartar.msg);
+            //}
+        
     } else {
         alert("Selecciona un numero de articulos");
     }
@@ -183,6 +184,7 @@ window.onload = function() {
 
 $("#llaveros").click(function() {
     loadProducts(3);
+    
 })
 
 $("#camisas").click(function() {
