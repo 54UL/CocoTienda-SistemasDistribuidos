@@ -101,7 +101,6 @@ function validationPipe(NewUserModel)
   return new Promise(async(resolve, reject)=>{
     try 
     {
-      console.log("hola");
       var responseModel = {asignedToken:0,msg:"text"}
       const error = validationPipe(NewUserModel);
       
@@ -116,7 +115,6 @@ function validationPipe(NewUserModel)
 
         if(result_email[0]!=undefined){
           responseModel.msg="Esta cuenta ya existe";
-          console.log("hola"); 
           resolve(responseModel);           
         }
         else{

@@ -63,7 +63,7 @@ function createAccount(NewAccountModel){
 function updateAmount(id_account,NewAmmount){
     return new Promise(async (resolve,reject)=>{
         try{
-            query = "UPDATE FROM cocobanco SET Saldo='"+NewAmmount+"' WHERE ID_Cuenta='"+id_account+"'";
+            query = "UPDATE cocobanco SET Saldo='"+NewAmmount+"' WHERE ID_Cuenta='"+id_account+"'";
             var result = await bdApi.query(query);
             resolve({msg:"Cuenta actualizada",result}); 
         }
@@ -92,7 +92,7 @@ function getAccounts()
     return new Promise(async (resolve, resolve)=>{
         try{
             query = "SELECT * FROM Cocobanco";
-            var result = wait bdApi.query(query);
+            var result = await bdApi.query(query);
             resolve({msg:"Cuentas obtenidas", result});
         }
         catch(error){
