@@ -39,7 +39,6 @@ function comprar(token, productoID, nProductos, callback) {
     var xhr = new XMLHttpRequest();
 
     xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token + "/" + nProductos));
-    xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var compra = JSON.parse(this.responseText);
