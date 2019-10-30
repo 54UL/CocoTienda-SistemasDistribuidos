@@ -14,13 +14,13 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td> <input value=" + ModeloUsuario.nombre + "></input></td>" +
-        " <td> <input value=" + ModeloUsuario.correo + "></td>" +
-        " <td> <input value=" + ModeloUsuario.id_tipousuario + "></td>" +
+        " <td> <input id='nombre' value=" + ModeloUsuario.nombre + "></input></td>" +
+        " <td> <input id='correo' value=" + ModeloUsuario.correo + "></td>" +
+        " <td> <input id='tipoU' value=" + ModeloUsuario.id_tipousuario + "></td>" +
         "<td>" +
         " </td>" +
         " <td>" +
-        "<form><button class='btnelim' type='button' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
+        "<form><button  type='button' class='eliminar' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
         "</td>" +
         "<td>" +
         "<form><button type='button' class ='btnComentario'id=" + ModeloUsuario.id_usuario + " >Comentario</form>" +
@@ -50,10 +50,12 @@ function loadUsuarios() {
 }
 
 
-$(document).on('click', 'button[class="btnedit "]', function(event) {
-  //  alert("click");
+$(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
+    var nombre = $('#nombre').val();
+    console.log("nombre" + nombre);
+
    // $(banco).modal("show");
    /// document.getElementById("btnApartar").value = id;
     //endpoint modificar
@@ -64,6 +66,7 @@ $(document).on('click', 'button[class="btnComentario"]', function(event) {
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
     $(banco).modal("show");
+
    /// document.getElementById("btnApartar").value = id;
    //endpoint eliminar
 
