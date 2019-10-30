@@ -42,45 +42,29 @@ var MAX_ELEMENTS=400;
       else
       {     
 
-        let responseModel;
+        const userHasAnOpenedSession = usersAuthenticated.includes(firstUserOf.id_usuario);         
 
-        const posUserOnSessionsArray = usersAuthenticated.findIndex(id_usuario);
-        if(posUserOnSessionsArray == -1 ){
-          respondeModel = {
-            message: "Usuario no encontrado en las sesiones!",
-            error: "User not found on function logout",
-          }
-        }else{
-          usersAuthenticated.splice();
-          responseModel = usersAuthenticated.findIndex(id_usuario) == -1 ? {message: "Sesión cerrada correctamente!"}:{message: "No se pudo cerrar sesión.!"};
-        }
+        if(!userHasAnOpenedSession){
+          //Si no se encuentra, dejar iniciar sesión.
 
-
-        
-        const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstUserOf.id_usuario;
-        resultQueryCheckSesion = await  bdApi.query(queryCheckIfUserHasAnOpenedSession);
-
-        var firstOfCheck = resultQueryCheckSesion[0];
-        if(firstOfCheck == null || firstOfCheck == undefined || firstOfCheck == "")
-        {
           usersAuthenticated.push(firstUserOf.id_usuario);
           usersAuthenticated.sort();
           console.log(usersAuthenticated);
-          const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstUserOf.id_usuario+"')";
           asignedToken = firstUserOf.id_usuario;
           userType     = firstUserOf.id_tipousuario;  
-          await bdApi.query(queryCreateNewSession)
-          resolve({asignedToken,message,userType})           
-        }
-        else
-        {                  
+          resolve({asignedToken,message,userType})  
+
+
+        }else{
           message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
           asignedToken = 0;
+          logOut(firstUserOf.id_usuario);
           resolve({asignedToken,message,userType});
-        }       
+        }     
       }                               
     } 
     catch (error) {
+      console.log(error);
       reject(error);
     }
   })
@@ -132,9 +116,7 @@ function validationPipe(NewUserModel)
       {    
         var queryemail = "SELECT id_usuario FROM usuario WHERE correo='"+NewUserModel.email+"'";
         var result_email =  await bdApi.query(queryemail);
-        
-        
-
+                
         if(result_email[0]!=undefined){
           responseModel.msg="Esta cuenta ya existe";
           console.log("hola"); 
@@ -216,20 +198,24 @@ function logOut(id_usuario){
 
   let responseModel;
 
-  const posUserOnSessionsArray = usersAuthenticated.findIndex(id_usuario);
-  if(posUserOnSessionsArray == -1 ){
+  const indexOfUser = usersAuthenticated.findIndex((pos)=>{
+    return pos == id_usuario;
+  });
+
+  if(indexOfUser == -1){
     respondeModel = {
       message: "Usuario no encontrado en las sesiones!",
       error: "User not found on function logout",
     }
   }else{
-    usersAuthenticated.splice();
-    responseModel = usersAuthenticated.findIndex(id_usuario) == -1 ? {message: "Sesión cerrada correctamente!"}:{message: "No se pudo cerrar sesión.!"};
+    
+    usersAuthenticated.splice(indexOfUser,1);
+    console.log("Numb of users on the system: "+usersAuthenticated.length);
+    console.log("Users: " + usersAuthenticated);
+    responseModel = usersAuthenticated.includes(id_usuario) ? {message: "No se pudo cerrar sesion!"}:{message:"Sesion cerrada correctamente!"};
   }
 
-  return responseModel;
-
-  
+  return responseModel;  
 }
 
 module.exports.getAllUsers = getAllUsers;

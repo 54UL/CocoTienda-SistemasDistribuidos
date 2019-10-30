@@ -1,6 +1,8 @@
 var bodyParser = require('body-parser')
 var express = require('express');
 var usrApi = require('./Usuarios.js')
+var productsApi = require('./Products.js')
+
 var usrRouter = express.Router();
 
 //import colorsCodes  from './colorCodes'
@@ -75,6 +77,22 @@ usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
         console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
     }
 });
+
+usrRouter.get('/getHistory/:token', async(req,res)=>{
+    const token = req.params.token;
+
+    try {
+        var resGetHistory = await productsApi.getHistory(token);   
+        if(res!= undefined){
+            console.log(JSON.stringify(resGetHistory));
+        } else{
+            console.log("History undefined");
+        }
+
+    } catch (error) {
+        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
+    }
+})
 
 
 module.exports.usrRouter = usrRouter;
