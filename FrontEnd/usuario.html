@@ -12,6 +12,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
+    <link rel="stylesheet" href="popper.min.js">
+
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -45,11 +47,10 @@
                     <li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
                 </ul>
                 <ul class="header-links pull-right">
-                    <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"></i>Cuenta</a></li>
-                    <!-- <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p> -->
-
-
+                    <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li>
                 </ul>
+
+                <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
 
             </div>
         </div>
