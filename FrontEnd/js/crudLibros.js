@@ -19,11 +19,14 @@ function usuarioComponent(ModeloUsuario) {
         " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
 
         "<td>" +
-        "<form><button type='button' class='btnedit'>Editar</form>" +
+        "<form><button type='button' class ='btnelim'id=" + ModeloUsuario.id_usuario + " >Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button type='button'>Eliminar</form>" +
+        "<form><button class='btnelim' type='button' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
         "</td>" +
+        "<td>" +
+        "<form><button type='button' class ='btnComentario'id=" + ModeloUsuario.id_usuario + " >Comentario</form>" +
+        " </td>" +
         "</tr>" +
         "</tbody>" +
         "</table>" +
@@ -49,14 +52,35 @@ function loadUsuarios() {
 }
 
 
-$(document).on('click', 'button[class="btnedit"]', function(event) {
+$(document).on('click', 'button[class="btnedit "]', function(event) {
+  //  alert("click");
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
    // $(banco).modal("show");
    /// document.getElementById("btnApartar").value = id;
+    //endpoint modificar
+});
+
+$(document).on('click', 'button[class="btnelim"]', function(event) {
+    //alert("click");
+    let id = this.id;
+    console.log("Se presionó el Boton con Id :" + id)
+   // $(banco).modal("show");
+   /// document.getElementById("btnApartar").value = id;
+   //endpoint eliminar
 
 });
 
+
+$(document).on('click', 'button[class="btnComentario"]', function(event) {
+    //alert("click");
+    let id = this.id;
+    console.log("Se presionó el Boton con Id :" + id)
+   // $(banco).modal("show");
+   /// document.getElementById("btnApartar").value = id;
+   //endpoint eliminar
+
+});
 
 function deleteUsuario(id_usuario, callback) {
     var xhr = new XMLHttpRequest();
