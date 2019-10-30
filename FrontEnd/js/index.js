@@ -1,5 +1,4 @@
 //import {endpoint} from './Globales.js';
-mostrarBarraTipoUsuario();
 
 function productoComponent(ModeloProducto) {
     return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +

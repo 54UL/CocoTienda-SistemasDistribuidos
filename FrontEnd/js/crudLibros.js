@@ -1,3 +1,5 @@
+
+
 function usuarioComponent(ModeloUsuario) {
     return "<div class='col-md-12 col-xs-12'>" +
         "<table class='table'>" +
@@ -77,9 +79,15 @@ $(document).on('click', 'button[class="btnComentario"]', function(event) {
     //alert("click");
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
+    if(getUserToken() == "") {
+        alert("Necesitas iniciar sesion pa comentar");
+            
+    }
+    else 
+    alert("f");
    // $(banco).modal("show");
    /// document.getElementById("btnApartar").value = id;
-   //endpoint eliminar
+   //endpoint pa comentario
 
 });
 
