@@ -58,7 +58,6 @@ var MAX_ELEMENTS=400;
         }else{
           message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
           asignedToken = 0;
-          logOut(firstUserOf.id_usuario);
           resolve({asignedToken,message,userType});
         }     
       }                               
