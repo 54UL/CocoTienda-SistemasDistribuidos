@@ -16,16 +16,16 @@ function usuarioComponent(ModeloUsuario) {
         "</thead>" +
         "<tbody>" +
         "<tr>" +
-        "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td> <input id='nombre' value=" + ModeloUsuario.nombre + "></input></td>" +
-        " <td> <input id='correo' value=" + ModeloUsuario.correo + "></td>" +
+        "<th scope='row'>" + ModeloUsuario.id_libro + "</th>" +
+        " <td> <input id='titulo' value=" + ModeloUsuario.titulo + "></input></td>" +
+        " <td> <input id='autor' value=" + ModeloUsuario.autor + "></td>" +
         "<td>" +
         " </td>" +
         " <td>" +
-        "<form><button  type='button' class='eliminar' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
+        "<form><button  type='button' class='eliminar' id=" + ModeloUsuario.id_libro  + ">Eliminar</form>" +
         "</td>" +
         "<td>" +
-        "<form><button type='button' class ='btnComentario'id=" + ModeloUsuario.id_usuario + " >Comentario</form>" +
+        "<form><button type='button' class ='btnComentario'id=" + ModeloUsuario.id_libro + " >Comentario</form>" +
         " </td>" +
         "</tr>" +
         "</tbody>" +
@@ -35,7 +35,7 @@ function usuarioComponent(ModeloUsuario) {
 
 function loadUsuarios() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/GetAllUsers"));
+    xhr.open("GET", endpoint("/Libros/getAll"));
     xhr.send();
     $("#containerProductos").html("<h1>CARGANDO...</h1>");
     xhr.onreadystatechange = function() {
@@ -43,8 +43,9 @@ function loadUsuarios() {
             $("#containerUsuarios").html("");
             var jsonUsuarios = JSON.parse(this.responseText);
             console.log(jsonUsuarios);
-            for (var i = 0; i < jsonUsuarios.usuarios.length; i++) {
-                var actualModel = jsonUsuarios.usuarios[i];
+            for (var i = 0; i < jsonUsuarios.length; i++) {
+                var actualModel = jsonUsuarios[i];
+                console.log(actualModel.autor);
                 $("#containerUsuarios").append(usuarioComponent(actualModel));
             }
         }
@@ -54,15 +55,33 @@ $('#agregarLibro').on('click', function(){
     //Endpoint
 })
 
+$('#cerrarsesion').on('click', function(){
+    //Endpoint
+    alert("Se cerro la sesion");
+    document.cookie ="0";
+})
+
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
     console.log("Se presionó el Boton con Id :" + id)
-    var nombre = $('#nombre').val();
-    var correo = $('#correo').val();
+    var autor = $('#autor').val();
+    var titulo = $('#titulo').val();
+    
+    ///Libros/Delete/:idLibro
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/Libros/Delete/"+id));
+    xhr.send();
+    $("#containerProductos").html("<h1>CARGANDO...</h1>");
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var jsonUsuarios = JSON.parse(this.responseText);
+            console.log("kkk"+jsonUsuarios);
+            alert("Se ha eliminado");
+            
+        }
+    }
 
 
-
-    console.log("nombre" + nombre);
 
    // $(banco).modal("show");
    /// document.getElementById("btnApartar").value = id;
@@ -81,6 +100,7 @@ $(document).on('click', 'button[class="btnComentario"]', function(event) {
 });
 
 
+
 $(document).on('click', 'button[class="btnComentario"]', function(event) {
     //alert("click");
     let id = this.id;
@@ -96,6 +116,7 @@ $(document).on('click', 'button[class="btnComentario"]', function(event) {
    //endpoint pa comentario
 
 });
+
 
 function deleteUsuario(id_usuario, callback) {
     var xhr = new XMLHttpRequest();

@@ -83,7 +83,7 @@ app.get("/Libros/Create", async(req, res) => {
 app.get("/Libros/Delete/:idLibro", async(req, res) => {
     try {
         var id_libro = req.params.idLibro;
-        await bdquery("DELETE * FROM Libro where id_libro="+id_libro);
+        await bdquery("DELETE FROM Libro where id_libro="+id_libro);
         res.json({status:1,msg:"libro eliminado"});
     } catch (error) {
         console.error("create libros")
