@@ -5,6 +5,14 @@
 
 document.getElementById('btnIngresar').addEventListener("click", ingresar);
 
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
+
+
 function ingresar(event) {
 
     event.preventDefault();
