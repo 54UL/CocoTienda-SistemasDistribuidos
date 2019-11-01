@@ -3,6 +3,8 @@
 var  mwApi     = require('./BDMiddleWareApi.js')
 var  dbDriver  = require('./BDDriverAPI.js')
 
+var usersAuthenticated = new Array();
+
 //AQUI HAY UN BUG CON EL GESTIONADOR DE LAS API'S
 dbDriver.init();
 var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
@@ -39,27 +41,29 @@ var MAX_ELEMENTS=400;
       }
       else
       {     
-        const queryCheckIfUserHasAnOpenedSession = "SELECT *FROM SESION WHERE ID_USUARIO = "+firstUserOf.id_usuario;
-        resultQueryCheckSesion = await  bdApi.query(queryCheckIfUserHasAnOpenedSession);
 
-        var firstOfCheck = resultQueryCheckSesion[0];
-        if(firstOfCheck == null || firstOfCheck == undefined || firstOfCheck == "")
-        {
-          const queryCreateNewSession = "INSERT INTO SESION VALUES (0,'"+firstUserOf.id_usuario+"')";
+        const userHasAnOpenedSession = usersAuthenticated.includes(firstUserOf.id_usuario);         
+
+        if(!userHasAnOpenedSession){
+          //Si no se encuentra, dejar iniciar sesión.
+
+          usersAuthenticated.push(firstUserOf.id_usuario);
+          usersAuthenticated.sort();
+          console.log(usersAuthenticated);
           asignedToken = firstUserOf.id_usuario;
           userType     = firstUserOf.id_tipousuario;  
-          await bdApi.query(queryCreateNewSession)
-          resolve({asignedToken,message,userType})           
-        }
-        else
-        {                  
+          resolve({asignedToken,message,userType})  
+
+
+        }else{
           message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
           asignedToken = 0;
           resolve({asignedToken,message,userType});
-        }       
+        }     
       }                               
     } 
     catch (error) {
+      console.log(error);
       reject(error);
     }
   })
@@ -101,7 +105,6 @@ function validationPipe(NewUserModel)
   return new Promise(async(resolve, reject)=>{
     try 
     {
-      console.log("hola");
       var responseModel = {asignedToken:0,msg:"text"}
       const error = validationPipe(NewUserModel);
       
@@ -111,12 +114,9 @@ function validationPipe(NewUserModel)
       {    
         var queryemail = "SELECT id_usuario FROM usuario WHERE correo='"+NewUserModel.email+"'";
         var result_email =  await bdApi.query(queryemail);
-        
-        
-
+                
         if(result_email[0]!=undefined){
           responseModel.msg="Esta cuenta ya existe";
-          console.log("hola"); 
           resolve(responseModel);           
         }
         else{
@@ -222,6 +222,31 @@ async function getUserAmount(id_usuario){
       reject(error);
     }
   });
+}
+
+
+function logOut(id_usuario){
+
+  let responseModel;
+
+  const indexOfUser = usersAuthenticated.findIndex((pos)=>{
+    return pos == id_usuario;
+  });
+
+  if(indexOfUser == -1){
+    respondeModel = {
+      message: "Usuario no encontrado en las sesiones!",
+      error: "User not found on function logout",
+    }
+  }else{
+    
+    usersAuthenticated.splice(indexOfUser,1);
+    console.log("Numb of users on the system: "+usersAuthenticated.length);
+    console.log("Users: " + usersAuthenticated);
+    responseModel = usersAuthenticated.includes(id_usuario) ? {message: "No se pudo cerrar sesion!"}:{message:"Sesion cerrada correctamente!"};
+  }
+
+  return responseModel;  
 }
 
 module.exports.getAllUsers = getAllUsers;
