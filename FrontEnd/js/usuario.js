@@ -5,12 +5,7 @@
 
 document.getElementById('btnIngresar').addEventListener("click", ingresar);
 
-$('.danger').popover({ 
-    html : true,
-    content: function() {
-      return $('#popover_content_wrapper').html();
-    }
-  });
+
 
 
 function ingresar(event) {
@@ -53,7 +48,7 @@ function ingresar(event) {
                 } else {
 
                     console.log("DEL OTRO LADO", document.cookie);
-
+                    location.href = "index.html";
                     // var token = document.cookie.replace(/(?:(?:^|.*;\s*)asignedToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
                     // console.log("Token de usuario", token);
 

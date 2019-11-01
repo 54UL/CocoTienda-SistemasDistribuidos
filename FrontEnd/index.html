@@ -39,9 +39,22 @@
                     <li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
                 </ul>
                 <!-- Registro -->
-                <ul class="header-links pull-right">
+                <ul class="header-links pull-right" id='ulIniciar'>
                     <li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
                 </ul>
+                <ul class="header-links pull-right" id='ulCuenta'>
+                        <!-- <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li> -->
+                       <li> <a href='#' class="danger"  data-placement='bottom' title="Nombre Usuario" > <i class='fa fa-user-circle'> </i>Cuenta</a> </li>
+                        <div id="popover_content_wrapper" style="display: none">
+                        
+                        <div>
+                            <h5>Tu cash es de: xx</h5>
+                            <div> <center> <button> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
+                            <div id="separa"> </div>
+                            <div> <center> <button onclick="cerrarS()" id="cerrarS" type="submit"> Cerrar sesion <i class="fa fa-sign-out" aria-hidden="true"></i> </button> </center>  </div>
+                        </div>
+                        </div>
+                    </ul>
             </div>
         </div>
         <div id="header">

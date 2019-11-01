@@ -14,6 +14,10 @@ function getUserToken() {
     console.log("COOKIE DE USUARIO: " + document.cookie)
     var token = document.cookie.replace(/(?:(?:^|.*;\s*)asignedToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     console.log('Id del usuario:', token)
+    if(token==""){
+        alert("Inicia sesion");
+        location.href = "usuario.html";
+    }
     return token;
 }
 
@@ -27,15 +31,20 @@ function getUserType() {
 function mostrarBarraTipoUsuario(){
     if (getUserType() == 4) { //Es administrador
         $("#ulInventario").css("display", "block");
-        $("#ulAdmin").css("display", "block");
-
-
+        $("#ulAdmin").css("display", "block"); 
+        $("#ulIniciar").css("display", "none"); 
+        $("#ulCuenta").css("display", "block"); 
     } else if (getUserType() == 3) { // Es almacenista
         $("#ulInventario").css("display", "block");
+        $("#ulIniciar").css("display", "none");
+        $("#ulCuenta").css("display", "block"); 
     }
     else if(getUserType() == 2){
         //Es usuario 
     }
+    
 }
+
+
 
 

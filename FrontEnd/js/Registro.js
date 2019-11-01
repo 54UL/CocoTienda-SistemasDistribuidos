@@ -4,6 +4,12 @@
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
 // seleccionar producto (obtener el product id)
 //
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 
 module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
@@ -50,6 +56,8 @@ function register(usuario,correo,pass){
             console.debug(response);
             if(response.asignedToken !== 0 ){
                 alert(response.msg+". Bienveid@ " + usuario + ".");
+                location.href = "index.html";
+
             }
             else{
                 

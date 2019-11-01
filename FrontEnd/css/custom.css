@@ -371,7 +371,7 @@ a:hover, a:focus {
   border-radius: 100%;
 }
 
- #ulInventario, #ulAdmin{
+ #ulInventario, #ulAdmin, #ulCuenta{
   display: none;
 } 
 
