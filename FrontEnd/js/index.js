@@ -1,5 +1,11 @@
 //import {endpoint} from './Globales.js';
 mostrarBarraTipoUsuario();
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 
 function productoComponent(ModeloProducto) {
     return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +
@@ -50,7 +56,10 @@ function comprar(token, productoID, nProductos, callback) {
     }
 }
 
-
+$('#cerrarS').on("click", function(){
+    alert("Se cerro la sesion");
+    document.cookie("");
+})
 
 
 function loadProducts(category) {
@@ -68,7 +77,7 @@ function loadProducts(category) {
 
             for (var i = 0; i < jsonProductos.productos.length; i++) {
                 var actualModel = jsonProductos.productos[i];
-                console.log(jsonProductos.productos[i]);
+               // console.log(jsonProductos.productos[i]);
                 $("#containerProductos").append(productoComponent(actualModel));
 
 
