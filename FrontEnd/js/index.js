@@ -55,11 +55,15 @@ function comprar(token, productoID, nProductos, callback) {
         }
     }
 }
-
-$('#cerrarS').on("click", function(){
+function cerrarS(){
     alert("Se cerro la sesion");
-    document.cookie("");
-})
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    location.reload();
+
+    //Eliminar cookies y ver que onda con david
+}
 
 
 function loadProducts(category) {
