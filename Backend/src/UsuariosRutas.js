@@ -94,5 +94,22 @@ usrRouter.get('/getHistory/:token', async(req,res)=>{
     }
 })
 
+usrRouter.get('/logOut/:token', async (req,res)=>{
+    const token = req.params.token;
+
+    try {
+        var logOutResponse = await usrApi.logOut(token);
+
+        if(logOutResponse!= undefined  && logOutResponse === true){
+            console.log("Sesión cerrada con éxito!")
+        } else{
+            console.log("No se pudo cerrar la sesión");
+        }
+
+    } catch (error) {
+        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
+    }
+})
+
 
 module.exports.usrRouter = usrRouter;

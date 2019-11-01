@@ -209,7 +209,7 @@ function logOut(id_usuario){
     usersAuthenticated.splice(indexOfUser,1);
     console.log("Numb of users on the system: "+usersAuthenticated.length);
     console.log("Users: " + usersAuthenticated);
-    responseModel = usersAuthenticated.includes(id_usuario) ? {message: "No se pudo cerrar sesion!"}:{message:"Sesion cerrada correctamente!"};
+    responseModel = usersAuthenticated.includes(id_usuario) ? false:true
   }
 
   return responseModel;  
@@ -217,6 +217,7 @@ function logOut(id_usuario){
 
 module.exports.getAllUsers = getAllUsers;
 module.exports.deleteUser = deleteUser;
+module.exports.logOut = logOut;
 module.exports.logIn = logIn;
 module.exports.createUser = createUser;
 module.exports.updateUserById = updateUserById;
