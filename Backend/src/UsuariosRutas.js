@@ -98,6 +98,12 @@ usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
     } catch (error) {
         console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
     }
+    var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+    res.json(responseFromGetUserAmount);
+} catch (error) {
+    console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
+}
+});
 })
 
 usrRouter.get('/logOut/:token', async (req,res)=>{
@@ -120,11 +126,6 @@ usrRouter.get('/logOut/:token', async (req,res)=>{
 })
 
 
-        var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
-        res.json(responseFromGetUserAmount);
-    } catch (error) {
-        console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-    }
-});
+       
 
 module.exports.usrRouter = usrRouter;
