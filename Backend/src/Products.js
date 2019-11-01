@@ -6,6 +6,48 @@ dbDriver.init();
 var bdApi = mwApi.globalApiManager.getApi("highlevel");
 const DEFAULT_SHOP_BANK_ACCOUNT = 12;
 
+function getHistory(usrTkn){
+
+      return new Promise(async (resolve, reject)=>{
+            try {
+                  
+                  let queryGetHistory = 
+                  "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario "+
+                  "from compra "+
+                  "inner join usuario on usuario.id_usuario = compra.id_usuario "+
+                  "inner join producto on producto.id_producto = compra.id_producto "+
+                  "where compra.id_usuario = '" + usrTkn + "';";
+
+                  var resultQuery = await bdApi.query(queryGetHistory);
+
+                  let responseHistoryModel;
+                  if(resultQuery[0] != undefined){
+
+                        responseHistoryModel = {
+                              imagePath: resultQuery[0].imagen,
+                              producto: resultQuery[0].id_producto,
+                              costo: resultQuery[0].precio_unitario,
+                              cantidad: 5,
+                        };
+
+                        resolve(responseHistoryModel);
+
+                  }else{
+                        resolve(undefined);
+                  }
+
+                  
+
+            } catch (error) {
+                  reject(error);
+            }
+      })
+
+
+
+}
+
+
 //------------------------------------------- CRUD PRODUCTS
 
 async function retriveProducts(cat, cb) {
@@ -387,6 +429,7 @@ async function buyProduct(productID, usrToken,quantity) {
 
 
 module.exports.retriveProducts = retriveProducts;
+module.exports.getHistory = getHistory;
 module.exports.buyProduct = buyProduct;
 module.exports.updateStock = updateStock;
 module.exports.getBDStock = getBDStock;

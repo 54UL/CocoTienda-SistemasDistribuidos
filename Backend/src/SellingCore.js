@@ -1,14 +1,12 @@
 var express    = require('express')
 var  app = express();
 
-
 var IP_STRING = "192.168.0.0"
 
 var  mwApi     = require('./BDMiddleWareApi.js')
 var  dbDriver  = require('./BDDriverAPI.js')
 var  UserRoutes= require('./UsuariosRutas.js')
 var  ProductsRoutes= require('./ProductsRutas.js')
-
 
 //init high level api
 dbDriver.init();
