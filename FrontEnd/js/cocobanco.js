@@ -46,6 +46,15 @@ $(document).on('click', 'button[class="modificar"]', function(event) {
     } else console.log("Error al consegir el id");
 })
 
+$(document).on('click', 'button[id="agregar"]', function(event) {//boton que a=inicia modal
+    $(banco).modal("show");
+})
+
+$(document).on('click', 'button[id="confirmar"]', function(event) {//boton modal
+    $(banco).modal("show");
+})
+
 window.onload = function() {
+    $(banco).modal("hide");
     loadCuentas();
 }
