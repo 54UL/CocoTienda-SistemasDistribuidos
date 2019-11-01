@@ -82,10 +82,6 @@ usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
 
 usrRouter.get('/getHistory/:token', async(req,res)=>{
     const token = req.params.token;
-usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
-    try {
-        var tkn = req.params.id_usuario;
 
     try {
         var resGetHistory = await productsApi.getHistory(token);   
@@ -99,8 +95,11 @@ usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
         console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
     }
 })
-
-
+ 
+usrRouter.use(bodyParser.json());
+usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+    try {
+        var tkn = req.params.id_usuario;
         var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
         res.json(responseFromGetUserAmount);
     } catch (error) {
