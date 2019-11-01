@@ -101,9 +101,11 @@ usrRouter.get('/logOut/:token', async (req,res)=>{
         var logOutResponse = await usrApi.logOut(token);
 
         if(logOutResponse!= undefined  && logOutResponse === true){
-            console.log("Sesión cerrada con éxito!")
+            console.log("Sesión cerrada con éxito!");
+            res.send(true)
         } else{
             console.log("No se pudo cerrar la sesión");
+            res.send(false)
         }
 
     } catch (error) {
