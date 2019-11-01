@@ -47,16 +47,17 @@
                     <li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
                 </ul>
                 <ul class="header-links pull-right">
-                    <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li>
+                    <!-- <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li> -->
+                   <li> <a href='#' class="danger"  data-placement='bottom' title="Popover Title" > <i class='fa fa-user-circle'> </i>Cuenta</a> </li>
+                    <div id="popover_content_wrapper" style="display: none">
+                    <div>
+                        This is your div content
+                        <button> Hola </button>
+                    </div>
+                    </div>
                 </ul>
 
-                <a class='danger' data-placement='above' title="Popover Title" href='#'>Click</a>
-                <div id="popover_content_wrapper" style="display: none">
-                <div>
-                    This is your div content
-                    <button> Hola </button>
-                </div>
-                </div>
+               
                 <!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a> -->
 
             </div>
