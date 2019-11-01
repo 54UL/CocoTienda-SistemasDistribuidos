@@ -1,5 +1,6 @@
 //import {endpoint} from './Globales.js';
 
+mostrarBarraTipoUsuario();
 
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
 // seleccionar producto (obtener el product id)
