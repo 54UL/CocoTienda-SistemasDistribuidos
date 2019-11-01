@@ -23,6 +23,8 @@ realizar transaccion , update a la fila de la cuenta A en el campo de dinero - c
 update al campo dinero de la Cuenta B  la suma de su dinero actual + el que se le quito al usuario
 */
 //orgTkn: origin, user, dest: destionation
+
+
 async function authTransaction(orgTkn,dest,amount)
 {
     return new Promise(async (resolve,reject)=>{

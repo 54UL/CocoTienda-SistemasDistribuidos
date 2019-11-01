@@ -124,6 +124,17 @@ usrRouter.get('/logOut/:token', async (req,res)=>{
         console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
     }
 })
+ 
+usrRouter.use(bodyParser.json());
+usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+    try {
+        var tkn = req.params.id_usuario;
+        var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+        res.json(responseFromGetUserAmount);
+    } catch (error) {
+        console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
+    }
+});
 
 
        
