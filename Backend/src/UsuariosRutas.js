@@ -78,5 +78,16 @@ usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
     }
 });
 
+usrRouter.use(bodyParser.json());
+usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+    try {
+        var tkn = req.params.id_usuario;
+
+        var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+        res.json(responseFromGetUserAmount);
+    } catch (error) {
+        console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
+    }
+});
 
 module.exports.usrRouter = usrRouter;
