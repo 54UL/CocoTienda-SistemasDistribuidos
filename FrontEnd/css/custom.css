@@ -91,6 +91,11 @@ a:hover, a:focus {
   color: #FFF;
 }
 
+#separa{
+  width: 200;
+  height: 400;
+}
+
 .header-links li a:hover {
   color: #F3753A;
 }
