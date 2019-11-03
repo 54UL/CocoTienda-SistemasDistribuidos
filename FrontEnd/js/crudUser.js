@@ -14,15 +14,14 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td>" + ModeloUsuario.nombre + "</td>" +
-        " <td>" + ModeloUsuario.correo + "</td>" +
+        " <td id='nombre'>" + ModeloUsuario.nombre + "</td>" +
+        " <td id='correo'>" + ModeloUsuario.correo + "</td>" +
         " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
-
         "<td>" +
-        "<form><button type='button'>Editar</form>" +
+        "<form><button type='button' class='' id=" + ModeloUsuario.id_usuario + ">Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button type='button'>Eliminar</form>" +
+        "<form><button type='button' class='eliminar' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
@@ -49,20 +48,24 @@ function loadUsuarios() {
 }
 
 
-function deleteUsuario(id_usuario, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
 
-    // xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
+$(document).on('click', 'button[class="eliminar"]', function(event) {
+    let id = this.id;
+    let nombre = $('#nombre').val();
+    let correo = $('#correo').val();
+
+    console.log("ID_usuario:", id);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", endpoint("/Users/Delete/" + id));
     xhr.send();
     xhr.onreadystatechange = function() {
+        console.log("Se borro", borrar)
         if (this.readyState == 4 && this.status == 200) {
             var borrar = JSON.parse(this.responseText);
-            callback(borrar)
+            callback(borrar);
         }
     }
-
-}
+})
 
 
 

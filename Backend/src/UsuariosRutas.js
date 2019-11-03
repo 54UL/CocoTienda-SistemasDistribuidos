@@ -80,53 +80,53 @@ usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
     }
 });
 
-usrRouter.get('/getHistory/:token', async(req,res)=>{
+usrRouter.get('/getHistory/:token', async(req, res) => {
     const token = req.params.token;
-usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
-    try {
-        var tkn = req.params.id_usuario;
+    usrRouter.use(bodyParser.json());
+    usrRouter.post("/getUserAmount/:id_usuario", async(req, res) => {
+        try {
+            var tkn = req.params.id_usuario;
 
-    try {
-        var resGetHistory = await productsApi.getHistory(token);   
-        if(res!= undefined){
-            console.log(JSON.stringify(resGetHistory));
-        } else{
-            console.log("History undefined");
+            try {
+                var resGetHistory = await productsApi.getHistory(token);
+                if (res != undefined) {
+                    console.log(JSON.stringify(resGetHistory));
+                } else {
+                    console.log("History undefined");
+                }
+
+            } catch (error) {
+                console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));
+            }
+            var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+            res.json(responseFromGetUserAmount);
+        } catch (error) {
+            console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
         }
-
-    } catch (error) {
-        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
-    }
-    var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
-    res.json(responseFromGetUserAmount);
-} catch (error) {
-    console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-}
-});
+    });
 })
 
-usrRouter.get('/logOut/:token', async (req,res)=>{
+usrRouter.get('/logOut/:token', async(req, res) => {
     const token = req.params.token;
 
     try {
         var logOutResponse = await usrApi.logOut(token);
 
-        if(logOutResponse!= undefined  && logOutResponse === true){
+        if (logOutResponse != undefined && logOutResponse === true) {
             console.log("Sesión cerrada con éxito!");
             res.send(true)
-        } else{
+        } else {
             console.log("No se pudo cerrar la sesión");
             res.send(false)
         }
 
     } catch (error) {
-        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
+        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));
     }
 })
- 
+
 usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+usrRouter.post("/getUserAmount/:id_usuario", async(req, res) => {
     try {
         var tkn = req.params.id_usuario;
         var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
@@ -137,6 +137,6 @@ usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
 });
 
 
-       
+
 
 module.exports.usrRouter = usrRouter;
