@@ -39,7 +39,18 @@ function productoComponent(ModeloProducto) {
 
 	else console.log("error al conseguir la id de la fila");
 });*/
+function mostrarCompras(){
+    alert("MostrarC");
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token + "/" + nProductos)); //Compras
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //Mostrar
+        }
+    }
 
+}
 
 
 function comprar(token, productoID, nProductos, callback) {

@@ -49,7 +49,7 @@
                         
                         <div>
                             <h5>Tu cash es de: xx</h5>
-                            <div> <center> <button> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
+                            <div> <center> <button onclick="mostrarCompras()"> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
                             <div id="separa"> </div>
                             <div> <center> <button onclick="cerrarS()" id="cerrarS" type="submit"> Cerrar sesion <i class="fa fa-sign-out" aria-hidden="true"></i> </button> </center>  </div>
                         </div>
@@ -188,6 +188,27 @@
         </div>
 
         <!-- /Modal de transaccion-->
+
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"> Mis compras </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id = "mostrarCompras">
+                    <!-- Mostrar Compras -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <!-- modal de datos bancarios-->
         <div class="modal" tabindex="-1" role="dialog" id="banco">
             <div class="modal-dialog" role="document">
