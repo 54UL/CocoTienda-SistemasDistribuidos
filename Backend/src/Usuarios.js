@@ -217,11 +217,12 @@ function logOut(id_usuario){
 
 async function getUserAmount(id_usuario){
   return new Promise(async(resolve, reject)=>{
+
     var queryNom = "SELECT nombre FROM usuario WHERE id_usuario ="+id_usuario;
     var resultQueryN = await bdApi.query(queryNom);
     try {
       if (resultQueryN[0] == undefined) {
-        resolve({msg: "Giftstore account not finded"});
+        resolve({msg: "Giftstore account not found"});
       } else {
         var queryidUser = "SELECT ID_Cuenta FROM cuentas WHERE ID_UsuarioGift = "+id_usuario;
         var resultQueryC = await bdApi.query(queryidUser);
@@ -229,7 +230,7 @@ async function getUserAmount(id_usuario){
           resolve({msg: "You don't have cocobanco account associated with your Giftstore account"});
         } else {
           console.debug(resultQueryC[0]);
-          var queryBanco = "SELECT Saldo FROM cocobanco WHERE ID_Cuenta = " + resultQueryC['ID_Cuenta'][0];
+          var queryBanco = "SELECT Saldo FROM cocobanco WHERE ID_Cuenta = " + resultQueryC[0]['ID_Cuenta'];
           var resultQueryCash = await bdApi.query(queryBanco);
           console.debug(resultQueryCash[0]);
           if (resultQueryCash[0] == undefined) {

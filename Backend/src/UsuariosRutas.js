@@ -20,7 +20,6 @@ usrRouter.get("/Login/:usuario/:pass", async function(req, res) {
     } catch (error) {
         console.log(new Error(colors.red + "[UsuariosRutas]-> " + error));
     }
-
 });
 
 // JSON MODEL (NewUserModel)
@@ -81,30 +80,23 @@ usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
 });
 
 usrRouter.get('/getHistory/:token', async(req,res)=>{
-    const token = req.params.token;
-usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
-    try {
-        var tkn = req.params.id_usuario;
 
     try {
-        var resGetHistory = await productsApi.getHistory(token);   
-        if(res!= undefined){
-            console.log(JSON.stringify(resGetHistory));
+        var token = req.params.token;
+        var resGetHistory = await productsApi.getHistory(token);
+
+        if(resGetHistory!= undefined && Object.keys(resGetHistory).length != 0){
+            console.log(resGetHistory);
+            console.log(colors.magenta + "History: " + JSON.stringify(resGetHistory));
+            res.send(JSON.stringify(resGetHistory));
         } else{
             console.log("History undefined");
-        }
-
+            res.send(undefined);
+        }      
     } catch (error) {
-        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
-    }
-    var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
-    res.json(responseFromGetUserAmount);
-} catch (error) {
-    console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
-}
+        console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
+    }    
 });
-})
 
 usrRouter.get('/logOut/:token', async (req,res)=>{
     const token = req.params.token;
@@ -126,10 +118,11 @@ usrRouter.get('/logOut/:token', async (req,res)=>{
 })
  
 usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+usrRouter.get("/getUserAmount/:id_usuario", async(req, res)=> {
     try {
         var tkn = req.params.id_usuario;
         var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+        console.log(responseFromGetUserAmount);
         res.json(responseFromGetUserAmount);
     } catch (error) {
         console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
