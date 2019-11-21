@@ -20,7 +20,6 @@ usrRouter.get("/Login/:usuario/:pass", async function(req, res) {
     } catch (error) {
         console.log(new Error(colors.red + "[UsuariosRutas]-> " + error));
     }
-
 });
 
 // JSON MODEL (NewUserModel)
@@ -119,10 +118,11 @@ usrRouter.get('/logOut/:token', async (req,res)=>{
 })
  
 usrRouter.use(bodyParser.json());
-usrRouter.post("/getUserAmount/:id_usuario", async(req, res)=> {
+usrRouter.get("/getUserAmount/:id_usuario", async(req, res)=> {
     try {
         var tkn = req.params.id_usuario;
         var responseFromGetUserAmount = await usrApi.getUserAmount(tkn);
+        console.log(responseFromGetUserAmount);
         res.json(responseFromGetUserAmount);
     } catch (error) {
         console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
