@@ -11,9 +11,9 @@ function endpoint(endpointURL) {
 }
 
 function getUserToken() {
-    console.log("COOKIE DE USUARIO: " + document.cookie)
+    //console.log("COOKIE DE USUARIO: " + document.cookie)
     var token = document.cookie.replace(/(?:(?:^|.*;\s*)asignedToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    console.log('Id del usuario:', token)
+    //console.log('Id del usuario:', token)
     if(token==""){
         alert("Inicia sesion");
         location.href = "usuario.html";
