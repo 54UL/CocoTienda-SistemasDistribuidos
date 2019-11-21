@@ -69,16 +69,16 @@ INSERT INTO categoria VALUES (0,"Camisa");
 INSERT INTO categoria VALUES (0,"Llavero");
 INSERT INTO categoria VALUES (0,"Taza");
 
-INSERT INTO producto VALUES(0,"Cachucha fresa", 1, 200, "");
-INSERT INTO producto VALUES(0,"Camisa alien", 2, 500, "");
-INSERT INTO producto VALUES(0,"Llavero bolsa", 3, 870, "");
-INSERT INTO producto VALUES(0,"Taza alien", 4, 590, "");
-INSERT INTO producto VALUES(0,"Cachucha frirma", 1, 230, "");
-INSERT INTO producto VALUES(0,"Camisa chama", 2, 500, "");
-INSERT INTO producto VALUES(0,"Llavero camara", 3, 850, "");
-INSERT INTO producto VALUES(0,"Taza baño", 4, 1200, "");
-INSERT INTO producto VALUES(0,"Cachucha letras", 1, 760, "");
-INSERT INTO producto VALUES(0,"Camisa friends", 2, 400, "");
+-- INSERT INTO producto VALUES(0,"Cachucha fresa", 1, 200, "");
+-- INSERT INTO producto VALUES(0,"Camisa alien", 2, 500, "");
+-- INSERT INTO producto VALUES(0,"Llavero bolsa", 3, 870, "");
+-- INSERT INTO producto VALUES(0,"Taza alien", 4, 590, "");
+-- INSERT INTO producto VALUES(0,"Cachucha frirma", 1, 230, "");
+-- INSERT INTO producto VALUES(0,"Camisa chama", 2, 500, "");
+-- INSERT INTO producto VALUES(0,"Llavero camara", 3, 850, "");
+-- INSERT INTO producto VALUES(0,"Taza baño", 4, 1200, "");
+-- INSERT INTO producto VALUES(0,"Cachucha letras", 1, 760, "");
+-- INSERT INTO producto VALUES(0,"Camisa friends", 2, 400, "");
 
 INSERT INTO tipo_usuario VALUES(0,"Libre");
 INSERT INTO tipo_usuario VALUES(0,"Usuario");
