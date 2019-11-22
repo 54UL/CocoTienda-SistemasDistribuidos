@@ -1,8 +1,8 @@
 ﻿# SCRIPT BASE DE DATOS DE GIFTSTORE
 
-# Ultima actualizacion: 20/11/19
+# Ultima actualizacion: 21/11/19
 
-DROP DATABASE giftstoreDB;
+DROP DATABASE IF EXISTS giftstoreDB;
 
 CREATE DATABASE giftstoreDB;
 
@@ -95,6 +95,31 @@ INSERT INTO usuario VALUES (0,3,"David", "david@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Jose", "jose@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Esteban", "esteban@gmail.mx", "1234");
 INSERT INTO usuario VALUES (0,4,"Natalia", "natalia@gmail.mx", "1234");
+INSERT INTO usuario VALUES (0,4,"Gisel", "gisel@gmail.mx", "1234");
+
+INSERT INTO COCOBANCO VALUES (0,1000,"ariel@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"alex@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"joel@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"jorge@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"tano@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"carlos@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"david@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"jose@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"esteban@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"natalia@gmail.mx","1234");
+INSERT INTO COCOBANCO VALUES (0,1000,"gisel@gmail.mx","1234");
+
+INSERT INTO CUENTAS VALUES (0,1,1);
+INSERT INTO CUENTAS VALUES (0,2,2);
+INSERT INTO CUENTAS VALUES (0,3,3);
+INSERT INTO CUENTAS VALUES (0,4,4);
+INSERT INTO CUENTAS VALUES (0,5,5);
+INSERT INTO CUENTAS VALUES (0,6,6);
+INSERT INTO CUENTAS VALUES (0,7,7);
+INSERT INTO CUENTAS VALUES (0,8,8);
+INSERT INTO CUENTAS VALUES (0,9,9);
+INSERT INTO CUENTAS VALUES (0,10,10);
+INSERT INTO CUENTAS VALUES (0,11,11);
 
 insert into producto values(0,"Cachucha Azul Dibujo fresa",1, 30, 100, "img/Cachuchas/Gfresa.jpg");
 insert into producto values(0,"Cachucha Dibujo firma",1, 30, 150, "img/Cachuchas/Gfrirma.jpg");
