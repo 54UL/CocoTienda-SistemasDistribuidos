@@ -39,35 +39,8 @@ function productoComponent(ModeloProducto) {
 
 	else console.log("error al conseguir la id de la fila");
 });*/
-function mostrarCompras(){
-    alert("MostrarC");
-    /*var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token + "/" + nProductos)); //Compras
-    xhr.send();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //Mostrar
-        }
-    }*/
 
-}
 
-function mostrarCash(){
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/getUserAmount/"+getUserToken())); //Compras
-    xhr.send();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //Mostrar en cuenta valores
-            //alert("Mostrar cash");
-            //console.log(this.responseText);
-            var usuario = JSON.parse(this.responseText);
-            ///console.log("cash" + usuario.Cash.Saldo);
-            $('#etiquetaNombreUsuario').text("Nombre usuario: " + usuario.Name.nombre);
-            $('#etiquetaCash').text('Tu dinerito es de $' + usuario.Cash.Saldo);
-        }
-    }
-}
 
 
 function comprar(token, productoID, nProductos, callback) {
