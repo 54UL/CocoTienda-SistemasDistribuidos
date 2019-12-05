@@ -1,0 +1,67 @@
+documentacion
+
+RUTAS(ENDPOINTS) 
+
+PRODUCT SELLING//////////////////////////////////////////////////////////////////////////////////////
+
+[post] -> TO DO:
+/ProductSelling/search/
+REQUEST BODY JSON:
+{category:0/1/2/4,searchQuery:"some search text"}
+params info:
+categoy: home:0,tazas:1,camisas:2,llaveros:3,cachuchas:4
+searchQuery: search text from the text field(must be validated)
+returns:
+array  type of Products [{name,price,image}]
+
+
+[get]
+/ProductSelling/retrive/:category
+params info:
+categoy: home:0,cachuchas:1,camisas:2,llaveros:3,tazas:4
+returns:
+array  type of Products [{name,price,image}]
+
+[get]
+/ProductSelling/buy/:productid/:token
+params info:
+trivial.
+returns:
+UserModel {status:statusEnum,msg:"message"}
+
+
+USERS//////////////////////////////////////////////////////////////////////////////////////
+[POST]
+/Users/Login/:usr/:pass
+params info:
+trivial.
+returns:
+
+UserModel {token:"token",msg:"message"}
+
+
+[POST]
+/Users/Register/:usr/:email/:pass/
+params info:
+trivial
+returns:
+UserModel {token:"token",msg:"error/warning message"}
+
+PAYMENTS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+[POST]
+/Payments/requestTransaction/:cantidad/:orgin/:dest
+params info:
+trivial
+returns:
+
+
+
+
+
+
+//DEPENDENCIAS DEL PROYECTO (instalar en src)
+npm i express
+npm i request
+npm i mysql2
+npm i body-parser
+

@@ -6,54 +6,89 @@
 package mapping;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
+ * 
+ * CREATE TABLE usuario(
+	id_usuario int auto_increment,
+	id_tipousuario int,
+	nombre varchar(30), correo varchar(30), 
+	contrasenia varchar(30), 
+	primary key(id_usuario));
  * @author fer
  */
 @Entity
+@Table (name="usuario")
 public class usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    
+    
+    //se hace una relacion bidireccional many to one con la tabla de compra
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "id_usuario")
+    private int id_usuario;
+    
+    @Column (name= "id_tipousuario")
+    private int id_tipousuario;
+    
+    @Column (name = "nombre")
+    private String nombre;
+    
+    @Column (name = "correo")
+    private String correo;
+    
+    @Column (name = "contrasenia")
+    private String contrasenia;
 
-    public Long getId() {
-        return id;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public int getId_tipousuario() {
+        return id_tipousuario;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof usuario)) {
-            return false;
-        }
-        usuario other = (usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setId_tipousuario(int id_tipousuario) {
+        this.id_tipousuario = id_tipousuario;
     }
 
-    @Override
-    public String toString() {
-        return "mapping.usuario[ id=" + id + " ]";
+    public String getNombre() {
+        return nombre;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
+
+    
     
 }

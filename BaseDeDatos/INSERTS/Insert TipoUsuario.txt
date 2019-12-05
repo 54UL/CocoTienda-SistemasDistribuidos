@@ -1,4 +1,0 @@
-INSERT INTO tipo_usuario VALUES(0,"Libre");
-INSERT INTO tipo_usuario VALUES(0,"Usuario");
-INSERT INTO tipo_usuario VALUES(0,"Almacenista");
-INSERT INTO tipo_usuario VALUES(0,"Administrador");
