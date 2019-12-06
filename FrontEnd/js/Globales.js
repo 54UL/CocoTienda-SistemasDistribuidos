@@ -41,6 +41,8 @@ function mostrarBarraTipoUsuario(){
     }
     else if(getUserType() == 2){
         //Es usuario 
+        $("#ulCuenta").css("display", "block"); 
+
     }
     
 }
