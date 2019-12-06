@@ -3,13 +3,13 @@
 function bancoComponent(ModeloUsuario) {
     return "<tbody>" +
             "<tr>" +
-            "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
+            "<th scope='row'> " + ModeloUsuario.id_usuario + "</th>" +
             " <td>" + ModeloUsuario.nombre + "</td>" +
             " <td>" + ModeloUsuario.correo + "</td>" +
             " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
 
             "<td>" +
-            "<form><button type='button'>Editar</form>" +
+            "<form><button type='button' id='"+ ModeloUsuario.id_usuario +"'>Editar</form>" +
             " </td>" +
             " <td>" +
             "<form><button type='button'>Eliminar</form>" +
