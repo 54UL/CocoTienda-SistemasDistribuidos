@@ -25,7 +25,7 @@ public class UsersRMIServer implements ServerCts{
 
             @Override
             public String createUser(String email, String usr, String psw) throws RemoteException {
-                
+                System.out.println(USER_SERVER_INFO + "on RMI's crate user");
                 if(checkIfUserExists(email)){
                    return "hola";
                 }
@@ -61,6 +61,7 @@ public class UsersRMIServer implements ServerCts{
         Registry registry = LocateRegistry.createRegistry(PORT);
        	System.out.println("[Users RMI Server] -> Listening on: " + String.valueOf(PORT));
         registry.bind("User", remote);
+        System.out.println(USER_SERVER_INFO + "REgistry binded!");
     }
     
     private static boolean checkIfUserExists(final String email){

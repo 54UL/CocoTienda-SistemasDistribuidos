@@ -15,20 +15,23 @@ import java.util.logging.Logger;
 @WebService(serviceName = "UsuariosWebService")
 public class UsuariosWS{
     
-    private static final String IP = "192.168.0.0";
+    private static final String IP = "192.168.1.71";
     private static final int PORT = 9970;
     private static Registry registry;
     private static UserInterface interfaz;
-    
-    static{
+
+    public UsuariosWS() {
         try {
+            System.out.println("[WS] -> Constructor block!");
             registry = LocateRegistry.getRegistry(IP, PORT);
             interfaz = (UserInterface) registry.lookup("User");
+            System.out.println("[WS] -> Connection set!!!!");
+
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+            
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";

@@ -11,3 +11,5 @@ package-lock.json
 /UsersRMIServer/nbproject/private/
 /CocoWebService/dist/
 /CocoWebService/build/
+/UsersRMIServer/build/
+/UsersRMIServer/dist/
