@@ -1,20 +1,111 @@
 package usersrmiserver;
 
+import Singleton.Em;
+import interfaces.ServerCts;
+import interfaces.UserInterface;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import javax.persistence.Query;
 
-public class UsersRMIServer {
 
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class UsersRMIServer implements ServerCts{
+
+    private static final int PORT = 9970;
+    
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException{
+        Remote remote = UnicastRemoteObject.exportObject(new UserInterface(){
+            @Override
+            public String logIn(String user, String psw) throws RemoteException {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String createUser(String email, String usr, String psw) throws RemoteException {
+                
+                if(checkIfUserExists(email)){
+                   return "hola";
+                }
+               
+                
+                return "null";
+            }
+
+            @Override
+            public String deleteUser(int tkn) throws RemoteException {
+                return "";
+            }
+
+            @Override
+            public String getAllUsers(int tkn, int idTypeOfUser) throws RemoteException {
+                                return "";
+
+            }
+
+            @Override
+            public String updateUserById(int tkn, int idTypeOfUser) throws RemoteException {
+                                return "";
+
+            }
+
+            @Override
+            public String getUserAmout(int tkn) throws RemoteException {
+                                return "";
+
+            }                                
+        },0);
+       
+        Registry registry = LocateRegistry.createRegistry(PORT);
+       	System.out.println("[Users RMI Server] -> Listening on: " + String.valueOf(PORT));
+        registry.bind("User", remote);
     }
     
-}
+    private static boolean checkIfUserExists(final String email){
 
+        String queryString = "select u.id_usuario from Usuario u " +
+                         "where u.correo = "+email;
+        Query query = Em.get().createQuery(queryString); 
+        return query.getResultList() == null;     
+    }
+    
+    private static boolean insertNewUserRecord(String usr){
+        
+        boolean state = false;
+        try {
+            
+        } catch (Exception e) {
+            System.out.println(USER_SERVER_ERROR + e.toString());
+        }
+        return state;
+    }
+    
+    private static boolean insertNewCocobancoAccnt(final String email, final String pass){
+        
+        boolean state = false;
+        try {
+            
+        } catch (Exception e) {
+            System.out.println(USER_SERVER_ERROR + e.toString());
+        }
+        return state;
+    }
+    
+    private static boolean insertNewAccount(final String email, final String pass){
+        
+        boolean state = false;
+        try {
+            
+        } catch (Exception e) {
+            System.out.println(USER_SERVER_ERROR + e.toString());
+        }
+        return state;
+    }
+    
+    
+}
 //Servidor
 
 //package rmiserver;
