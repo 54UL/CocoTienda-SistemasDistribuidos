@@ -45,7 +45,7 @@ cocoRouter.post("/DeleteAccount/:id_account", async(req, res)=>{
     }
 });
 
-cocoRouter.get("/getAccount/", async(req,res)=>{
+cocoRouter.get("/getAccounts/", async(req,res)=>{
     try {
         var ResponseFromAccounts = await accountApi.getAccounts();
         res.json(ResponseFromAccounts);
