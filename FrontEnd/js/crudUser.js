@@ -7,16 +7,15 @@ function usuarioComponent(ModeloUsuario) {
         " <th scope='col'>Nombre</th>" +
         "<th scope='col'>Correo</th>" +
         "<th scope='col'>Tipo de Usuario</th>" +
-
         "<th scope='col'></th>" +
         "</tr>" +
         "</thead>" +
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td id='nombre'>" + ModeloUsuario.nombre + "</td>" +
-        " <td id='correo'>" + ModeloUsuario.correo + "</td>" +
-        " <td>" + ModeloUsuario.id_tipousuario + "</td>" +
+        " <td> <input id='nombreUsuario' value=" + ModeloUsuario.nombre + "></td>" +
+        " <td>" + ModeloUsuario.correo + "</td>" +
+        " <td> <input id='tipoUsuario' value=" + ModeloUsuario.id_tipousuario + "></td>" +
         "<td>" +
         "<form><button type='button' class='' id=" + ModeloUsuario.id_usuario + ">Editar</form>" +
         " </td>" +
@@ -51,25 +50,51 @@ function loadUsuarios() {
 
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
-    let nombre = $('#nombre').val();
-    let correo = $('#correo').val();
+    // let nombre = $('#nombre').val();
+    // let correo = $('#correo').val();
 
     console.log("ID_usuario:", id);
+
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", endpoint("/Users/Delete/" + id));
+    xhr.open("GET", endpoint("/Users/Delete/" + id));
+    window.location.reload(true);
     xhr.send();
     xhr.onreadystatechange = function() {
         console.log("Se borro", borrar)
         if (this.readyState == 4 && this.status == 200) {
             var borrar = JSON.parse(this.responseText);
-            callback(borrar);
         }
     }
+
+
+
 })
 
+// module.exports.getGlobalToken = getGlobalToken;
+// var nombreUsuario;
+// var tipoUsuario;
 
 
+function editarUsuario(event) {
+    event.preventDefault();
+    nombreUsuario = $('#nombreUsuario').val();
+    tipoUsuario = $('#tipooUsuario').val();
+    editarUsuario(nombreUsuario, tipoUsuario);
+}
 
+function editarUsuario(nombre, tipoUsuario) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', endpoint(""));
+    xhr.setRequestHeader("Content-Type", "aplication/json");
+    xhr.send(JSON.stringify({
+        name: nombre,
+        typeUser: tipoUsuario
+    }));
+
+    xhr.onreadystatechange = function(event) {
+        event.preventDefault();
+    }
+}
 
 
 
