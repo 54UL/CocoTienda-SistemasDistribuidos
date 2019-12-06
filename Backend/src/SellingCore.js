@@ -56,6 +56,24 @@ app.use(function (req, res, next) {
    next();
 });
 app.use('/ProductSelling',ProductsRoutes.productsRouter);
+ 
+  var soap = require('soap');
+  var url = 'http://localhost:8080/WebService/NewWebService?wsdl';
+  var args = {name: 'value'};
+  soap.createClientAsync(url)
+   .then((client) => {
+      return client.createNewUser(args, (err, result, rawResponse, soapHeader, rawRequest)=>{
+         console.log(result);
+      });
+  }).then((result) => {
+    console.log(result);
+  });
+// client.createNewUser({name: 'value'}, function(err, result, rawResponse, soapHeader, rawRequest) {
+//    // result is a javascript object
+//    // rawResponse is the raw xml response string
+//    // soapHeader is the response soap header as a javascript object
+//    // rawRequest is the raw xml request string
+// })
 
 //RUN THE SERVER
 app.listen(3000,function()
