@@ -24,7 +24,7 @@ function bancoComponent(ModeloUsuario) {
 
 function loadBanco(){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/GetAllUsers"));
+    xhr.open("GET", endpoint("/Banco/GetAllAccount"));
     xhr.send();
     $("#containerProductos").html("<h1>CARGANDO...</h1>");
     xhr.onreadystatechange = function() {
@@ -46,7 +46,7 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/CocoBanco/eliminar"));  // Chingadera 
+    xhr.open("GET", endpoint("/Banco/DeleteAccount/"+id));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -63,7 +63,7 @@ $(document).on('click', 'button[class="modificar"]', function(event) {
     var correo =  $('#inCorreo').val(); /// Obtener id
     var saldo = $('#inSaldo').val();
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/CocoBanco/modificar/"+id+"/" + correo + "/" + saldo));  // Chingadera 
+    xhr.open("GET", endpoint("/Banco/UpdateAmmount/"+ id + "/" + saldo));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -75,12 +75,12 @@ $(document).on('click', 'button[class="modificar"]', function(event) {
 });
 
 
-
-
-
-
-
-
 window.onload = function (){
     loadBanco();
 }
+
+$('#btnAgregar').click(function(){
+     alert("Se va insertar");
+     //Agregar a la tabla otra fila para inputs
+
+})
