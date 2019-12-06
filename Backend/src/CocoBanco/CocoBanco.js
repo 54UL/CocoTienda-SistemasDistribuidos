@@ -1,6 +1,8 @@
 var  mwApi     = require('../BDMiddleWareApi.js')
 var  dbDriver  = require('../BDDriverAPI.js')
 var express = require('express')
+var cocobancoRoutes= require('./CocobancoRutas.js')
+
 var app = express()
 
 app.use(express.static('webPage/'));
@@ -104,6 +106,8 @@ function getAccounts()
         }
     })
 }
+
+app.use('/Banco',cocobancoRoutes.cocoRouter);
 
 app.listen(3007,()=>
 {

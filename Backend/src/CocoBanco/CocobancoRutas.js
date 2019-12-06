@@ -19,7 +19,7 @@ cocoRouter.post("/createAccount/", async(req,res)=>{
 });
 
 cocoRouter.use(bodyParser.json());
-cocoRouter.post("/updateAmmount/:id_account/:ammount" , async(req,res)=>{
+cocoRouter.post("/updateAmount/:id_account/:ammount" , async(req,res)=>{
     try {
         var id_account= req.params.id_account;
         var ammount = req.params.ammount;
@@ -55,5 +55,5 @@ cocoRouter.get("/getAccount/", async(req,res)=>{
     }
 });
 
-
+module.exports.cocoRouter = cocoRouter;
 //FALTAN LOS MODULES EXPORTS
