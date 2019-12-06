@@ -59,7 +59,7 @@ app.use('/ProductSelling',ProductsRoutes.productsRouter);
  
   var soap = require('soap');
   var url = 'http://localhost:8080/WebService/NewWebService?wsdl';
-  var args = {name: 'value'};
+  var args = {nombre: 'value'};
   soap.createClientAsync(url)
    .then((client) => {
       return client.createNewUser(args, (err, result, rawResponse, soapHeader, rawRequest)=>{
