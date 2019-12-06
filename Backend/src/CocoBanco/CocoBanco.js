@@ -1,5 +1,9 @@
-var  mwApi     = require('./BDMiddleWareApi.js')
-var  dbDriver  = require('./BDDriverAPI.js')
+var  mwApi     = require('../BDMiddleWareApi.js')
+var  dbDriver  = require('../BDDriverAPI.js')
+var express = require('express')
+var app = express()
+
+app.use(express.static('webPage/'));
 
 //AQUI HAY UN BUG CON EL GESTIONADOR DE LAS API'S
 dbDriver.init();
@@ -100,6 +104,11 @@ function getAccounts()
         }
     })
 }
+
+app.listen(3007,()=>
+{
+    console.log("Cocobanco server running in "+3007);
+})
 
 module.exports.createAccount = createAccount;
 module.exports.updateAmount = updateAmount;
