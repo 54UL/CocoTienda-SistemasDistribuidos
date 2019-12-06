@@ -26,7 +26,7 @@ async function authTransaction(orgTkn,dest,amount)
     var requestPath = "/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
    
     const options = {
-      hostname: 'localhost',
+      hostname: '192.168.1.100',
       port: 3007,
       path: requestPath,
       method: 'GET',

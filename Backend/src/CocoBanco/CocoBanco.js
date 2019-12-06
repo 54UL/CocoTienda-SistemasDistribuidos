@@ -2,7 +2,7 @@ var  mwApi     = require('../BDMiddleWareApi.js')
 var  dbDriver  = require('../BDDriverAPI.js')
 var express = require('express')
 var cocobancoRoutes= require('./CocobancoRutas.js')
-
+var apiPagos = require('./Payments.js')
 var app = express()
 
 app.use(express.static('webPage/'));
@@ -12,6 +12,16 @@ dbDriver.init();
 var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 //Members of user sys
 var MAX_ELEMENTS=400;
+
+
+
+// CORS HEADER SETUP
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'null');
+    // Pass to next layer of middleware
+    next();
+});
 
 function validationPipe(NewUserModel)
 {
@@ -106,6 +116,45 @@ function getAccounts()
         }
     })
 }
+
+
+
+
+//RUTAS DE PAYMENTS
+app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
+    function(req,res)
+    {
+        var cantidad =  req.params.cantidad;
+        var orgin = req.params.origin;
+        var dest = req.params.dest
+        var modeloPagos = {token:"",dinero:0,tdestino:""};
+        res.json(modeloPagos);
+    }
+);
+
+
+
+//comprobar fondos y proceder
+app.get("/Payments/getFounds/:usr", function(req, res){
+    var fondos = {usr:"mycacapis",dinero:100}
+    
+    res.json(fondos);
+});
+
+app.get("/Payments/authTransaction/:cantidad/:origin/:dest", async function(req, res){
+    try {
+        var origin = req.params.origin;
+        var cantidad = req.params.cantidad;
+        var dest = req.params.dest;
+    
+        var result = await apiPagos.authTransaction(origin,dest,Number(cantidad));
+        console.log("transaction! uwu")
+        res.json(result);
+    } catch (error) {
+        console.log
+    }
+});
+
 
 app.use('/Banco',cocobancoRoutes.cocoRouter);
 

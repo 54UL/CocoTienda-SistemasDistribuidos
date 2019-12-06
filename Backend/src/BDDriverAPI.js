@@ -11,7 +11,7 @@ function init()
     //AÑADIMOS LA API QUE FUNCIONA DE LADO DE LA APLICACION DE NODE
         mwApi.globalApiManager.addApi(new mwApi.BDMiddleWareAPI(
         this.apiName =   "highlevel",
-        this.bdenpoint = "localhost",
+        this.bdenpoint = "192.168.1.108",
         this.user =      "root",
         this.pass =      "",
         this.query =  bdQueryH,
@@ -42,7 +42,7 @@ async function bdQueryH(Query)
 
     //TO DO : DES-HARDCODEAR ESTO:
   const options = {
-    hostname: 'localhost',
+    hostname: '192.168.1.108',
     port: 3001,
     path: '/db/fetch/',
     method: 'POST',
