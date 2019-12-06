@@ -4,3 +4,8 @@ node_modules/
 package-lock.json
 /ClienteRMI/nbproject/private/
 /ServidorRMI/nbproject/private/
+/UsuariosRMIServer/nbproject/private/
+/PaymentsRMIServer/nbproject/private/
+/ProductsRMIServer/nbproject/private/
+/CocoBancoRMIServer/nbproject/private/
+/UsersRMIServer/nbproject/private/

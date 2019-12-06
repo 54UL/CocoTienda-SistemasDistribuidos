@@ -1,11 +1,10 @@
 package interfaces;
 
 public interface UsuariosInterface {
-    void jorgePuto();
-    void logIn();
-    void createNewUser();
-    void deleteUser();
-    void getAllUsers();
-    void updateUserById();
-    void getUserAmout();
+    String logIn();
+    String createNewUser();
+    String deleteUser();
+    String getAllUsers();
+    String updateUserById();
+    String getUserAmout();
 }
