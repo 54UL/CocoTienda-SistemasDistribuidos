@@ -78,6 +78,9 @@ $(document).on('click', 'button[class="modificar"]', function(event) {
 
 
 
+
+
+
 window.onload = function (){
     loadBanco();
 }
