@@ -1,11 +1,3 @@
-mostrarBarraTipoUsuario();
-$('.danger').popover({ 
-    html : true,
-    content: function() {
-      return $('#popover_content_wrapper').html();
-    }
-  });
-
 function usuarioComponent(ModeloUsuario) {
     return "<div class='col-md-12 col-xs-12'>" +
         "<table class='table'>" +
@@ -21,15 +13,14 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td> <input id='inNombre' value='" + ModeloUsuario.nombre + "' ></td>" +
-        " <td> <input id='inCorreo' value='" + ModeloUsuario.correo + "'></td>" +
-        " <td> <input id='inTU' value='" + ModeloUsuario.id_tipousuario + "'></td>" +
-
+        " <td> <input id='nombreUsuario' value=" + ModeloUsuario.nombre + "></td>" +
+        " <td>" + ModeloUsuario.correo + "</td>" +
+        " <td> <input id='tipoUsuario' value=" + ModeloUsuario.id_tipousuario + "></td>" +
         "<td>" +
-        "<form><button class='editar' type='button'>Editar</form>" +
+        "<form><button type='button' class='' id=" + ModeloUsuario.id_usuario + ">Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button class='eliminar' type='button'>Eliminar</form>" +
+        "<form><button type='button' class='eliminar' id=" + ModeloUsuario.id_usuario + ">Eliminar</form>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
@@ -59,55 +50,29 @@ function loadUsuarios() {
 
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
+    // let nombre = $('#nombre').val();
+    // let correo = $('#correo').val();
 
-    //console.log("Se presionó el Boton con Id :" + id)
+    console.log("ID_usuario:", id);
+
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/eliminar"));  // Chingadera 
+    xhr.open("GET", endpoint("/Users/Delete/" + id));
+    window.location.reload(true);
     xhr.send();
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            alert("El usuario ha sido eliminado");
+    xhr.onreadystatechange = function() {
+        console.log("Se borro", borrar)
+        if (this.readyState == 4 && this.status == 200) {
+            var borrar = JSON.parse(this.responseText);
         }
-        else
-            alert("El usuario no ha podido sido eliminado");
     }
-});
 
 
-$(document).on('click', 'button[class="editar"]', function(event) {
-    let id = this.id;
-    var nombreU = $('#inNombre').val();
-    var correoU = $('#inCorreo').val();
-    var tipoU = $('#inTu').val();
 
-    //console.log("Se presionó el Boton con Id :" + id)
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/editar/" + getUserToken() +"/" + nombre + "/" + correoU + "/" + tipoU));  // Chingadera 
-    xhr.send();
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            alert("El usuario ha sido modificado");
-        }
-        else
-            alert("El usuario no ha podido ser modificado");
-    }
-});
+})
 
-
-// function deleteUsuario(id_usuario, callback) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
-
-//     // xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
-//     xhr.send();
-//     xhr.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             var borrar = JSON.parse(this.responseText);
-//             callback(borrar)
-//         }
-//     }
-
-// }
+// module.exports.getGlobalToken = getGlobalToken;
+// var nombreUsuario;
+// var tipoUsuario;
 
 
 function editarUsuario(event) {

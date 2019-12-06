@@ -3,13 +3,13 @@ var express = require('express');
 var accountApi = require('./CocoBanco.js')
 var cocoRouter = express.Router();
 
-//import colorsCodes  from './colorCodes'
-var colorCodes = require("./colorCodes");
+var colorCodes = require("../colorCodes");
 var colors = colorCodes.colors;
 
 cocoRouter.use(bodyParser.json());
-cocoRouter.post("/CreateAccount", async(req,res)=>{
+cocoRouter.post("/createAccount/", async(req,res)=>{
     try {
+         //var userModel = req.body
         console.debug(req.body);
         var ResponseFromCreateAccount = await accountApi.createAccount(req.body);
         res.json(ResponseFromCreateAccount);        
@@ -19,10 +19,10 @@ cocoRouter.post("/CreateAccount", async(req,res)=>{
 });
 
 cocoRouter.use(bodyParser.json());
-cocoRouters.post("/UpdateAmmount/:id_account/:ammount" , async(req,res)=>{
+cocoRouter.post("/updateAmount/:id_account/:ammount" , async(req,res)=>{
     try {
-        var id_account= req.param.id_account;
-        var ammount = req.param.ammount;
+        var id_account= req.params.id_account;
+        var ammount = req.params.ammount;
 
         var ResponseFromUpdateAmmount = await accountApi.updateAmount(id_account, ammount);
         res.json(ResponseFromUpdateAmmount);
@@ -33,9 +33,9 @@ cocoRouters.post("/UpdateAmmount/:id_account/:ammount" , async(req,res)=>{
 });
 
 cocoRouter.use(bodyParser.json());
-cocoRouters.post("/DeleteAccount/:id_account", async(req, res)=>{
+cocoRouter.post("/DeleteAccount/:id_account", async(req, res)=>{
     try {
-        var id_account = req.param.id_account;
+        var id_account = req.params.id_account;
 
         var RespomnseFromDeleteAccount = await accountApi.deleteAccount(id_account);
         res.json(RespomnseFromDeleteAccount);
@@ -45,7 +45,7 @@ cocoRouters.post("/DeleteAccount/:id_account", async(req, res)=>{
     }
 });
 
-cocoRouter.get("/GetAllAccount", async(req,res)=>{
+cocoRouter.get("/getAccounts/", async(req,res)=>{
     try {
         var ResponseFromAccounts = await accountApi.getAccounts();
         res.json(ResponseFromAccounts);
@@ -55,5 +55,5 @@ cocoRouter.get("/GetAllAccount", async(req,res)=>{
     }
 });
 
-
+module.exports.cocoRouter = cocoRouter;
 //FALTAN LOS MODULES EXPORTS
