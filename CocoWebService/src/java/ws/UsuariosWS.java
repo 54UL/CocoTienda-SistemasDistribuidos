@@ -15,7 +15,7 @@ public class UsuariosWS implements UsuariosInterface{
     
     @WebMethod(operationName = "LogIn")
     public int LogIn(){
-        jorgePuto();
+       
         //Execute method on the rmi server
         return 0;
 
@@ -52,10 +52,13 @@ public class UsuariosWS implements UsuariosInterface{
     }
 
     @Override
-    public void jorgePuto() {
-        
-        
-        
+    public String logIn() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getUserAmout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }
