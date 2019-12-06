@@ -1,5 +1,5 @@
 
-
+var ip = "http://localhost:3007";
 function bancoComponent(ModeloUsuario) {
     return "<tbody>" +
             "<tr>" +
@@ -25,7 +25,7 @@ function bancoComponent(ModeloUsuario) {
 
 function loadBanco(){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3007/Banco/getAccounts");
+    xhr.open("GET", ip + "/Banco/getAccounts");
     xhr.send();
     $("#containerProductos").html("<h1>CARGANDO...</h1>");
     xhr.onreadystatechange = function() {
@@ -50,7 +50,7 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET","/Banco/DeleteAccount/"+id);  // Chingadera 
+    xhr.open("POST", ip + "/Banco/DeleteAccount/"+id);  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -64,17 +64,19 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
 $(document).on('click', 'button[class="modificar"]', function(event) {
     let id = this.id;
+
     var correo =  $('#inCorreo').val(); /// Obtener id
     var saldo = $('#inSaldo').val();
+    console.log("Se presiono modi");
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Banco/UpdateAmmount/"+ id + "/" + saldo));  // Chingadera 
+    xhr.open("POST", "http://localhost:3007/Banco/updateAmount/"+ id + "/" + saldo);  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("La cuenta sido eliminada");
+            alert("La cuenta sido modificado");
         }
         else
-            alert("La cuenta no ha podido ser eliminado");
+            alert("La cuenta no ha podido ser modificado");
     }
 });
 
