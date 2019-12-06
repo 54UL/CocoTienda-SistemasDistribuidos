@@ -95,7 +95,7 @@ function deleteAccount(id_account){
 
 function getAccounts()
 {
-    return new Promise(async (resolve, resolve)=>{
+    return new Promise(async (resolve, reject)=>{
         try{
             query = "SELECT * FROM Cocobanco";
             var result = await bdApi.query(query);

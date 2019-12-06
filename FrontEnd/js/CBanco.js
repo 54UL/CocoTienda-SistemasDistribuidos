@@ -24,7 +24,7 @@ function bancoComponent(ModeloUsuario) {
 
 function loadBanco(){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Banco/GetAllAccount"));
+    xhr.open("POST", "http://localhost:3007/Banco/getAccounts");
     xhr.send();
     $("#containerProductos").html("<h1>CARGANDO...</h1>");
     xhr.onreadystatechange = function() {
@@ -46,7 +46,7 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Banco/DeleteAccount/"+id));  // Chingadera 
+    xhr.open("GET","/Banco/DeleteAccount/"+id);  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -76,6 +76,7 @@ $(document).on('click', 'button[class="modificar"]', function(event) {
 
 
 window.onload = function (){
+    alert("ctm");
     loadBanco();
 }
 
