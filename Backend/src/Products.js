@@ -12,39 +12,19 @@ function getHistory(usrTkn){
             try {
                   
                   let queryGetHistory = 
-                  "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario "+
+                  "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario, compra.cantidad "+
                   "from compra "+
                   "inner join usuario on usuario.id_usuario = compra.id_usuario "+
                   "inner join producto on producto.id_producto = compra.id_producto "+
                   "where compra.id_usuario = '" + usrTkn + "';";
 
                   var resultQuery = await bdApi.query(queryGetHistory);
-
-                  let responseHistoryModel;
-                  if(resultQuery[0] != undefined){
-
-                        responseHistoryModel = {
-                              imagePath: resultQuery[0].imagen,
-                              producto: resultQuery[0].id_producto,
-                              costo: resultQuery[0].precio_unitario,
-                              cantidad: 5,
-                        };
-
-                        resolve(responseHistoryModel);
-
-                  }else{
-                        resolve(undefined);
-                  }
-
-                  
+                  resolve(resultQuery != undefined ? resultQuery:undefined);  
 
             } catch (error) {
                   reject(error);
             }
       })
-
-
-
 }
 
 
@@ -404,7 +384,7 @@ async function buyProduct(productID, usrToken,quantity) {
 
                         var insertRes;
                         try {
-                              var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto) values (0," + usrToken + "," + product.id_producto + ")";
+                              var insertBuyQuery = "INSERT INTO compra (id_compra,id_usuario,id_producto,cantidad) values (0," + usrToken + "," + product.id_producto + ", " + quantity + ")";
                               insertRes = await bdApi.query(insertBuyQuery);
                         } catch (error) {
                               reject(error);

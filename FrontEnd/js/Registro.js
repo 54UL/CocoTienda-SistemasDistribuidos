@@ -1,17 +1,18 @@
 //import {endpoint} from './Globales.js';
 
+mostrarBarraTipoUsuario();
 
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
 // seleccionar producto (obtener el product id)
 //
-$('.danger').popover({ 
-    html : true,
-    content: function() {
-      return $('#popover_content_wrapper').html();
-    }
-  });
+// $('.danger').popover({ 
+//     html : true,
+//     content: function() {
+//       return $('#popover_content_wrapper').html();
+//     }
+//   });
 
-module.exports.getGlobalToken = getGlobalToken
+//module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
 var correoUsuario;
 var contraUsuario;
