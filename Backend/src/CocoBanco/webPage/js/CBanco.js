@@ -2,7 +2,17 @@
 var ip = "http://localhost:3007";
 function bancoComponent(ModeloUsuario) {
     return "<tbody>" +
+   ' table id = "Cuentas" border="1" style="background-color: #ffffff; color:black; font-size: 100%; text-align: center; width: 100%;"> ' +
+
+            "<tr> " +
+           " <td> Id Usuario </td>" +
+            "<td> Email </td>" +
+            "<td> Saldo </td>" +
+           "<td> Modificar </td>" +
+            "<td> Eliminar </td>" +
+            "</tr>"+
             "<tr>" +
+
             "<th scope='row'> " + ModeloUsuario.ID_Cuenta + "</th>" +
            // "<td> "+ ModeloUsuario.correo +" </td>" +
            // " <td> <input type='text' value='" + ModeloUsuario.nombre + "'> </input></td>" +
