@@ -27,22 +27,35 @@
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a><i class="fa fa-phone"></i> +521 1433-2593</a></li>
-						<li><a href="mapa.html"><i class="fa fa-map-marker"></i>Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
+						<li><a href="https://goo.gl/maps/N4Cdk8s9FdN2"><i class="fa fa-map-marker"></i> Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
 					</ul>
-					
 					<!-- Inventario -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulInventario'>
 						<li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
 					</ul>
 					<!-- AdminUser -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulAdmin'>
 						<li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
 					</ul>
 					<!-- Registro -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulIniciar'>
 						<li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
 					</ul>
-					
+					<ul class="header-links pull-right" id='ulCuenta' onclick="mostrarCash()">
+							<!-- <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li> -->
+						   <li> <a  href='#' class="danger"  data-placement='bottom' title ='<center> <h5  id="etiquetaNombreUsuario"> Nombre usuario</h5> </center>' >  <i class='fa fa-user-circle'> </i>Cuenta</a> </li>
+							<div id="popover_content_wrapper" style="display: none">
+							
+							<div>
+								<center>
+								<h5 id="etiquetaCash">Tu cash es de: xx</h5>
+								</center>
+								<div> <center> <button onclick="mostrarCompras()"> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
+								<div id="separa"> </div>
+								<div> <center> <button onclick="cerrarS()" id="cerrarS" type="submit"> Cerrar sesion <i class="fa fa-sign-out" aria-hidden="true"></i> </button> </center>  </div>
+							</div>
+							</div>
+						</ul>
 				</div>
 			</div>
 
@@ -58,44 +71,12 @@
 							</div>
 						</div>
 
-						<!-- BARRA DE BÚSQUEDA -->
-						<div class="col-md-6">
-							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">Categorías</option>
-										<option value="1">Tazas</option>
-										<option value="1">Camisas</option>
-										<option value="1">Llaveros</option>
-										<option value="1">Cachuchas</option>
-									</select>
-									<input class="input" placeholder="Artículo a buscar">
-									<button class="search-btn">Buscar</button>
-								</form>
-							</div>
-						</div>
-						<!-- /BARRA DE BÚSQUEDA -->
+					
 
 						<!-- USUARIO -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Deseos -->
-								<div>
-									<a href="listadeseos.html">
-										<i class="fa fa-heart-o"></i>
-										<span>Deseos</span>
-									</a>
-								</div>
-								<!-- /Deseos -->
-
-								<!-- Carrito -->
-								<div class="dropdown">
-									<a href="carrito.html" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Carrito</span>
-									</a>
-								</div>
-								<!-- /Carrito -->
+							
 
 								<!-- Menu Toogle -->
 								<div class="menu-toggle">
@@ -113,40 +94,6 @@
 			</div>
 		</header>
 		<!-- /HEADER -->
-
-<!--Sidebar-->
-<ul class="sidebar navbar-nav">
-		<li><span>Categorias</span></li>
-		<li class="nav-item">
-			<a class="nav-link" href="tazas.html">
-			<span>Tazas</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="camisas.html">
-			<span>Camisas</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="llaveros.html">
-			<span>Llaveros</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="cachuchas.html">
-			<span>Cachuchas</span></a>
-		</li>
-		<li><span>Perfil</span></li>
-		<li class="nav-item">
-			<a class="nav-link" href="usuario.html">
-			<span>Iniciar Sesión</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="registro.html">
-			<span>Registrar</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="#">
-			<span>Cerrar sesión</span></a>
-		</li>
-	</ul>
 
 		<!--<nav id="navigation">
 			<div class="container">
@@ -266,6 +213,17 @@
 		<!-- /FOOTER -->
 		<script>
 			//SAUL CREATE PRODUCT CODE!!!
+			getUserToken();
+			getUserType();
+			mostrarBarraTipoUsuario();
+			$('.danger').popover({ 
+				html : true,
+				content: function() {
+				return $('#popover_content_wrapper').html();
+				}
+			});
+
+
 			function sendCreateProductRequest(imgArray,nombreProducto,nombreImagen,precio,Stock,categoria)
 			{
 			var xhr = new XMLHttpRequest()
@@ -336,8 +294,10 @@
 			
 			</script>
 
-		<script src="js/bootstrap.min.js"></script>
+		<script src="js/Globales.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/index.js"></script> -->
 
 	</body>
 </html>

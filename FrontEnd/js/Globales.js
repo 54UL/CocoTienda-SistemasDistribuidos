@@ -66,12 +66,13 @@ function mostrarCash(){
 function mostrarCompras(){
     alert("MostrarC");
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Usuarios/getHistory/"+ getUserToken())); //Compras
+    xhr.open("GET", endpoint("/Users/getHistory/"+getUserToken())); //Compras
     xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var compras = JSON.parse(this.responseText);
-            console.log(compras);
+            //var compras = JSON.parse(this.responseText);
+            console.log(this.responseText);
+           // console.log(compras);
         }
     }
 
