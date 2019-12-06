@@ -44,7 +44,7 @@ usrRouter.post("/Register", async(req, res) => {
 });
 
 usrRouter.use(bodyParser.json());
-usrRouter.post("/Delete/:id_usuario", async(req, res) => {
+usrRouter.get("/Delete/:id_usuario", async(req, res) => {
     try {
         var id_usuario = req.params.id_usuario;
         var responseFromDeleteUser = await usrApi.deleteUser(id_usuario);
@@ -67,12 +67,13 @@ usrRouter.get("/GetAllUsers", async(req, res) => {
 });
 
 usrRouter.use(bodyParser.json());
-usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
+usrRouter.post("/updateUserById/:id_usuario/:id_tipo/:nombre", async(req, res) => {
     try {
         var id_usuario = req.param.id_usuario;
         var id_tipo = req.param.id_tipo;
+        var nombre = req.param.nombre;
 
-        var responseFromUpdateUsers = await usrApi.updateUserById(id_usuario, id_tipo);
+        var responseFromUpdateUsers = await usrApi.updateUserById(id_usuario, id_tipo, nombre);
         res.json(responseFromUpdateUsers);
     } catch (error) {
         console.error(new Error(colors.yellow + "UsuariosRutas ->" + colors.red + error));
@@ -98,25 +99,25 @@ usrRouter.get('/getHistory/:token', async(req,res)=>{
     }    
 });
 
-usrRouter.get('/logOut/:token', async (req,res)=>{
+usrRouter.get('/logOut/:token', async(req, res) => {
     const token = req.params.token;
 
     try {
         var logOutResponse = await usrApi.logOut(token);
 
-        if(logOutResponse!= undefined  && logOutResponse === true){
+        if (logOutResponse != undefined && logOutResponse === true) {
             console.log("Sesión cerrada con éxito!");
             res.send(true)
-        } else{
+        } else {
             console.log("No se pudo cerrar la sesión");
             res.send(false)
         }
 
     } catch (error) {
-        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));        
+        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));
     }
 })
- 
+
 usrRouter.use(bodyParser.json());
 usrRouter.get("/getUserAmount/:id_usuario", async(req, res)=> {
     try {
@@ -130,6 +131,6 @@ usrRouter.get("/getUserAmount/:id_usuario", async(req, res)=> {
 });
 
 
-       
+
 
 module.exports.usrRouter = usrRouter;
