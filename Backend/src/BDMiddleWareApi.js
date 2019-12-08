@@ -24,17 +24,14 @@ class BDManagerApi
    
         this.addApi = function (api)
         {  
-        
             var currentIndex = this.apiCount++;
             if(currentIndex<MAX_APIS)
-            this.apiInstances.push(api);
+              this.apiInstances.push(api);
             else
-            console.log("cannot add more bd API'S");
+              console.log("cannot add more bd API'S");
         }
         this.getApi = function(name)
         {
-               // console.log("apis  "+this.apiInstances.vaapiName);
-                //might be string compare ?
              var selectedApi =    new BDMiddleWareAPI();
                 this.apiInstances.find((e)=>
                 {   

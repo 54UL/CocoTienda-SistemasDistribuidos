@@ -1,11 +1,18 @@
 //import {endpoint} from './Globales.js';
 
+mostrarBarraTipoUsuario();
 
 document.getElementById("btnRegistrar").addEventListener("click", registrar);
 // seleccionar producto (obtener el product id)
 //
+// $('.danger').popover({ 
+//     html : true,
+//     content: function() {
+//       return $('#popover_content_wrapper').html();
+//     }
+//   });
 
-module.exports.getGlobalToken = getGlobalToken
+//module.exports.getGlobalToken = getGlobalToken
 var nombreUsuario;
 var correoUsuario;
 var contraUsuario;
@@ -33,7 +40,7 @@ function register(usuario,correo,pass){
     var xhr = new XMLHttpRequest();
     
     xhr.open("POST", endpoint("/Users/Register/"));
-    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+   // xhr.setRequestHeader("Access-Control-Allow-Origin","*");
     xhr.setRequestHeader("Content-Type","application/json");
     xhr.send(JSON.stringify({
         usr:usuario,
@@ -50,6 +57,8 @@ function register(usuario,correo,pass){
             console.debug(response);
             if(response.asignedToken !== 0 ){
                 alert(response.msg+". Bienveid@ " + usuario + ".");
+                location.href = "index.html";
+
             }
             else{
                 

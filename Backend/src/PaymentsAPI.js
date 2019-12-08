@@ -1,6 +1,5 @@
 var http  = require('http');
-
-
+var config = require("./DeployConfig.js")
 
 //orgTkn: origin token, amount: how much cost
 //returns:
@@ -26,7 +25,7 @@ async function authTransaction(orgTkn,dest,amount)
     var requestPath = "/Payments/authTransaction/"+amount+"/"+orgTkn+"/"+dest
    
     const options = {
-      hostname: 'localhost',
+      hostname: config.COCOBANCO_IP,
       port: 3007,
       path: requestPath,
       method: 'GET',

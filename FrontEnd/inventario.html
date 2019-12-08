@@ -27,22 +27,35 @@
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a><i class="fa fa-phone"></i> +521 1433-2593</a></li>
-						<li><a href="mapa.html"><i class="fa fa-map-marker"></i>Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
+						<li><a href="https://goo.gl/maps/N4Cdk8s9FdN2"><i class="fa fa-map-marker"></i> Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
 					</ul>
-					
 					<!-- Inventario -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulInventario'>
 						<li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
 					</ul>
 					<!-- AdminUser -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulAdmin'>
 						<li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
 					</ul>
 					<!-- Registro -->
-					<ul class="header-links pull-right">
+					<ul class="header-links pull-right" id='ulIniciar'>
 						<li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
 					</ul>
-					
+					<ul class="header-links pull-right" id='ulCuenta' onclick="mostrarCash()">
+							<!-- <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li> -->
+						   <li> <a  href='#' class="danger"  data-placement='bottom' title ='<center> <h5  id="etiquetaNombreUsuario"> Nombre usuario</h5> </center>' >  <i class='fa fa-user-circle'> </i>Cuenta</a> </li>
+							<div id="popover_content_wrapper" style="display: none">
+							
+							<div>
+								<center>
+								<h5 id="etiquetaCash">Tu cash es de: xx</h5>
+								</center>
+								<div> <center> <button onclick="mostrarCompras()"> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
+								<div id="separa"> </div>
+								<div> <center> <button onclick="cerrarS()" id="cerrarS" type="submit"> Cerrar sesion <i class="fa fa-sign-out" aria-hidden="true"></i> </button> </center>  </div>
+							</div>
+							</div>
+						</ul>
 				</div>
 			</div>
 
@@ -58,44 +71,12 @@
 							</div>
 						</div>
 
-						<!-- BARRA DE BÚSQUEDA -->
-						<div class="col-md-6">
-							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">Categorías</option>
-										<option value="1">Tazas</option>
-										<option value="1">Camisas</option>
-										<option value="1">Llaveros</option>
-										<option value="1">Cachuchas</option>
-									</select>
-									<input class="input" placeholder="Artículo a buscar">
-									<button class="search-btn">Buscar</button>
-								</form>
-							</div>
-						</div>
-						<!-- /BARRA DE BÚSQUEDA -->
+					
 
 						<!-- USUARIO -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Deseos -->
-								<div>
-									<a href="listadeseos.html">
-										<i class="fa fa-heart-o"></i>
-										<span>Deseos</span>
-									</a>
-								</div>
-								<!-- /Deseos -->
-
-								<!-- Carrito -->
-								<div class="dropdown">
-									<a href="carrito.html" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Carrito</span>
-									</a>
-								</div>
-								<!-- /Carrito -->
+							
 
 								<!-- Menu Toogle -->
 								<div class="menu-toggle">
@@ -114,8 +95,7 @@
 		</header>
 		<!-- /HEADER -->
 
-		<nav id="navigation">
-			<!-- container -->
+		<!--<nav id="navigation">
 			<div class="container">
 				<div id="responsive-nav">
 					<ul class="main-nav nav navbar-nav">
@@ -127,12 +107,12 @@
 					</ul>
 				</div>
 			</div>
-		</nav>
+		</nav>-->
 
 		<!-- USUARIO -->
 		<div class="contenedor-formulario">
 			<div class="formulario-ingreso">
-				<form>
+			
 					
 					<!-- Subir imagen -->
 					
@@ -143,7 +123,7 @@
 					<div>
 					<center>
 					<input id="btnimagen" type="file"
-						   accept=".jpeg" required>
+						   accept=".jpg" required>
 					</center>
 					</div>
 					
@@ -154,18 +134,19 @@
 				  </span>
 					<!-- AdminUser -->
 
+				
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Nombre del producto">
+						<input  id="productNameInput" class="input-ingreso" type="text" name="usuario" placeholder="nombreProducto">
 						<span></span>
 					</div>
 					<!-- AdminUser -->
 					<center>
-					<div class="campo-texto" data-validate = "Categorias"><span></span>
-					  <select name="select" class="input-select">
+					<div  class="campo-texto" data-validate = "Categorias"><span></span>
+					  <select id="productCategoryInput" name="select" class="input-select">
 					    <option value="0">Categorías</option>
-					    <option value="1">Tazas</option>
-					    <option value="1">Camisas</option>
-					    <option value="1">Llaveros</option>
+					    <option value="4">Tazas</option>
+					    <option value="2">Camisas</option>
+					    <option value="3">Llaveros</option>
 					    <option value="1">Cachuchas</option>
 				      </select>
 					</div>
@@ -173,18 +154,23 @@
 					<!-- AdminUser -->
 					
 					<div class="campo-texto" data-validate = "Nombre requerido">
-						<input class="input-ingreso" type="text" name="usuario" placeholder="Precio">
+						<input  id="productPriceInput" class="input-ingreso" type="text" name="usuario" placeholder="Precio">
 						<span></span>
 					</div>
-				
+
+					<div class="campo-texto" data-validate = "Nombre requerido">
+						<input  id="productStockInput" class="input-ingreso" type="text" name="usuario" placeholder="Stock">
+						<span></span>
+					</div>
+					
 
 				  <div>
-						<button class="boton-ingresar">
+						<button id="crearProductoBtn" class="boton-ingresar">
 							Agregar
 					</button>
 					</div>
 
-				</form>
+				
 			</div>
 		</div>
 
@@ -225,9 +211,91 @@
 			</div>
 		</footer>
 		<!-- /FOOTER -->
+		<script>
+			//SAUL CREATE PRODUCT CODE!!!
+			mostrarBarraTipoUsuario();
+			$('.danger').popover({ 
+				html : true,
+				content: function() {
+				return $('#popover_content_wrapper').html();
+				}
+			});
 
-		<script src="js/bootstrap.min.js"></script>
+
+			function sendCreateProductRequest(imgArray,nombreProducto,nombreImagen,precio,Stock,categoria)
+			{
+			var xhr = new XMLHttpRequest()
+			xhr.open("POST","http://localhost:3000/ProductSelling/CreateProduct")
+			xhr.setRequestHeader("Content-Type","application/json")
+			xhr.send(JSON.stringify({name:nombreProducto,imgName:nombreImagen,price:precio,stock:Stock,category:Number(categoria),imgData:imgArray}))
+			xhr.onreadystatechange = function() 
+			{
+			if (this.readyState == 4 && this.status == 200)
+				{
+					alert(this.responseText)
+				}
+			}
+			
+			}
+
+			async function readSingleFile(e) 
+			{
+				return new Promise(async(resolve,reject)=>
+				{
+					var file = e
+					if (!file) {
+					return;
+					}
+					var reader = new FileReader();
+					reader.onload = function(e) {
+					var contents = e.target.result;
+				
+					var arrayOfPixels = new Uint8Array(contents);
+					var array = Array.from(arrayOfPixels)
+					resolve(array)
+					
+					};
+					reader.readAsArrayBuffer(file);
+				})		
+			}
+
+			async function submitCreateProductData(event)
+			{
+				var archivoImg =  document.getElementById('btnimagen').files[0];
+				var nombreProducto = $("#productNameInput").val();
+				var category = $("#productCategoryInput").val();
+				var stockProducto = $("#productStockInput").val();
+				var precioProducto = $("#productPriceInput").val();
+
+				//console.debug(archivoImg)
+				console.log("nombre         "+nombreProducto);
+				console.log("category       "+category);
+				console.log("stockProducto  "+stockProducto);
+				console.log("precioProducto "+precioProducto);
+				
+				var imageArrayData;
+				try {
+					imageArrayData= await readSingleFile(archivoImg);
+				} catch (error) {
+					console.log(error);
+				}
+			
+				
+				sendCreateProductRequest(imageArrayData,nombreProducto,archivoImg.name,precioProducto,stockProducto,category);
+				//sendImage(files);
+			};
+			try {
+				document.getElementById("crearProductoBtn").onclick =  submitCreateProductData
+			} catch (error) {
+				alert(error)
+			}
+			
+			</script>
+
+		<script src="js/Globales.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/index.js"></script> -->
 
 	</body>
 </html>

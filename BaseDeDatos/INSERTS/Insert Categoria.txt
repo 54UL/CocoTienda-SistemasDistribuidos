@@ -1,4 +1,0 @@
-INSERT INTO categoria VALUES (0,"Cachucha");
-INSERT INTO categoria VALUES (0,"Camisa");
-INSERT INTO categoria VALUES (0,"Llavero");
-INSERT INTO categoria VALUES (0,"Taza");
