@@ -2,19 +2,16 @@
 var  bodyParser = require('body-parser')
 var  express   = require('express')
 var  app       = express()
-var  mwApi     = require('./BDMiddleWareApi.js')
-var  bdApi     = require('./BDServerApi.js')
+var  mwApi     = require('../BDMiddleWareApi.js')
+var  bdApi     = require('./BDServerAPI.js')
 
 //init low level api
 bdApi.init();
-
 //La implementacion de low level es de mysql
 var mysql= mwApi.globalApiManager.getApi("lowlevel");
- mysql.config()
- mysql.connect()
-
-
-const colorCodes = require("./colorCodes");
+mysql.config()
+mysql.connect()
+const colorCodes = require("../colorCodes");
 const colors = colorCodes.colors;
 
 // CORS HEADER SETUP
@@ -29,7 +26,6 @@ app.get("/db/connect",(req,res) =>
 {
     console.log(colors.green + "[BD]" + colors.yellow + "->" + colors.green + "connecting to the db");
     mysql.connect()
-   
 });
 
 app.get("/db/config",(req,res) =>
@@ -40,7 +36,6 @@ app.get("/db/config",(req,res) =>
     {
         console.log("something went wrong");
     }
-
 });
 
 app.use(bodyParser.json());

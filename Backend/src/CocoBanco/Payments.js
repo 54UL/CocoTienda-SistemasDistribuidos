@@ -54,7 +54,6 @@ async function authTransaction(orgTkn,dest,amount)
                 console.log("It works til here");
                 //Obtenemos el dinero de la cuenta destinataria y luego se le sumara el amount
 
-
                 var currencyDest
                 try {
                         currencyDest = await getFounds(dest);
@@ -187,7 +186,7 @@ async function setFounds(tkn,amount)
     }
     else
     {
-    resolve("user not found");
+        resolve("user not found");
     }   
     }) 
 }

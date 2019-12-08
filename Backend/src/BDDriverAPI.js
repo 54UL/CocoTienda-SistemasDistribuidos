@@ -1,6 +1,7 @@
 //implementacion de alto nivel (usada unicamente en el backend)
 var mwApi = require('./BDMiddleWareApi.js');
 var http  = require('http');
+var config = require("./DeployConfig.js")
 
 //ctxApi : context api : Ambito local solo para miembros no delegados.
 var ctxApi;
@@ -37,12 +38,12 @@ async function bdQueryH(Query)
     console.log("query sended: "+Query);
     const data = JSON.stringify({
         query: Query
-    })
+        })
   
 
     //TO DO : DES-HARDCODEAR ESTO:
   const options = {
-    hostname: '192.168.1.108',
+    hostname: config.BD_SERVER_IP,
     port: 3001,
     path: '/db/fetch/',
     method: 'POST',
@@ -52,18 +53,18 @@ async function bdQueryH(Query)
     }
   }
 
-    const req = http.request(options, res => {
+  const req = http.request(options, res => {
       //Configuracion de la señales, data-> cada que llega un dato, end-> se llama al final del request
-      res.on('data', d => {
-          recivedData += d;
-          //console.log(d.toString());
-      }).on('end',()=>
-      {
-        resolve(JSON.parse(recivedData));
-      });
-    })
-    req.on('error', error => {
-    reject(error);
+        res.on('data', d => {
+            recivedData += d;
+            //console.log(d.toString());
+        }).on('end',()=>
+        {
+          resolve(JSON.parse(recivedData));
+        });
+      })
+      req.on('error', error => {
+      reject(error);
     })
   req.write(data)
   req.end()

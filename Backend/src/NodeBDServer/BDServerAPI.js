@@ -4,12 +4,11 @@
 // definir interfas de http express, con estas implementaciones (van en bdServer.JS)
 //VARIABLES
 var mysql      = require('mysql2/promise');
-var  mwApi     = require('./BDMiddleWareApi.js')
-//se define esta variable para no tener que hacer get api todo el rato :v
-var api; 
+var  mwApi     = require('../BDMiddleWareApi.js')
+var config = require("../DeployConfig.js")
 
 //import colorsCodes  from './colorCodes'
-var colorCodes = require("./colorCodes");
+var colorCodes = require("../colorCodes");
 var colors = colorCodes.colors;
 
 function init()
@@ -58,10 +57,10 @@ async function bdConfigureParametersl()
 {
    try {
       sql_connection = await mysql.createConnection({
-         host     :"localhost",
-         user     :"root",
-         password :"",
-         database :"giftstoredb"
+         host     :config.SQL_SERVER_IP,
+         user     :config.SQL_USER,
+         password :config.SQL_PASS,
+         database :config.SQL_DBName 
        });
      
        return sql_connection ? false:true;
