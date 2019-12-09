@@ -26,7 +26,7 @@ function usuarioComponent(ModeloUsuario) {
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
         " <td> " + ModeloUsuario.nombre + " </td>" +
         " <td> " + ModeloUsuario.correo + "'</td>" +
-        " <td> <input value='" + ModeloUsuario.id_tipousuario + "' id='inTipoU' ></td>" +
+        " <td> <input type='number' min='1' max='4' value='" + ModeloUsuario.id_tipousuario + "' id='inTipoU' ></td>" +
 
         "<td>" +
         "<form><button class='editar' type='button' id='" + ModeloUsuario.id_usuario +"'>Editar</form>" +
@@ -94,8 +94,16 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var resModi = JSON.parse(this.responseText);
-            alert(resModi.msg);
-            location.reload();
+            if(resModi != null){
+                alert(resModi.msg);
+                location.reload();
+            }
+            else{
+                alert("No se pudo eliminar al usuario");
+                location.reload();
+
+            }
+          
         }
         // else alert("El usuario no ha podido sido eliminado");
     }
@@ -113,7 +121,13 @@ $(document).on('click', 'button[class="editar"]', function(event) {
         if(this.readyState == 4 && this.status == 200){
             //location.reload();
             var resModi = JSON.parse(this.responseText);
-            alert(resModi.msg);
+            if(resModi != null){
+                alert(resModi.msg);
+            }
+            else {
+                alert("No se pudo modificar al usuario");
+                location.reload();
+            }
 
         }
         // else("Hubo un error")

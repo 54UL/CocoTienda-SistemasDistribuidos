@@ -26,16 +26,16 @@ function productoComponent(ModeloProducto) {
         "<tr>" +
         "<th scope='row'>" + ModeloProducto.id_producto + "</th>" +
         " <td> <input id='inNombre' value='" + ModeloProducto.nombre + "' ></td>" +
-        " <td> <input size='10' id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
-        " <td> <input size='10' id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
-        " <td> <input size='10' id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
+        " <td> <input type='number' min='1' max='4'  id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
+        " <td> <input type='number' size='10' id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
+        " <td> <input type='number' size='10' id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
         " <td> <input type='file' id='inImagen'></td>" +
 
         "<td>" +
-        "<form><button class='editar' type='button'>Editar</form>" +
+        "<form><button class='editar' type='button' id='"+ ModeloProducto.id_producto +"'>Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button class='eliminar' type='button'>Eliminar</form>" +
+        "<form><button class='eliminar' type='button' id='"+ ModeloProducto.id_producto +"'>Eliminar</form>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
@@ -92,14 +92,24 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/eliminar"));  // Chingadera 
+    xhr.open("POST", endpoint("/ProductSelling/DeleteProduct/"+ id));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("El producto ha sido eliminado");
+            alert("id" + id);
+            var eliminarP = JSON.parse(this.responseText);
+            if(eliminarP != null){
+                alert(eliminarP.msg);
+                location.reload();
+            }
+            else{
+                alert("No se pudo eliminar el producto");
+                location.reload();
+
+            }
+            
         }
-        else
-            alert("El producto no ha podido sido eliminado");
+        
     }
 });
 
@@ -114,7 +124,7 @@ $(document).on('click', 'button[class="editar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/editar/" + getUserToken() +"/" + nombre + "/" + correoU + "/" + tipoU));  // Chingadera 
+    xhr.open("GET", endpoint("/UpdateProduct"));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
