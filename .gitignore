@@ -13,3 +13,5 @@ package-lock.json
 /CocoWebService/build/
 /UsersRMIServer/build/
 /UsersRMIServer/dist/
+/PaymentsRMIServer/build/
+/PaymentsRMIServer/dist/
