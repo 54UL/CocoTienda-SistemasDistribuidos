@@ -1,29 +1,29 @@
 var mwApi = require('./BDMiddleWareApi.js')
 var dbDriver = require('./BDDriverAPI.js')
 var paymentsApi = require('./PaymentsAPI.js')
-var fs  = require("fs")
+
+var fs = require("fs")
 dbDriver.init();
 var bdApi = mwApi.globalApiManager.getApi("highlevel");
 const DEFAULT_SHOP_BANK_ACCOUNT = 2;
 
-async function getHistory(usrTkn){
-      return new Promise(async (resolve, reject)=>{
+async function getHistory(usrTkn) {
+      return new Promise(async (resolve, reject) => {
             try {
-                  let queryGetHistory = 
-                  "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario, compra.cantidad "+
-                  "from compra "+
-                  "inner join usuario on usuario.id_usuario = compra.id_usuario "+
-                  "inner join producto on producto.id_producto = compra.id_producto "+
-                  "where compra.id_usuario = '" + usrTkn + "';";
+                  let queryGetHistory =
+                        "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario, compra.cantidad " +
+                        "from compra " +
+                        "inner join usuario on usuario.id_usuario = compra.id_usuario " +
+                        "inner join producto on producto.id_producto = compra.id_producto " +
+                        "where compra.id_usuario = '" + usrTkn + "';";
 
                   var resultQuery = await bdApi.query(queryGetHistory);
-                  resolve(resultQuery != undefined ? resultQuery:undefined);  
+                  resolve(resultQuery != undefined ? resultQuery : undefined);
             } catch (error) {
                   reject(error);
             }
       })
 }
-
 
 //------------------------------------------- CRUD PRODUCTS
 
@@ -36,7 +36,6 @@ async function retriveProducts(cat, cb) {
             }
             else
                   queryString = "SELECT * from Producto";
-
             try {
                   var products = await bdApi.query(queryString);
                   resolve(products)
@@ -51,77 +50,83 @@ async function retriveProducts(cat, cb) {
 //outputjson: response{status:0,msg:""}
 
 //LOS RESPONSES YA SE DEFINEN EN MODELOS
-class CreatedProductResponse
-{
-      constructor(resStatus,resMsg)
-      {
+class CreatedProductResponse {
+      constructor(resStatus, resMsg) {
             this.status = resStatus;
             this.msg = resMsg;
       }
 }
 
-async function createProduct(productModel) 
-{
-      return new Promise(async(resolve, reject) =>
-       {
-      var imagePath =  "img/";
-      switch(productModel.category)
-      {
-            case 1:
-            imagePath += "Cachuchas/"
-            break;
-            case 2:
-            imagePath += "Camisas/"
-            break;
-            case 3:
-            imagePath += "LLaveros/"
-            break;
-            case 4:
-            imagePath += "Tazas/"
-            break;
-      }
-      var imageFolderPath = imagePath+productModel.imgName;
-      var insertProductQry = 
-      "INSERT INTO producto(id_producto, nombre, id_categoria, cantidad, precio_unitario, imagen)  \
-      VALUES (0,'"+productModel.name+"',"+productModel.category+","+productModel.stock+","+productModel.price+",'"+imageFolderPath+"')";
-      
-      try {
-            await bdApi.query(insertProductQry);
-      } catch (error) {
-            reject(error);
-      }
-      var inputBuff = new Buffer.from(productModel.imgData);
-      var relativePath = "../../FrontEnd/"+imageFolderPath
-  
 
-      fs.writeFileSync(relativePath,inputBuff);
-      // console.debug(productModel);
-       resolve(new CreatedProductResponse(1,"producto creado"))
+
+function saveProductImage(productModel) {
+      let imagePath = "img/";
+      switch (productModel.category) {
+            case 1:
+                  imagePath += "Cachuchas/"
+                  break;
+            case 2:
+                  imagePath += "Camisas/"
+                  break;
+            case 3:
+                  imagePath += "LLaveros/"
+                  break;
+            case 4:
+                  imagePath += "Tazas/"
+                  break;
+      }
+      var imageFolderPath = imagePath + productModel.imgName;
+      var inputBuff = new Buffer.from(productModel.imgData);
+      var relativePath = "../../FrontEnd/" + imageFolderPath
+      fs.writeFileSync(relativePath, inputBuff);
+      return imageFolderPath
+}
+//{name:nombreProducto,imgName:nombreImagen,price:precio,stock:Stock,category:Number(categoria),imgData:imgArray}
+async function createProduct(productModel) {
+      return new Promise(async (resolve, reject) => {
+            try {
+                  var insertProductQry =
+                  "INSERT INTO producto(id_producto, nombre, id_categoria, cantidad, precio_unitario, imagen)  \
+                  VALUES (0,'"+ productModel.name + "'," + productModel.category + "," + productModel.stock + "," + productModel.price + ",'" + saveProductImage(productModel) + "')";
+
+                  await bdApi.query(insertProductQry);
+                  resolve(new CreatedProductResponse(1, "producto creado"))
+            } catch (error) {
+                  reject(error);
+            }
       })
 }
 
 //input json: product{id:0,price:0,stock:0}
 //outputjson: response{status:0,msg:""}
 async function updateProduct(productModel) {
-      try {
-            return new Promise((resolve, reject) => {
-                  resolve(productModel);
-            })
-      }
-      catch (error) {
-            reject(error)
-      }
+      return new Promise(async(resolve, reject) => {
+            try {
+                  var updateProductQry =
+                  "UPDATE producto set nombre='"+ productModel.name + 
+                  "',id_categoria ="+ productModel.category+",cantidad="+ productModel.stock +
+                  ",precio_unitario="+productModel.price+
+                  ",imagen='"+saveProductImage(productModel)+"' where id_producto="+productModel.id_producto
+                  
+                  await bdApi.query(updateProductQry);
+                  resolve({status:1,msg:"producto actualizado!"});
+            } catch (error) {
+                  reject(error)
+            }
+      })
 }
 
-async function deleteProduct(productModel) {
-      try {
-            return new Promise((resolve, reject) => {
-                  resolve(productModel);
-            })
-      }
-      catch (error) {
-            reject(error)
-      }
+async function deleteProduct(id) {
+      return new Promise(async (resolve, reject) => {
+            try {
+                  let deleteQry = "delete from producto where id_producto="+id
+
+                  await bdApi.query(deleteQry);
+                  resolve({status:1,msg:"producto eliminado!"});
+            } catch (error) {
+                  reject(error)
+            }
+      })
 }
 
 //-------------------------------------------PRODUCT SELLING BUSINESS LOGIC
@@ -166,26 +171,12 @@ async function updateStock(productID, stockValue) {
             try {
                   var updateStock = "UPDATE producto SET cantidad =" + stockValue + " WHERE id_producto=" + productID;
                   var updateStatus = await bdApi.query(updateStock);
-                  
-                        resolve({ status: 1 })
-                  
+                  resolve({ status: 1 })
             }
             catch (error) {
                   reject(error);
             }
       })
-}
-
-
-
-
-function printVirtualStock() {
-      console.log("-------------------")
-      console.log("VIRTUAL STOCK DEBUG")
-      console.debug(VirtualStock);
-      console.log("REQUEST BUY DEBUG")
-      console.debug(BuyRequests);
-      console.log("-------------------")
 }
 
 //TO DO : DEFINIR MODELOS DE ENTRADA Y SALIDA
@@ -200,18 +191,16 @@ async function requestBuy(productID, userTkn, Amount) {
                   if (remainingStock >= 0) {
                         var buyRequestToken = ++indextoken // super ultra mega complex algorithm to retrive a token
                         console.log("asigned token=" + BuyRequests.size);
-                         if(!BuyRequests.has(userTkn))
-                         {
-                        var orderReq = new BuyRequestToken(buyRequestToken, Amount, productID);
-                        console.log("ORDER REQUEST:");
-                        console.debug(orderReq);
-                        BuyRequests.set(userTkn, orderReq);
-                         }
-                          else
-                          {
-                          resolve({request_tkn:0,msg:"ya tienes apartado este producto; realiza una compra"}) 
-                           return;
-                          }
+                        if (!BuyRequests.has(userTkn)) {
+                              var orderReq = new BuyRequestToken(buyRequestToken, Amount, productID);
+                              console.log("ORDER REQUEST:");
+                              console.debug(orderReq);
+                              BuyRequests.set(userTkn, orderReq);
+                        }
+                        else {
+                              resolve({ request_tkn: 0, msg: "ya tienes apartado este producto; realiza una compra" })
+                              return;
+                        }
 
                         ///actualizamos el mapa
                         VirtualStock.delete(productID);
@@ -282,9 +271,8 @@ async function authBuy(productID, userTkn) {
       })
 }
 
- async function finalizeBuy(productID, usrTkn) {
-      return new Promise(async(resolve,reject)=>
-      {
+async function finalizeBuy(productID, usrTkn) {
+      return new Promise(async (resolve, reject) => {
             try {
                   var actualVirtualStock = VirtualStock.get(productID)
                   var status = await updateStock(productID, actualVirtualStock);
@@ -292,31 +280,30 @@ async function authBuy(productID, userTkn) {
                   resolve(null)
             } catch (error) {
                   reject(error);
-            }     
-      })  
+            }
+      })
 }
 
- 
+
 //Realizar refactor....
-async function buyProduct(productID, usrToken,quantity) {
+async function buyProduct(productID, usrToken, quantity) {
       try {
             return new Promise(async (resolve, reject) => {
                   var resultModel = { compra: 0, msg: "compra fallida;" };
 
-             try {
-                  var buyRequest =  await requestBuy(productID,usrToken,quantity);
-                  console.debug(buyRequest);
+                  try {
+                        var buyRequest = await requestBuy(productID, usrToken, quantity);
+                        console.debug(buyRequest);
 
-                  if(buyRequest.request_tkn == 0)
-                  {
-                        resultModel.msg = buyRequest.msg;
-                        resolve(resultModel);
-                        return;
+                        if (buyRequest.request_tkn == 0) {
+                              resultModel.msg = buyRequest.msg;
+                              resolve(resultModel);
+                              return;
+                        }
+                  } catch (error) {
+                        reject(error)
                   }
-             } catch (error) {
-                reject(error)   
-             }
-             
+
                   //busqueda del producto a comprar en la BD (validacion)
                   var products;
                   try {
@@ -346,7 +333,7 @@ async function buyProduct(productID, usrToken,quantity) {
                         resolve({ compra: 0, msg: "buy auth status exception:" + orderRequest.msg });
                         return;
                   }
-                  
+
                   /*
                   var buyRqst =  BuyRequests.get(usrToken);
                   console.debug(buyRqst);
@@ -370,8 +357,7 @@ async function buyProduct(productID, usrToken,quantity) {
 
                   if (transactionRes.transaction == 1) {
 
-                        try 
-                        {
+                        try {
                               await finalizeBuy(productID, usrToken);
                         }
                         catch (error) {
@@ -410,7 +396,7 @@ module.exports.buyProduct = buyProduct;
 module.exports.updateStock = updateStock;
 module.exports.getBDStock = getBDStock;
 module.exports.requestBuy = requestBuy;
-module.exports.printVirtualStock = printVirtualStock;
+
 //CRUD
 module.exports.createProduct = createProduct;
 module.exports.updateProduct = updateProduct;
