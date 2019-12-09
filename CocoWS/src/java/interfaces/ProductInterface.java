@@ -5,10 +5,13 @@
  */
 package interfaces;
 
+import java.rmi.RemoteException;
+
 /**
  *
  * @author Zazir
  */
 public interface ProductInterface {
-    
+    String History(int usrTkn) throws RemoteException;
+    String retriveProducts(int cat) throws RemoteException;
 }
