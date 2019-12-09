@@ -14,7 +14,7 @@ import javax.jws.WebParam;
 @WebService(serviceName = "ProductosWS")
 public class ProductosWS {
 
-    private static final String IP = "192.168.1.82";
+    private static final String IP = "192.168..82";
     private static final int PORT = 7070;
     private static Registry registry;
     private static ProductInterface interfaz;
