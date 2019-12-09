@@ -67,6 +67,18 @@ productsRouter.route('/buy/:productid/:token/:amount')
         }
     })
 
+
+productsRouter.route('/GetHistory/:tokenID')
+.get(async(req, res, next) => {
+    var usrToken = req.params.tokenID;
+    console.log("HOLA!!")
+    try {
+        var response = await productsApi.getHistory(usrToken)
+        res.json(response);
+    } catch (error) {
+        console.log(new Error(colors.red + "[ProductosRutas]-> " + colors.white + error));
+    }
+})
 /*
 //request testing
 productsRouter.route('/RequestBuy/:productid/:token/:amount')

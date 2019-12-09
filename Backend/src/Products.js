@@ -4,9 +4,9 @@ var paymentsApi = require('./PaymentsAPI.js')
 var fs  = require("fs")
 dbDriver.init();
 var bdApi = mwApi.globalApiManager.getApi("highlevel");
-const DEFAULT_SHOP_BANK_ACCOUNT = 12;
+const DEFAULT_SHOP_BANK_ACCOUNT = 2;
 
-function getHistory(usrTkn){
+async function getHistory(usrTkn){
       return new Promise(async (resolve, reject)=>{
             try {
                   let queryGetHistory = 
@@ -18,7 +18,6 @@ function getHistory(usrTkn){
 
                   var resultQuery = await bdApi.query(queryGetHistory);
                   resolve(resultQuery != undefined ? resultQuery:undefined);  
-
             } catch (error) {
                   reject(error);
             }
@@ -65,7 +64,7 @@ async function createProduct(productModel)
 {
       return new Promise(async(resolve, reject) =>
        {
-       var imagePath =  "img/";
+      var imagePath =  "img/";
       switch(productModel.category)
       {
             case 1:
@@ -113,8 +112,7 @@ async function updateProduct(productModel) {
             reject(error)
       }
 }
-//input json: product{id:0}
-//outputjson: response{status:0,msg:""}
+
 async function deleteProduct(productModel) {
       try {
             return new Promise((resolve, reject) => {
@@ -348,7 +346,7 @@ async function buyProduct(productID, usrToken,quantity) {
                         resolve({ compra: 0, msg: "buy auth status exception:" + orderRequest.msg });
                         return;
                   }
-                  console.debug(orderRequest);
+                  
                   /*
                   var buyRqst =  BuyRequests.get(usrToken);
                   console.debug(buyRqst);

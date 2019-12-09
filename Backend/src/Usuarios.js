@@ -12,7 +12,7 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 var MAX_ELEMENTS=400;
 
 //arguments -> trivial, returns an auth token ( used by everything)
- function logIn (user,pass)
+async function logIn (user,pass)
 {
   return new Promise(async (resolve,reject)=>{
     try {
@@ -41,20 +41,15 @@ var MAX_ELEMENTS=400;
       }
       else
       {     
-
         const userHasAnOpenedSession = usersAuthenticated.includes(firstUserOf.id_usuario);         
-
         if(!userHasAnOpenedSession){
           //Si no se encuentra, dejar iniciar sesión.
-
           usersAuthenticated.push(firstUserOf.id_usuario);
           usersAuthenticated.sort();
           console.log(usersAuthenticated);
           asignedToken = firstUserOf.id_usuario;
           userType     = firstUserOf.id_tipousuario;  
           resolve({asignedToken,message,userType})  
-
-
         }else{
           message = "Parece que tienes otra sesión abierta. Cierra dicha sesión para iniciar sesión en esta computadora";
           asignedToken = 0;
@@ -145,7 +140,6 @@ function validationPipe(NewUserModel)
 async function deleteUser(id_usuario){
   return new Promise(async(resolve, reject)=>{
     var msg=" ";
-  
       try {
         var query="SELECT *FROM usuario WHERE id_usuario="+id_usuario;
         var result = await bdApi.query(query);
@@ -153,16 +147,8 @@ async function deleteUser(id_usuario){
         if(result[0]!=undefined){
           var query="DELETE FROM cuentas WHERE ID_UsuarioGift="+id_usuario;
           var resultquery = await bdApi.query(query);
-          /*
-         // query = "DELETE FROM sesion WHERE ID_Usuario="+id_usuario;
-        //  resultquery = await bdApi.query(query);
-          query="DELETE FROM compra WHERE id_usuario="+id_usuario;
-          resultquery = await bdApi.query(query);
-        */
           query="DELETE FROM usuario WHERE id_usuario="+id_usuario;
           resultquery = await bdApi.query(query);
-        
-
           resolve({msg:"Usuario eliminado"});
         }
         else
@@ -189,7 +175,7 @@ async function getAllUsers(){
 
 async function updateUserById(id_usuario,id_tipousuario){
   return new Promise(async (resolve,reject)=>{
-    var query="UPDATE usario SET id_tipousuario="+id_tipousuario+" WHERE id_usuario="+id_usuario;
+    var query="UPDATE usuario SET id_tipousuario="+id_tipousuario+" WHERE id_usuario="+id_usuario;
     try {
       result=await bdApi.query(query);
       resolve({msg:"Usuario actualizado",result});
