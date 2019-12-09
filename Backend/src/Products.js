@@ -324,7 +324,7 @@ async function buyProduct(productID, usrToken,quantity) {
                   //busqueda del producto a comprar en la BD (validacion)
                   var products;
                   try {
-                        var getPriceQuery = "SELECT * FROM producto where id_producto =" + productID;
+                        var getPriceQuery = "SELECT * FROM producto WHERE id_producto =" + productID;
                         products = await bdApi.query(getPriceQuery);
                   }
                   catch (error) {

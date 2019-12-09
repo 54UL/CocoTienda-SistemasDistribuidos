@@ -15,21 +15,26 @@ import java.util.logging.Logger;
 @WebService(serviceName = "UsuariosWebService")
 public class UsuariosWS{
     
-    private static final String IP = "192.168.1.71";
-    private static final int PORT = 9970;
+    private static final String IP = "192.168.1.82";
+    private static final int PORT = 7070;
     private static Registry registry;
     private static UserInterface interfaz;
-
-    public UsuariosWS() {
+    
+    static
+    {
         try {
             System.out.println("[WS] -> Constructor block!");
             registry = LocateRegistry.getRegistry(IP, PORT);
-            interfaz = (UserInterface) registry.lookup("User");
+            interfaz = (UserInterface) registry.lookup("UserRMIServer");
             System.out.println("[WS] -> Connection set!!!!");
 
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public UsuariosWS() {
+        
     }
             
     @WebMethod(operationName = "hello")
@@ -39,6 +44,8 @@ public class UsuariosWS{
     
     @WebMethod(operationName = "LogIn")
     public int LogIn(){
+        
+        
        
         //Execute method on the rmi server
         return 0;
@@ -47,14 +54,23 @@ public class UsuariosWS{
     
     @WebMethod(operationName = "createNewUser")
     public String wsCreateNewUser(
-            @WebParam(name="nombre") String nombre,
-            @WebParam(name="email") String email
+            @WebParam(name="name") String name,
+            @WebParam(name="email") String email,
+            @WebParam(name="pass") String pass
+
+    
     ){
         try {
-            String response = interfaz.createUser(email, nombre, email);
+            
+            System.out.println("JUST DO IT!");
+            
+            interfaz.CREATE_USER_CREATEUSER_FUN(name, email, pass);
+            
+            //String response = interfaz.CREATE_USER_CREATEUSER_FUN(name, email, pass);
           
-            System.out.println(response);
-            return response;
+            //System.out.println(response);
+            //return response;
+            return "";
         } catch (RemoteException ex) {
             Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);
         }
