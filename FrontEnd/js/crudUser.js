@@ -26,7 +26,7 @@ function usuarioComponent(ModeloUsuario) {
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
         " <td> " + ModeloUsuario.nombre + " </td>" +
         " <td> " + ModeloUsuario.correo + "'</td>" +
-        " <td> <input id='inTU' value='" + ModeloUsuario.id_tipousuario + "'></td>" +
+        " <td> <input value='" + ModeloUsuario.id_tipousuario + "' id='inTipoU' ></td>" +
 
         "<td>" +
         "<form><button class='editar' type='button' id='" + ModeloUsuario.id_usuario +"'>Editar</form>" +
@@ -104,8 +104,8 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
 $(document).on('click', 'button[class="editar"]', function(event) {
     let id = this.id;
-    var tipoU = $('#inTu').val();
-    //console.log("Se presionó el Boton con Id :" + id)
+    var tipoU = $('#inTipoU').val();
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", endpoint("/Users/updateUserById/" + id +"/" + tipoU));  // Chingadera 
     xhr.send();
