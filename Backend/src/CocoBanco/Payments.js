@@ -128,7 +128,7 @@ async function getFounds(usr)
             var cocoBancoResult;
             try 
             {
-                    cocoBancoResult =await mysql.query("SELECT * from cocobanco where ID_Cuenta="+firstOf.ID_Cuenta);
+                cocoBancoResult =await mysql.query("SELECT * from cocobanco where ID_Cuenta="+firstOf.ID_Cuenta);
             } 
             catch (error) 
             {

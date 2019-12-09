@@ -32,11 +32,9 @@ cocoRouter.post("/updateAmount/:id_account/:ammount" , async(req,res)=>{
     }
 });
 
-cocoRouter.use(bodyParser.json());
 cocoRouter.post("/DeleteAccount/:id_account", async(req, res)=>{
     try {
         var id_account = req.params.id_account;
-
         var RespomnseFromDeleteAccount = await accountApi.deleteAccount(id_account);
         res.json(RespomnseFromDeleteAccount);
 
@@ -49,7 +47,6 @@ cocoRouter.get("/getAccounts/", async(req,res)=>{
     try {
         var ResponseFromAccounts = await accountApi.getAccounts();
         res.json(ResponseFromAccounts);
-        
     } catch (error) {
         console.error(new Error(colors.yellow + "CocoBancoRutas ->" + colors.red + error));
     }

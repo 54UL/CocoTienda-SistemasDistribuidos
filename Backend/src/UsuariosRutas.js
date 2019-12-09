@@ -69,8 +69,8 @@ usrRouter.get("/GetAllUsers", async(req, res) => {
 usrRouter.use(bodyParser.json());
 usrRouter.post("/updateUserById/:id_usuario/:id_tipo", async(req, res) => {
     try {
-        var id_usuario = req.param.id_usuario;
-        var id_tipo = req.param.id_tipo;
+        var id_usuario = req.params.id_usuario;
+        var id_tipo = req.params.id_tipo;
 
         var responseFromUpdateUsers = await usrApi.updateUserById(id_usuario, id_tipo);
         res.json(responseFromUpdateUsers);

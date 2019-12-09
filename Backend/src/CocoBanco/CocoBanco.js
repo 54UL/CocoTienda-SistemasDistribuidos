@@ -13,8 +13,6 @@ var  bdApi =    mwApi.globalApiManager.getApi("highlevel");
 //Members of user sys
 var MAX_ELEMENTS=400;
 
-
-
 // CORS HEADER SETUP
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -117,9 +115,6 @@ function getAccounts()
     })
 }
 
-
-
-
 //RUTAS DE PAYMENTS
 app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
     function(req,res)
@@ -131,8 +126,6 @@ app.get("/Payments/requestTransaction/:cantidad/:orgin/:dest",
         res.json(modeloPagos);
     }
 );
-
-
 
 //comprobar fondos y proceder
 app.get("/Payments/getFounds/:usr", function(req, res){
@@ -148,7 +141,6 @@ app.get("/Payments/authTransaction/:cantidad/:origin/:dest", async function(req,
         var dest = req.params.dest;
     
         var result = await apiPagos.authTransaction(origin,dest,Number(cantidad));
-        console.log("transaction! uwu")
         res.json(result);
     } catch (error) {
         console.log
