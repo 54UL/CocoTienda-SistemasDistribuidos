@@ -60,7 +60,6 @@ function loadUsuarios() {
 
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
-
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
     xhr.open("GET", endpoint("/Users/Delete"+id));  // Chingadera 
@@ -77,13 +76,11 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
 $(document).on('click', 'button[class="editar"]', function(event) {
     let id = this.id;
-    var nombreU = $('#inNombre').val();
-    var correoU = $('#inCorreo').val();
     var tipoU = $('#inTu').val();
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/editar/" + getUserToken() +"/" + nombre + "/" + correoU + "/" + tipoU));  // Chingadera 
+    xhr.open("GET", endpoint("/Users/Update/" + id +"/" + tipoU));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -93,27 +90,6 @@ $(document).on('click', 'button[class="editar"]', function(event) {
             alert("El usuario no ha podido ser modificado");
     }
 });
-
-
-// function deleteUsuario(id_usuario, callback) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("GET", endpoint("/Users/Delete/" + id_usuario));
-
-//     // xhr.open("GET", endpoint("/ProductSelling/buy/" + productoID + "/" + token));
-//     xhr.send();
-//     xhr.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             var borrar = JSON.parse(this.responseText);
-//             callback(borrar)
-//         }
-//     }
-
-// }
-
-
-
-
-
 
 
 
