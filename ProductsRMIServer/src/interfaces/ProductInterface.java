@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ws;
+package interfaces;
 
 /**
  *
- * @author David
+ * @author Zazir
  */
-class RMIInterface {
+public class ProductInterface {
     
 }
