@@ -1,7 +1,11 @@
 package usersrmiserver;
 
+import Entities.Cocobanco;
+import Entities.Cuentas;
+import Entities.Usuario;
 import Singleton.Em;
 import interfaces.ServerCts;
+import static interfaces.ServerCts.USER_SERVER_INFO;
 import interfaces.UserInterface;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
@@ -9,104 +13,368 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import javax.persistence.Query;
 
+import com.google.gson.Gson;
 
-public class UsersRMIServer implements ServerCts{
 
-    private static final int PORT = 9970;
+public class UsersRMIServer implements ServerCts
+{
+    //PORT
+    private static final int PORT = 7070;
     
-    public static void main(String[] args) throws RemoteException, AlreadyBoundException{
-        Remote remote = UnicastRemoteObject.exportObject(new UserInterface(){
+    //LOGIN
+    private static final String LOGIN = "SELECT u FROM Usuario u WHERE u.correo = :email AND u.contrasenia = :pass";
+    
+    //CREATE USER
+    private static final String CREATE_USER_CHECKIFEXISTS = "SELECT u FROM Usuario u WHERE u.correo = :email";
+    private static final String CREATE_USER_CREATEUSER = "INSERT INTO Usuario VALUES (0, 2, ?, ?, ?)";
+    private static final String CREATE_USER_GIVEMONEY = "INSERT INTO Cocobanco VALUES (0, 100000, ?, ?)";
+    private static final String CREATE_USER_GETCOCOACCOUNT = "SELECT MAX(c.ID_Cuenta) AS AMOUNT_OF_ACCOUNTS FROM Cocobanco c";
+    private static final String CREATE_USER_CREATEACCOUNT = "INSERT INTO Cuentas VALUES (0, ?, ?)";
+    
+    //DELETE USER
+    private static final String DELETE_USER = "DELETE FROM Usuario u WHERE u.ID_Usuario = :idUsuario";
+    
+    //GET ALL USERS
+    private static final String GET_ALL_USERS = "SELECT u FROM Usuario u WHERE u.eliminado = 0";
+    
+    //UPDATE USER BY ID
+    private static final String UPDATE_USER = "UPDATE Usuario u SET u.id_tipousuario = :type WHERE u.id_usuario = :idUsuario";
+    
+    //GET USER AMOUNT 
+    private static final String GET_USER_AMOUNT_NAME = "SELECT u.nombre FROM Usuario u WHERE u.id_usuario = :idUsuario";
+    private static final String GET_USER_AMOUNT_GETIDCUENTA = "SELECT c.ID_Cuenta FROM Cuentas c WHERE c.ID_UsuarioGift = :idUsuario";
+    private static final String GET_USER_AMOUNT_GETSALDO = "SELECT c.Saldo FROM Cocobanco c WHERE c.ID_Cuenta = :idCuenta";
+    
+    
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException
+    {
+        System.setProperty("java.rmi.server.hostname", "192.168.1.82");
+        
+        Remote remote = UnicastRemoteObject.exportObject(new UserInterface()
+        {
             @Override
-            public String logIn(String user, String psw) throws RemoteException {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public String createUser(String email, String usr, String psw) throws RemoteException {
-                System.out.println(USER_SERVER_INFO + "on RMI's crate user");
-                if(checkIfUserExists(email)){
-                   return "hola";
-                }
-               
+            public String LOGIN_FUN(String user, String psw) throws RemoteException 
+            {
+                System.out.println(USER_SERVER_INFO + "ON LOGIN_FUN");
                 
-                return "null";
+                Query query = Em.get().createQuery(LOGIN); 
+                query.setParameter("email", user);
+                query.setParameter("pass", psw);
+
+                List<Usuario> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
             }
+            
+            @Override 
+            public String CREATE_USER_CHECKIFEXISTS_FUN(String email)
+            {
+                System.out.println(USER_SERVER_INFO + "ON CREATE_USER_CHECKIFEXISTS_FUN");
+                
+                Query query = Em.get().createQuery(CREATE_USER_CHECKIFEXISTS); 
+                query.setParameter("email", email);
 
-            @Override
-            public String deleteUser(int tkn) throws RemoteException {
-                return "";
+                List<Usuario> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
             }
+            
+            @Override 
+            public String CREATE_USER_CREATEUSER_FUN(String name, String email, String pass)
+            {
+                System.out.println(USER_SERVER_INFO + "ON CREATE_USER_CREATEUSER_FUN");
+                
+                Query query = Em.get().createQuery(CREATE_USER_CREATEUSER); 
+                query.setParameter(1, name);
+                query.setParameter(2, email);
+                query.setParameter(3, pass);
 
-            @Override
-            public String getAllUsers(int tkn, int idTypeOfUser) throws RemoteException {
-                                return "";
-
+                int res = query.executeUpdate();
+                
+                if(res > 0)
+                {
+                    System.out.println("RES: " + res);
+                    
+                    return res + "";
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
             }
-
+            
             @Override
-            public String updateUserById(int tkn, int idTypeOfUser) throws RemoteException {
-                                return "";
+            public String CREATE_USER_GIVEMONEY_FUN(String email, String pass)
+            {
+                System.out.println(USER_SERVER_INFO + "ON CREATE_USER_GIVEMONEY_FUN");
+                
+                Query query = Em.get().createQuery(CREATE_USER_GIVEMONEY); 
+                query.setParameter(1, email);
+                query.setParameter(2, pass);
 
+                int res = query.executeUpdate();
+                
+                if(res > 0)
+                {
+                    System.out.println("RES: " + res);
+                    
+                    return res + "";
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
             }
-
+            
             @Override
-            public String getUserAmout(int tkn) throws RemoteException {
-                                return "";
+            public String CREATE_USER_GETCOCOACCOUNT_FUN()
+            {
+                System.out.println(USER_SERVER_INFO + "ON CREATE_USER_GETCOCOACCOUNT_FUN");
+                
+                Query query = Em.get().createQuery(CREATE_USER_GETCOCOACCOUNT); 
 
-            }                                
+                List<Cocobanco> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override 
+            public String CREATE_USER_CREATEACCOUNT_FUN(int ID_Cuenta, int ID_UsuarioGift)
+            {
+                System.out.println(USER_SERVER_INFO + "ON CREATE_USER_CREATEACCOUNT_FUN");
+                
+                Query query = Em.get().createQuery(CREATE_USER_CREATEACCOUNT); 
+                query.setParameter(1, ID_Cuenta);
+                query.setParameter(2, ID_UsuarioGift);
+
+                int res = query.executeUpdate();
+                
+                if(res > 0)
+                {
+                    System.out.println("RES: " + res);
+                    
+                    return res + "";
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override 
+            public String DELETE_USER_FUN(int ID_Usuario)
+            {
+                System.out.println(USER_SERVER_INFO + "ON DELETE_USER_FUN");
+                
+                Query query = Em.get().createQuery(DELETE_USER); 
+                query.setParameter("idUsuario", ID_Usuario);
+
+                int res = query.executeUpdate();
+                
+                if(res > 0)
+                {
+                    System.out.println("RES: " + res);
+                    
+                    return res + "";
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override
+            public String GET_ALL_USERS_FUN()
+            {
+                System.out.println(USER_SERVER_INFO + "ON GET_ALL_USERS_FUN");
+                
+                Query query = Em.get().createQuery(GET_ALL_USERS); 
+
+                List<Usuario> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override
+            public String UPDATE_USER_FUN(int ID_TipoUsuario, int ID_Usuario)
+            {
+                System.out.println(USER_SERVER_INFO + "ON UPDATE_USER");
+                
+                Query query = Em.get().createQuery(UPDATE_USER); 
+                query.setParameter("idType", ID_TipoUsuario);
+                query.setParameter("idUsuario", ID_Usuario);
+
+                int res = query.executeUpdate();
+                
+                if(res > 0)
+                {
+                    System.out.println("RES: " + res);
+                    
+                    return res + "";
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override
+            public String GET_USER_AMOUNT_NAME_FUN()
+            {
+                System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_NAME");
+                
+                Query query = Em.get().createQuery(GET_USER_AMOUNT_NAME); 
+
+                List<Usuario> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            
+            @Override
+            public String GET_USER_AMOUNT_GETIDCUENTA_FUN()
+            {
+                System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_GETIDCUENTA");
+                
+                Query query = Em.get().createQuery(GET_USER_AMOUNT_GETIDCUENTA); 
+
+                List<Cuentas> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+            
+            @Override
+            public String GET_USER_AMOUNT_GETSALDO_FUN()
+            {
+                System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_GETSALDO_FUN");
+                
+                Query query = Em.get().createQuery(GET_USER_AMOUNT_GETSALDO); 
+
+                List<Cocobanco> list = query.getResultList(); 
+                
+                if(list != null)
+                {
+                    String res = new Gson().toJson(list);
+                    
+                    System.out.println("RES: " + res);
+                    
+                    return res;
+                }
+                else
+                {
+                    System.out.println("RES: NULL");
+                    
+                    return "NULL";
+                }
+            }
+                  
         },0);
        
         Registry registry = LocateRegistry.createRegistry(PORT);
+        
        	System.out.println("[Users RMI Server] -> Listening on: " + String.valueOf(PORT));
-        registry.bind("User", remote);
-        System.out.println(USER_SERVER_INFO + "REgistry binded!");
-    }
-    
-    private static boolean checkIfUserExists(final String email){
-
-        String queryString = "select u.id_usuario from Usuario u " +
-                         "where u.correo = "+email;
-        Query query = Em.get().createQuery(queryString); 
-        return query.getResultList() == null;     
-    }
-    
-    private static boolean insertNewUserRecord(String usr){
         
-        boolean state = false;
-        try {
-            
-        } catch (Exception e) {
-            System.out.println(USER_SERVER_ERROR + e.toString());
-        }
-        return state;
+        registry.bind("UserRMIServer", remote);
+        
+        System.out.println(USER_SERVER_INFO + "Registry binded!");
     }
     
-    private static boolean insertNewCocobancoAccnt(final String email, final String pass){
-        
-        boolean state = false;
-        try {
-            
-        } catch (Exception e) {
-            System.out.println(USER_SERVER_ERROR + e.toString());
-        }
-        return state;
-    }
-    
-    private static boolean insertNewAccount(final String email, final String pass){
-        
-        boolean state = false;
-        try {
-            
-        } catch (Exception e) {
-            System.out.println(USER_SERVER_ERROR + e.toString());
-        }
-        return state;
-    }
     
     
 }
+
+
 //Servidor
 
 //package rmiserver;
