@@ -7,6 +7,7 @@ package productsrmiserver;
 
 import Entities.Producto;
 import Singleton.Em;
+import com.google.gson.Gson;
 import interfaces.ProductInterface;
 import interfaces.ServerCts;
 import java.rmi.AlreadyBoundException;
@@ -61,7 +62,29 @@ public class ProductsRMIServer implements ServerCts{
                 .setParameter("usrTkn", usrTkn);
 
                 listaproductos = queryGetHistory.getResultList();
-                return null;
+                return "valio verga";
+            }
+            
+            @Override
+            public String retriveProducts(int cat) throws RemoteException{
+                String queryIfx;
+                String response="Sonrix se la come";
+                        
+                if (cat != 0) {
+                    Query queryIf = Em.get().createQuery(queryx).setParameter("cat", cat);
+                    
+                    listaproductos = queryIf.getResultList();
+                    response = new Gson().toJson(listaproductos);
+                }
+                else{
+                    queryIfx = "SELECT * from Producto";
+                    Query queryIf = Em.get().createQuery(queryIfx);
+                    
+                    listaproductos = queryIf.getResultList();
+                    response = new Gson().toJson(listaproductos);
+                }
+                
+                return response;
             }
             
         },0);
