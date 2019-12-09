@@ -23,7 +23,7 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "ProductoWebService")
 public class ProductsWS {
-    private static final String IP = "192.168.84.236";
+    private static final String IP = "192.168.137.21";
     private static final int PORT = 7070;
     private static Registry registry;
     private static ProductInterface interfaz;
@@ -34,7 +34,7 @@ public class ProductsWS {
         {
             System.out.println("[WS] -> Constructor block!");
             registry = LocateRegistry.getRegistry(IP, PORT);
-            interfaz = (ProductInterface) (UserInterface) registry.lookup("ProductsRMIServer");
+            interfaz = (ProductInterface) registry.lookup("ProductsRMIServer");
             System.out.println("[WS] -> Connection set!!!!");
         } 
         catch (RemoteException | NotBoundException ex) 

@@ -20,7 +20,7 @@ public class PaymentsRMIServer {
     private static final int PORT = 9970;
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-        System.setProperty("java.rmi.server.hostname", "192.168.43.243");
+        System.setProperty("java.rmi.server.hostname", "192.168.1.109");
         
         Remote remote = UnicastRemoteObject.exportObject(new PaymentsInterface(){
             @Override
