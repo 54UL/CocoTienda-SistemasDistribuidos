@@ -1,4 +1,4 @@
-var CURRENT_IP = "192.168.1.86:3000"
+var CURRENT_IP = "localhost:3000"
 
 function getBaseUrl() {
 
@@ -64,20 +64,81 @@ function mostrarCash(){
     }
 }
 
+var nCompras= 0;
 
 function mostrarCompras(){
-    alert("MostrarC");
+    $('.danger').popover('hide');
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/getHistory/"+getUserToken())); //Compras
+    xhr.open("GET", endpoint("/ProductSelling/GetHistory/"+getUserToken())); //Compras
     xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //var compras = JSON.parse(this.responseText);
-            console.log(this.responseText);
+            var compras = JSON.parse(this.responseText);
+            // console.log(compras);
+            // console.log("compras"+compras);
+            // console.log("usuario" + getUserToken())
+            if(compras.length == 0) {
+                alert("No hay compras");
+            }
+            else{
+                $('#compras').modal("show");
+                for(var i=0; i<compras.length; i++){
+                    var modeloCompras = compras[i];
+                    nCompras ++;
+                   $('#misc').append(mostrarModalCompras(modeloCompras));
+                  // $('#misc').append( "<h1> "+ modeloCompras.nombre +" </h1>");
+
+                }
+               // $('#misc').append('<h1> Hola </h1>');
+
+            }
+            //$('#compras').modal("show");
+           /// $('#misc').append('<h1> Hola </h1>');
            // console.log(compras);
         }
+       
     }
 
 }
 
 
+function mostrarModalCompras(modeloCompras){
+    //return "<h1> "+ modeloCompras.nombre +" </h1>"
+
+    return "<table class='table' border='2'>" +
+    "<tr>" +
+    "<th> " + nCompras + " </th>" +
+    "<th> " + modeloCompras.nombre + " </th>" +
+    "<th> " + modeloCompras.imagen + " </th>" +
+    "<th> $" + modeloCompras.precio_unitario + " </th>" +
+
+    "</tr>"+
+    
+    
+    
+    "</table>" 
+    // return "<div class='col-md-12 col-xs-12'>" +
+    // "<table class='table'>" +
+    // "<thead>" +
+    // " <tr>" +
+    // " <th scope='col'>Nombre</th>" +
+    // "<th scope='col'> Imagen</th>" +
+    // "<th scope='col'> Precio</th>" +
+
+    // "<th scope='col'></th>" +
+    // "</tr>" +
+    // "</thead>" +
+    // "<tbody>" +
+    // "<tr>" +
+    // // "<th scope='row'></th>" +
+    // " <td> " + modeloCompras.nombre + " </td>" +
+    // " <td> " + modeloCompras.imagen + "'</td>" +
+    // " <td> <input id='inTU' value='" + modeloCompras.precio_unitario + "'></td>" +
+    // "</tr>" +
+    // "</tbody>" +
+    // "</table>" +
+    // "</div>" 
+    // "<h1> Compras </h1>"
+
+
+}
