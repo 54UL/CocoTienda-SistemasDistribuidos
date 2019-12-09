@@ -26,9 +26,9 @@ function productoComponent(ModeloProducto) {
         "<tr>" +
         "<th scope='row'>" + ModeloProducto.id_producto + "</th>" +
         " <td> <input id='inNombre' value='" + ModeloProducto.nombre + "' ></td>" +
-        " <td> <input id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
-        " <td> <input id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
-        " <td> <input id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
+        " <td> <input size='10' id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
+        " <td> <input size='10' id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
+        " <td> <input size='10' id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
         " <td> <input type='file' id='inImagen'></td>" +
 
         "<td>" +
