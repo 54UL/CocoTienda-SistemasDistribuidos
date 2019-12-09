@@ -20,3 +20,5 @@ package-lock.json
 /CocoWS/nbproject/private/
 /CocoWS/build/
 /CocoWS/dist/
+/CocoBancoRMIServer/build/
+/CocoBancoRMIServer/dist/
