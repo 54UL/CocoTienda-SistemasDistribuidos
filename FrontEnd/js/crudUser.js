@@ -89,14 +89,16 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/Delete"+id));  // Chingadera 
+    xhr.open("POST", endpoint("/Users/Delete/"+id));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             alert("El usuario ha sido eliminado");
+            location.reload();
         }
-        else
+        else {
             alert("El usuario no ha podido sido eliminado");
+        }
     }
 });
 
@@ -104,10 +106,9 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 $(document).on('click', 'button[class="editar"]', function(event) {
     let id = this.id;
     var tipoU = $('#inTu').val();
-
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/Update/" + id +"/" + tipoU));  // Chingadera 
+    xhr.open("POST", endpoint("/Users/Update/" + id +"/" + tipoU));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
