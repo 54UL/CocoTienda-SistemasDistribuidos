@@ -12,6 +12,8 @@ public interface PaymentsInterface extends Remote
 {
     String authTransaction(final int orgTkn, final int dest, final double amount) throws RemoteException;
     String getFounds(final int userTkn) throws RemoteException;
-    String setFounds(final int tkn, final double amount) throws RemoteException;
+    String getFoundsJson(final int userTkn) throws RemoteException;
+    String setFounds(final int tkn, final double amount) throws RemoteException;   
+    String setFoundsJson(final int tkn, final double amount) throws RemoteException;
     
 }
