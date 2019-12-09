@@ -14,4 +14,5 @@ import java.rmi.RemoteException;
  */
 public interface ProductInterface extends Remote{
     String History(int usrTkn) throws RemoteException;
+    String retriveProducts(int cat) throws RemoteException;
 }
