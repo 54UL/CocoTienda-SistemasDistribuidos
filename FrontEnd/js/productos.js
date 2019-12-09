@@ -1,10 +1,11 @@
-// mostrarBarraTipoProducto();
-// $('.danger').popover({ 
-//     html : true,
-//     content: function() {
-//       return $('#popover_content_wrapper').html();
-//     }
-//   });
+//SAUL CREATE PRODUCT CODE!!!
+mostrarBarraTipoUsuario();
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 
 function productoComponent(ModeloProducto) {
     return "<div class='col-md-12 col-xs-12'>" +

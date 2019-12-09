@@ -1,12 +1,11 @@
 //SAUL CREATE PRODUCT CODE!!!
-mostrarBarraTipoProducto();
+mostrarBarraTipoUsuario();
 $('.danger').popover({ 
     html : true,
     content: function() {
-    return $('#popover_content_wrapper').html();
+      return $('#popover_content_wrapper').html();
     }
-});
-
+  });
 
 function sendCreateProductRequest(imgArray,nombreProducto,nombreImagen,precio,Stock,categoria)
 {

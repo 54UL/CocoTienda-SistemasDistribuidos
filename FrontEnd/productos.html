@@ -117,7 +117,7 @@
             </div>
         </header>
         <center>
-            <button id="btnAgregar" href="inventario.html">Agregar Productos</button>
+            <button id="btnAgregar" >Agregar Productos</button>
         </center>
     <div class="section">
         <div id="containerProductos" class="container" >
@@ -173,9 +173,11 @@
             </div>
 
 </footer>
-<!-- <script>
-        $("#banco").show("modal");
-    </script> -->
+    <script>
+        $("#btnAgregar").click(function(){
+            location.href="inventario.html";
+        })
+    </script>
 
     <script src="js/Globales.js"></script>
     <script src="js/jquery.min.js"></script>

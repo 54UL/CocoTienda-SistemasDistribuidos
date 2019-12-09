@@ -1,11 +1,10 @@
-//import {endpoint} from './Globales.js';
-// mostrarBarraTipoUsuario();
-// $('.danger').popover({ 
-//     html : true,
-//     content: function() {
-//       return $('#popover_content_wrapper').html();
-//     }
-//   });
+mostrarBarraTipoUsuario();
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 
 function productoComponent(ModeloProducto) {
     return "<div id=" + ModeloProducto.id_producto + " class='col-md-3 col-xs-6'>" +
