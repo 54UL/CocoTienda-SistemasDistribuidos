@@ -22,3 +22,6 @@ package-lock.json
 /CocoWS/dist/
 /CocoBancoRMIServer/build/
 /CocoBancoRMIServer/dist/
+/UzerRMIServer/nbproject/private/
+/UzerRMIServer/build/
+/UzerRMIServer/dist/
