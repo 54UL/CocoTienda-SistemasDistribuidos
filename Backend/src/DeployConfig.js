@@ -3,7 +3,7 @@ let SQL_SERVER_IP= "localhost"
 let SQL_USER     = "root"
 let SQL_PASS     = ""
 let SQL_DBName   = "giftstoredb"
-let BD_SERVER_IP = "192.168.1.87"
+let BD_SERVER_IP = "192.168.1.85"
 let COCOBANCO_IP = "192.168.1.68"
 
 
