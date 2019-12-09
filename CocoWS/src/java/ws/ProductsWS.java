@@ -23,7 +23,7 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "ProductoWebService")
 public class ProductsWS {
-    private static final String IP = "192.168.43.186";
+    private static final String IP = "192.168.84.236";
     private static final int PORT = 7070;
     private static Registry registry;
     private static ProductInterface interfaz;
@@ -50,7 +50,7 @@ public class ProductsWS {
     public String Products_OP(@WebParam(name="cat")int cat){
         try 
         {
-            System.out.println("INSIDE WEB METHOD -> LOGIN_FUN");
+            System.out.println("INSIDE WEB METHOD -> Products_OP");
             String res = interfaz.retriveProducts(cat);
             return res;
         } 
@@ -59,5 +59,21 @@ public class ProductsWS {
             System.out.println("EXCEPTION: " + ex.toString());
             return "Te wa matar";
         }
+    }
+    
+    @WebMethod(operationName = "GetStock_OP")
+    public String getBDStock(@WebParam(name = "productID")int productID){
+        /*try {
+            var stockResult = await bdApi.query("SELECT * FROM producto WHERE id_producto=" + productID);
+            if (stockResult[0] != undefined) {
+                  resolve({ stock: stockResult[0].cantidad });
+            }
+            else
+                resolve({ stock: -1 })
+            }
+            catch (error) {
+                reject(error);
+        }*/
+        return null;
     }
 }

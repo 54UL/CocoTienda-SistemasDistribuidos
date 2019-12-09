@@ -13,6 +13,8 @@ import interfaces.ServerCts;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ProductsRMIServer implements ServerCts{
                 + "producto on producto.id_producto = compra.id_producto where compra.id_usuario = :usrTkn;";
     
     //QUERY IF
-    private static final String queryx = "SELECT * from Producto  where id_categoria  = :cat;";
+    private static final String queryx = "SELECT p from Producto p  where p.idCategoria.idCategoria  = :cat";
     ////////
 
     //InsertProductos
@@ -52,7 +54,7 @@ public class ProductsRMIServer implements ServerCts{
     private static List<Producto> listaproductos = new ArrayList();
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-        System.setProperty("java.rmi.server.hostname", "192.168.1.82");
+        System.setProperty("java.rmi.server.hostname", "192.168.43.186");
         
         Remote remote = UnicastRemoteObject.exportObject(new ProductInterface(){
             
@@ -89,6 +91,9 @@ public class ProductsRMIServer implements ServerCts{
             
         },0);
         
+        Registry registry = LocateRegistry.createRegistry(PORT);
+       	System.out.println("[Products RMI Server] -> Listening on: " + String.valueOf(PORT));
+        registry.bind("ProductsRMIServer", remote); // Registrar calculadora
     }
     
 }
