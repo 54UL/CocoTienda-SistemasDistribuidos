@@ -15,3 +15,8 @@ package-lock.json
 /UsersRMIServer/dist/
 /PaymentsRMIServer/build/
 /PaymentsRMIServer/dist/
+/ProductsRMIServer/build/
+/ProductsRMIServer/dist/
+/CocoWS/nbproject/private/
+/CocoWS/build/
+/CocoWS/dist/

@@ -5,13 +5,10 @@
  */
 package interfaces;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
 /**
  *
  * @author Zazir
  */
-public interface ProductInterface extends Remote{
-    String History(int usrTkn) throws RemoteException;
+public interface ProductInterface {
+    
 }

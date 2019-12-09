@@ -4,6 +4,6 @@ package interfaces;
  *
  * @author Zazir
  */
-public class ProductInterface {
+public interface ProductInterface {
     
 }

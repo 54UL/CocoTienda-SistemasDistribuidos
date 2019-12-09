@@ -6,7 +6,6 @@
 package ws;
 
 import interfaces.PaymentsInterface;
-import interfaces.UserInterface;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -17,10 +16,6 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-/**
- *
- * @author isaac
- */
 @WebService(serviceName = "PaymentsWS")
 public class PaymentsWS {
     
@@ -57,32 +52,6 @@ public class PaymentsWS {
             return "{\"transaction\":0,\"msg\":\""+ex.getMessage()+"\"}";
         }
     }
-    public String getFoundsJsonWS(
-            @WebParam(name ="token")int orgTkn
-    ){
-        try{
-            String response = interfaz.getFoundsJson(orgTkn);
-            System.out.println(response);
-            return response;
-        }
-        catch (RemoteException ex){
-            Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);   
-            return "{\"transaction\":0,\"msg\":\""+ex.getMessage()+"\"}";
-        }
-    }
-    public String setFoundsWS(
-            @WebParam(name="token")int orgTkn,
-            @WebParam(name="founds")double founds
-    ){
-        try{
-            String response = interfaz.setFounds(orgTkn,founds);
-            System.out.println(response);
-            return response;
-        }
-        catch (RemoteException ex){
-            Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);   
-            return "{\"transaction\":0,\"msg\":\""+ex.getMessage()+"\"}";
-        }
-    }
-   
+
+    
 }
