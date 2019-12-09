@@ -22,15 +22,15 @@ function usuarioComponent(ModeloUsuario) {
         "<tbody>" +
         "<tr>" +
         "<th scope='row'>" + ModeloUsuario.id_usuario + "</th>" +
-        " <td> <input id='inNombre' value='" + ModeloUsuario.nombre + "' ></td>" +
-        " <td> <input id='inCorreo' value='" + ModeloUsuario.correo + "'></td>" +
+        " <td> " + ModeloUsuario.nombre + " </td>" +
+        " <td> " + ModeloUsuario.correo + "'</td>" +
         " <td> <input id='inTU' value='" + ModeloUsuario.id_tipousuario + "'></td>" +
 
         "<td>" +
-        "<form><button class='editar' type='button'>Editar</form>" +
+        "<form><button class='editar' type='button' id='" + ModeloUsuario.id_usuario +"'>Editar</form>" +
         " </td>" +
         " <td>" +
-        "<form><button class='eliminar' type='button'>Eliminar</form>" +
+        "<form><button class='eliminar' type='button' id='"+ ModeloUsuario.id_usuario +"'>Eliminar</form>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
@@ -63,7 +63,7 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
 
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", endpoint("/Users/eliminar"));  // Chingadera 
+    xhr.open("GET", endpoint("/Users/Delete"+id));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
