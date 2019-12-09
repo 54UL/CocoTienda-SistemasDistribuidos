@@ -93,12 +93,11 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("El usuario ha sido eliminado");
+            var resModi = JSON.parse(this.responseText);
+            alert(resModi.msg);
             location.reload();
         }
-        else {
-            alert("El usuario no ha podido sido eliminado");
-        }
+        // else alert("El usuario no ha podido sido eliminado");
     }
 });
 
@@ -108,14 +107,17 @@ $(document).on('click', 'button[class="editar"]', function(event) {
     var tipoU = $('#inTu').val();
     //console.log("Se presionó el Boton con Id :" + id)
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", endpoint("/Users/Update/" + id +"/" + tipoU));  // Chingadera 
+    xhr.open("POST", endpoint("/Users/updateUserById/" + id +"/" + tipoU));  // Chingadera 
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("El usuario ha sido modificado");
+            //location.reload();
+            var resModi = JSON.parse(this.responseText);
+            alert(resModi.msg);
+
         }
-        else
-            alert("El usuario no ha podido ser modificado");
+        // else("Hubo un error")
+        
     }
 });
 
