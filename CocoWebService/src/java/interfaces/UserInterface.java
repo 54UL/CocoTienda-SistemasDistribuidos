@@ -3,7 +3,8 @@ package interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface UserInterface extends Remote{
+public interface UserInterface extends Remote
+{
     String LOGIN_FUN(String user, String psw) throws RemoteException;
     String CREATE_USER_CHECKIFEXISTS_FUN(String email) throws RemoteException;
     String CREATE_USER_CREATEUSER_FUN(String name, String email, String pass) throws RemoteException;
@@ -13,7 +14,7 @@ public interface UserInterface extends Remote{
     String DELETE_USER_FUN(int ID_Usuario) throws RemoteException;
     String GET_ALL_USERS_FUN() throws RemoteException;
     String UPDATE_USER_FUN(int ID_TipoUsuario, int ID_Usuario) throws RemoteException;
-    String GET_USER_AMOUNT_NAME_FUN() throws RemoteException;
-    String GET_USER_AMOUNT_GETIDCUENTA_FUN() throws RemoteException;
-    String GET_USER_AMOUNT_GETSALDO_FUN() throws RemoteException;
+    String GET_USER_AMOUNT_NAME_FUN(int ID_Usuario) throws RemoteException;
+    String GET_USER_AMOUNT_GETIDCUENTA_FUN(int ID_UsuarioGift) throws RemoteException;
+    String GET_USER_AMOUNT_GETSALDO_FUN(int ID_Cuenta) throws RemoteException;
 }

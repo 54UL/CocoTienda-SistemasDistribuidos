@@ -2,13 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
         <group>
-            <file>file:/C:/Users/jorge/Desktop/Octavo%20Semestre/Distribuidos/2do%20Parcial/ProyectoCOCO/CocoWebService/src/java/ws/ProductosWS.java</file>
-            <file>file:/C:/Users/jorge/Desktop/Octavo%20Semestre/Distribuidos/2do%20Parcial/ProyectoCOCO/CocoWebService/src/java/ws/RMIInterface.java</file>
+            <file>file:/C:/Users/jorge/Desktop/Octavo%20Semestre/Distribuidos/2do%20Parcial/ProyectoCOCO/CocoWebService/src/java/interfaces/ProductInterface.java</file>
+            <file>file:/C:/Users/jorge/Desktop/Octavo%20Semestre/Distribuidos/2do%20Parcial/ProyectoCOCO/CocoWebService/src/java/ws/UsuariosWS.java</file>
+            <file>file:/C:/Users/jorge/Desktop/Octavo%20Semestre/Distribuidos/2do%20Parcial/ProyectoCOCO/CocoWebService/src/java/interfaces/UserInterface.java</file>
         </group>
-=======
-        <group/>
->>>>>>> Stashed changes
     </open-files>
 </project-private>

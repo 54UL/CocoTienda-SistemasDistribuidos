@@ -114,8 +114,6 @@ public class UsersRMIServer implements ServerCts
             {
                 System.out.println(USER_SERVER_INFO + "ON CREATE_USER_CREATEUSER_FUN");
                 
-                //String a = "INSERT INTO Usuario VALUES (0, 2, '" + name + "', '" + email + "', '" + pass + "')";
-                
                 TipoUsuario tipoUsuario = new TipoUsuario();
                 
                 tipoUsuario.setIdTipousuario(2);
@@ -287,12 +285,6 @@ public class UsersRMIServer implements ServerCts
             {
                 System.out.println(USER_SERVER_INFO + "ON UPDATE_USER");
                 
-                /*Employee employee = em.find(Employee.class, 1);
-
-                    em.getTransaction().begin();
-                    employee.setNickname("Joe the Plumber");
-                    em.getTransaction().commit();*/
-                
                 Query query = Em.get().createQuery(UPDATE_USER); 
                 query.setParameter("idType", ID_TipoUsuario);
                 query.setParameter("idUsuario", ID_Usuario);
@@ -314,7 +306,7 @@ public class UsersRMIServer implements ServerCts
             }
             
             @Override
-            public String GET_USER_AMOUNT_NAME_FUN()
+            public String GET_USER_AMOUNT_NAME_FUN(int ID_Usuario)
             {
                 System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_NAME");
                 
@@ -340,7 +332,7 @@ public class UsersRMIServer implements ServerCts
             
             
             @Override
-            public String GET_USER_AMOUNT_GETIDCUENTA_FUN()
+            public String GET_USER_AMOUNT_GETIDCUENTA_FUN(int ID_UsuarioGift)
             {
                 System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_GETIDCUENTA");
                 
@@ -365,7 +357,7 @@ public class UsersRMIServer implements ServerCts
             }
             
             @Override
-            public String GET_USER_AMOUNT_GETSALDO_FUN()
+            public String GET_USER_AMOUNT_GETSALDO_FUN(int ID_Cuenta)
             {
                 System.out.println(USER_SERVER_INFO + "ON GET_USER_AMOUNT_GETSALDO_FUN");
                 
