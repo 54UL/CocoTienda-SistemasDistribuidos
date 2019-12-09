@@ -7,10 +7,8 @@ var bdApi = mwApi.globalApiManager.getApi("highlevel");
 const DEFAULT_SHOP_BANK_ACCOUNT = 12;
 
 function getHistory(usrTkn){
-
       return new Promise(async (resolve, reject)=>{
             try {
-                  
                   let queryGetHistory = 
                   "SELECT producto.imagen, producto.nombre, producto.id_producto, producto.precio_unitario, compra.cantidad "+
                   "from compra "+

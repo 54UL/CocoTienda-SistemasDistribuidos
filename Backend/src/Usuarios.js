@@ -145,20 +145,29 @@ function validationPipe(NewUserModel)
 async function deleteUser(id_usuario){
   return new Promise(async(resolve, reject)=>{
     var msg=" ";
-    var query="SELECT *FROM usuario WHERE id_usuario="+id_usuario;
-    var result = await bdApi.query(query);
+  
       try {
-        if(result.id_usuario!=undefined){
-          var query="DELETE FROM cuenta WHERE ID_UsuarioGift="+id_usuario;
+        var query="SELECT *FROM usuario WHERE id_usuario="+id_usuario;
+        var result = await bdApi.query(query);
+        
+        if(result[0]!=undefined){
+          var query="DELETE FROM cuentas WHERE ID_UsuarioGift="+id_usuario;
           var resultquery = await bdApi.query(query);
-          query = "DELETE FROM sesion WHERE ID_Usuario="+id_usuario;
-          resultquery = await bdApi.query(query);
+          /*
+         // query = "DELETE FROM sesion WHERE ID_Usuario="+id_usuario;
+        //  resultquery = await bdApi.query(query);
           query="DELETE FROM compra WHERE id_usuario="+id_usuario;
           resultquery = await bdApi.query(query);
+        */
           query="DELETE FROM usuario WHERE id_usuario="+id_usuario;
           resultquery = await bdApi.query(query);
+        
+
           resolve({msg:"Usuario eliminado"});
         }
+        else
+          resolve({msg:"Usuario no encontrado/invalido, no se pudo eliminar"})
+
       } catch (error) {
         reject(error);
       }

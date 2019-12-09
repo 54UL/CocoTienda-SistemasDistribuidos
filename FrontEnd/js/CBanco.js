@@ -1,4 +1,11 @@
-
+//SAUL CREATE PRODUCT CODE!!!
+mostrarBarraTipoUsuario();
+$('.danger').popover({ 
+    html : true,
+    content: function() {
+      return $('#popover_content_wrapper').html();
+    }
+  });
 
 function bancoComponent(ModeloUsuario) {
     return "<tbody>" +
