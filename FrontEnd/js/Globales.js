@@ -103,7 +103,6 @@ function mostrarCompras(){
 
 
 function mostrarModalCompras(modeloCompras){
-    //return "<h1> "+ modeloCompras.nombre +" </h1>"
 
     return "<table class='table' border='2'>" +
     "<tr>" +
@@ -117,28 +116,7 @@ function mostrarModalCompras(modeloCompras){
     
     
     "</table>" 
-    // return "<div class='col-md-12 col-xs-12'>" +
-    // "<table class='table'>" +
-    // "<thead>" +
-    // " <tr>" +
-    // " <th scope='col'>Nombre</th>" +
-    // "<th scope='col'> Imagen</th>" +
-    // "<th scope='col'> Precio</th>" +
-
-    // "<th scope='col'></th>" +
-    // "</tr>" +
-    // "</thead>" +
-    // "<tbody>" +
-    // "<tr>" +
-    // // "<th scope='row'></th>" +
-    // " <td> " + modeloCompras.nombre + " </td>" +
-    // " <td> " + modeloCompras.imagen + "'</td>" +
-    // " <td> <input id='inTU' value='" + modeloCompras.precio_unitario + "'></td>" +
-    // "</tr>" +
-    // "</tbody>" +
-    // "</table>" +
-    // "</div>" 
-    // "<h1> Compras </h1>"
+   
 
 
 }
