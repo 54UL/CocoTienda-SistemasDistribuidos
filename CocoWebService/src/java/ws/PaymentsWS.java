@@ -5,6 +5,7 @@
  */
 package ws;
 
+import interfaces.PaymentsInterface;
 import interfaces.UserInterface;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -26,13 +27,13 @@ public class PaymentsWS {
     private static final String IP = "192.168.1.71";
     private static final int PORT = 9970;
     private static Registry registry;
-    private static UserInterface interfaz;
+    private static PaymentsInterface interfaz;
     
     public PaymentsWS(){
         try{
             System.out.println("[WS] -> Constructor block!");
             registry = LocateRegistry.getRegistry(IP, PORT);
-            interfaz = (UserInterface) registry.lookup("User");
+            interfaz = (PaymentsInterface) registry.lookup("Payments");
             System.out.println("[WS] -> Connection set!!!!");
 
         } catch (RemoteException | NotBoundException ex) {
@@ -41,10 +42,20 @@ public class PaymentsWS {
     }
     
     @WebMethod(operationName = "authTransaction")
-    public String hello(
-            @WebParam(name = "name") String txt
+    public String authTransactionWS(
+            @WebParam(name = "token") int orgTkn,
+            @WebParam(name = "destinatario") int dest,
+            @WebParam(name = "amount") Double amount
     ){
-        return "Hello " + txt + " !";
+        try{
+            String response = interfaz.authTransaction(orgTkn, dest, amount);
+            System.out.println(response);
+            return response;
+        }
+        catch (RemoteException ex){
+            Logger.getLogger(UsuariosWS.class.getName()).log(Level.SEVERE, null, ex);   
+            return "{\"transaction\":0,\"msg\":\""+ex.getMessage()+"\"}";
+        }
     }
 
     
