@@ -79,6 +79,8 @@ function cerrarS(){
     cerrarCookie();
 }
 
+
+
 function cerrarCookie(){
     alert("Se cerro la sesion");
     document.cookie.split(";").forEach(function(c) {

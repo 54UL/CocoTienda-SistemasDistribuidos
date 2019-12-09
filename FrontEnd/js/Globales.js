@@ -90,12 +90,9 @@ function mostrarCompras(){
                   // $('#misc').append( "<h1> "+ modeloCompras.nombre +" </h1>");
 
                 }
-               // $('#misc').append('<h1> Hola </h1>');
 
             }
-            //$('#compras').modal("show");
-           /// $('#misc').append('<h1> Hola </h1>');
-           // console.log(compras);
+        
         }
        
     }

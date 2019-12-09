@@ -105,15 +105,45 @@
                     </div>
                 </div>
             </div>
-    </footer>
+          <!-- Esto para compras  -->
+          <div class="modal" tabindex="-1" role="dialog" id="compras">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Mis compras</h5>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id='misc'> </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id='btncerrarCompras' type="submit" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
+
+</footer>
     <script>
+        $('#btncerrarCompras').click(function(){
+            $("#compras").modal('hide');
+            window.location.reload(true);
+
+        })
         $('#btnAgregarUsuario').click(function(){
             location.href('nuevoUsuario.html');
 
         })
     </script>
+    
+        <!-- Esto para compras  -->
+
+
     <!-- /FOOTER -->
     <script src="js/Globales.js"></script>
     <script src="js/jquery.min.js"></script>
