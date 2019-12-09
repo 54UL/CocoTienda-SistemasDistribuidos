@@ -12,4 +12,4 @@ module.exports.COCOBANCO_IP = COCOBANCO_IP
 module.exports.SQL_SERVER_IP = SQL_SERVER_IP
 module.exports.SQL_USER = SQL_USER
 module.exports.SQL_PASS = SQL_PASS
-module.exports.SQL_DBName = SQL_DBName
+module.exports.SQL_DBName = SQL_DBName  
