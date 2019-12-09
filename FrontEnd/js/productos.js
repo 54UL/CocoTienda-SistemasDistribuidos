@@ -26,9 +26,9 @@ function productoComponent(ModeloProducto) {
         "<tr>" +
         "<th scope='row'>" + ModeloProducto.id_producto + "</th>" +
         " <td> <input id='inNombre' value='" + ModeloProducto.nombre + "' ></td>" +
-        " <td> <input id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
-        " <td> <input id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
-        " <td> <input id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
+        " <td> <input size='10' id='inCategoria' value='" + ModeloProducto.id_categoria + "'></td>" +
+        " <td> <input size='10' id='inCantidad' value='" + ModeloProducto.cantidad + "'></td>" +
+        " <td> <input size='10' id='inPrecio' value='" + ModeloProducto.precio_unitario + "'></td>" +
         " <td> <input type='file' id='inImagen'></td>" +
 
         "<td>" +
@@ -61,7 +61,31 @@ function loadProductos() {
     }
 }
 
+function cerrarS(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/Users/logOut/" + getUserToken()));
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var cerrar = this.responseText;
+            console.log(cerrar);
+            if(cerrar===true)
+                cerrarCookie();
+        
+        }
+    }
 
+    //Eliminar cookies y ver que onda con david
+    cerrarCookie();
+}
+
+function cerrarCookie(){
+    alert("Se cerro la sesion");
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    location.reload();
+}
 
 $(document).on('click', 'button[class="eliminar"]', function(event) {
     let id = this.id;

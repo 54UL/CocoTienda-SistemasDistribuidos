@@ -23,6 +23,32 @@ if (this.readyState == 4 && this.status == 200)
 
 }
 
+function cerrarS(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", endpoint("/Users/logOut/" + getUserToken()));
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var cerrar = this.responseText;
+            console.log(cerrar);
+            if(cerrar===true)
+                cerrarCookie();
+        
+        }
+    }
+
+    //Eliminar cookies y ver que onda con david
+    cerrarCookie();
+}
+
+function cerrarCookie(){
+    alert("Se cerro la sesion");
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    location.reload();
+}
+
 async function readSingleFile(e) 
 {
     return new Promise(async(resolve,reject)=>
