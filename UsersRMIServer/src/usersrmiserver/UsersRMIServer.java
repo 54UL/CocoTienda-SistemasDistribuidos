@@ -2,6 +2,7 @@ package usersrmiserver;
 
 import Entities.Cocobanco;
 import Entities.Cuentas;
+import Entities.TipoUsuario;
 import Entities.Usuario;
 import Singleton.Em;
 import interfaces.ServerCts;
@@ -113,12 +114,35 @@ public class UsersRMIServer implements ServerCts
             {
                 System.out.println(USER_SERVER_INFO + "ON CREATE_USER_CREATEUSER_FUN");
                 
-                Query query = Em.get().createQuery(CREATE_USER_CREATEUSER); 
-                query.setParameter(1, name);
+                //String a = "INSERT INTO Usuario VALUES (0, 2, '" + name + "', '" + email + "', '" + pass + "')";
+                
+                TipoUsuario tipoUsuario = new TipoUsuario();
+                
+                tipoUsuario.setIdTipousuario(2);
+                tipoUsuario.setTipo("Usuario");
+                
+                
+                Usuario user = new Usuario();
+                
+                user.setIdUsuario(0);
+                user.setIdTipousuario(tipoUsuario);
+                user.setNombre(name);
+                user.setCorreo(email);
+                user.setContrasenia(pass);
+                
+                Em.get().getTransaction().begin();
+                Em.get().persist(user);
+                Em.get().getTransaction().commit();
+                
+                //Query query = Em.get().createNativeQuery(a); 
+                
+                /*query.setParameter(1, name);
                 query.setParameter(2, email);
-                query.setParameter(3, pass);
+                query.setParameter(3, pass);*/
 
-                int res = query.executeUpdate();
+                //int res = query.executeUpdate();
+                
+                int res = 0;
                 
                 if(res > 0)
                 {
@@ -262,6 +286,12 @@ public class UsersRMIServer implements ServerCts
             public String UPDATE_USER_FUN(int ID_TipoUsuario, int ID_Usuario)
             {
                 System.out.println(USER_SERVER_INFO + "ON UPDATE_USER");
+                
+                /*Employee employee = em.find(Employee.class, 1);
+
+                    em.getTransaction().begin();
+                    employee.setNickname("Joe the Plumber");
+                    em.getTransaction().commit();*/
                 
                 Query query = Em.get().createQuery(UPDATE_USER); 
                 query.setParameter("idType", ID_TipoUsuario);
