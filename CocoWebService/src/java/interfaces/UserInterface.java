@@ -10,4 +10,5 @@ public interface UserInterface extends Remote{
     String getAllUsers(final int tkn, final int idTypeOfUser) throws RemoteException;
     String updateUserById(final int tkn, final int idTypeOfUser) throws RemoteException;
     String getUserAmout(final int tkn) throws RemoteException;
+    
 }

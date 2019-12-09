@@ -49,8 +49,6 @@ public class UsuariosWS{
     public String wsCreateNewUser(
             @WebParam(name="nombre") String nombre,
             @WebParam(name="email") String email
-
-    
     ){
         try {
             String response = interfaz.createUser(email, nombre, email);
