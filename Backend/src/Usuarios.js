@@ -236,7 +236,6 @@ async function getUserAmount(id_usuario){
               Cash: resultQueryCash[0]
             });
           }
-          
         }
       }
     } catch (error) {
