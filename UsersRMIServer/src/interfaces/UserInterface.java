@@ -22,7 +22,7 @@ public interface UserInterface extends Remote
     String DELETE_USER_FUN(int ID_Usuario) throws RemoteException;
     String GET_ALL_USERS_FUN() throws RemoteException;
     String UPDATE_USER_FUN(int ID_TipoUsuario, int ID_Usuario) throws RemoteException;
-    String GET_USER_AMOUNT_NAME_FUN() throws RemoteException;
-    String GET_USER_AMOUNT_GETIDCUENTA_FUN() throws RemoteException;
-    String GET_USER_AMOUNT_GETSALDO_FUN() throws RemoteException;
+    String GET_USER_AMOUNT_NAME_FUN(int ID_Usuario) throws RemoteException;
+    String GET_USER_AMOUNT_GETIDCUENTA_FUN(int ID_UsuarioGift) throws RemoteException;
+    String GET_USER_AMOUNT_GETSALDO_FUN(int ID_Cuenta) throws RemoteException;
 }
