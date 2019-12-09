@@ -7,6 +7,9 @@
     <service name="UsuariosWS">
       <implementation-class>ws.UsuariosWS</implementation-class>
     </service>
+    <service name="PaymentsWS">
+      <implementation-class>ws.PaymentsWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
