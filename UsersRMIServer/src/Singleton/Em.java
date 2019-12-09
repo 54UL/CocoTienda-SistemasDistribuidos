@@ -9,7 +9,7 @@ public class Em {
     
     static public EntityManager get(){
         if(em == null)         
-            em = Persistence.createEntityManagerFactory("USERSRMIPU").createEntityManager();                
+            em = Persistence.createEntityManagerFactory("USERSRMIPU").createEntityManager();               
         return em;               
     }
 }
