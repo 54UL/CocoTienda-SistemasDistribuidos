@@ -150,15 +150,12 @@ public class PaymentsRMIServer {
                     query.setParameter("token", tkn);
                     cuentas = query.getResultList();
                     if(cuentas.size()>0){
-                       int id_cocobanco = cuentas.get(0).getIDCuenta();
-                       query = Em.get().createQuery("UPDATE cocobanco c SET c.Saldo= :saldo WHERE c.iDCuenta= :id_cuenta");
-                       int update=query.setParameter("saldo", amount).setParameter("id_cuenta", tkn).executeUpdate();
-                       if(update>=1){
-                           response_model="Saldo actualizado";
-                       }
-                       else{
-                           response_model="Imposible actualizar saldo";
-                       }
+                        int id_cocobanco = cuentas.get(0).getIDCuenta();
+                        Cocobanco cocobanco = Em.get().find(Cocobanco.class, id_cocobanco);
+                        Em.get().getTransaction().begin();
+                        cocobanco.setSaldo(amount);
+                        Em.get().getTransaction().commit();
+                        response_model="Saldo actualizado";
                     }
                     else{
                         response_model="Imposible actualizar saldo";

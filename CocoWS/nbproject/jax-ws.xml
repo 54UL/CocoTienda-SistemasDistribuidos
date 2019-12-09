@@ -10,6 +10,9 @@
     <service name="ProductsWS">
       <implementation-class>ws.ProductsWS</implementation-class>
     </service>
+    <service name="CocoBancoWS">
+      <implementation-class>ws.CocoBancoWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
