@@ -96,7 +96,6 @@ $(document).on('click', 'button[class="eliminar"]', function(event) {
     xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            alert("id" + id);
             var eliminarP = JSON.parse(this.responseText);
             if(eliminarP != null){
                 alert(eliminarP.msg);
