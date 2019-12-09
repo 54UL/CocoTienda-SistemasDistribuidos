@@ -13,28 +13,41 @@
 
 <body>
     <header>
-        <div id="encabezado-superior">
-            <div class="container">
-                <ul class="header-links pull-left">
-                    <li><a><i class="fa fa-phone"></i> +521 1433-2593</a></li>
-                    <li><a href="mapa.html"><i class="fa fa-map-marker"></i>Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
-                </ul>
-
-                <!-- Inventario -->
-                <ul class="header-links pull-right">
-                    <li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
-                </ul>
-                <!-- AdminUser -->
-                <ul class="header-links pull-right">
-                    <li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
-                </ul>
-                <!-- Registro -->
-                <ul class="header-links pull-right">
-                    <li><a href="usuario.html"><i class="fa fa-user-o"></i>Registar</a></li>
-                </ul>
-
-            </div>
-        </div>
+            <div id="encabezado-superior">
+                    <div class="container">
+                        <ul class="header-links pull-left">
+                            <li><a><i class="fa fa-phone"></i> +521 1433-2593</a></li>
+                            <li><a href="https://goo.gl/maps/N4Cdk8s9FdN2"><i class="fa fa-map-marker"></i> Calle Nueva Escocia 1885, Providencia 5a Sección, 44638 Guadalajara, Jal.</a></li>
+                        </ul>
+                        <!-- Inventario -->
+                        <ul class="header-links pull-right" id='ulInventario'>
+                            <li><a href="inventario.html"><i class="fa fa-user-o"></i>Inventario</a></li>
+                        </ul>
+                        <!-- AdminUser -->
+                        <ul class="header-links pull-right" id='ulAdmin'>
+                            <li><a href="agredarusuarios.html"><i class="fa fa-user-o"></i> AdministradorUsuario</a></li>
+                        </ul>
+                        <!-- Registro -->
+                        <ul class="header-links pull-right" id='ulIniciar'>
+                            <li><a href="usuario.html"><i class="fa fa-user-o"></i>Registrar</a></li>
+                        </ul>
+                        <ul class="header-links pull-right" id='ulCuenta' onclick="mostrarCash()">
+                                <!-- <li onclick="mostrar()"><a href="#"><i class="fa fa-user-circle"  data-toggle="popover" data-placement="bottom" data-content="Soy un popover"></i>Cuenta</a></li> -->
+                               <li> <a  href='#' class="danger"  data-placement='bottom' title ='<center> <h5  id="etiquetaNombreUsuario"> Nombre usuario</h5> </center>' >  <i class='fa fa-user-circle'> </i>Cuenta</a> </li>
+                                <div id="popover_content_wrapper" style="display: none">
+                                
+                                <div>
+                                    <center>
+                                    <h5 id="etiquetaCash">Tu cash es de: xx</h5>
+                                    </center>
+                                    <div> <center> <button onclick="mostrarCompras()"> Mis compras <i class="fa fa-shopping-bag" aria-hidden="true"></i> </button> </center>  </div>
+                                    <div id="separa"> </div>
+                                    <div> <center> <button onclick="cerrarS()" id="cerrarS" type="submit"> Cerrar sesion <i class="fa fa-sign-out" aria-hidden="true"></i> </button> </center>  </div>
+                                </div>
+                                </div>
+                            </ul>
+                    </div>
+                </div>
         <div id="header">
             <div class="container">
                 <div class="row">

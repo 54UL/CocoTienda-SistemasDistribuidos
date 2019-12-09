@@ -1,3 +1,5 @@
+console.log(getUserType());
+
 mostrarBarraTipoUsuario();
 $('.danger').popover({ 
     html : true,
