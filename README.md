@@ -15,7 +15,7 @@
 yo se perfectamente por que estas aqui, toma este proyecto y utilizalo por tu bien y el de tus compañeros; pero el peor error que     puedes   cometer es dejarlo tal cual como lo dejamos; repara el codigo, refactorizalo y mejoralo.
 
 # Creditos:
-    Tecnologo generacion 16100 y los resagados 15100.
+    CETI Tecnologos generacion 16100 y los resagados 15100.
 
 
 
